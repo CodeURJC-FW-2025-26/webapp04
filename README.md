@@ -4,7 +4,7 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 ## Members of the Group
 * Farina Schlegel (E-Mail: f.schlegel.2025@alumnos.urjc.es, GitHub: [frinnana](https://github.com/frinnana))
 * Felix Schwabe (E-Mail: f.schwabe.2025@alumnos.urjc.es, GitHub: [7dns](https://github.com/7dns))
-* Jule (another Erasmus student, who will join this course after changes to her Learning Agreement)
+* Jule (another Erasmus student, who will join this course after changes to her Learning Agreement, E-Mail: j.karck.2025@alumnos.urjc.es)
 
 ## Links
 [Link to Trello](https://trello.com/invite/b/68d0f24f8deb98189ef954eb/ATTI17034f224bc8ee2a098984e95cb7a264E5C95465/cinemateca)
