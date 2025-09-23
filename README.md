@@ -43,5 +43,13 @@ The application will include a search function that allows users to find movies 
 ### Filtering
 The application will include a function to filter search results (e.g. by genre, release year or country of production).
 
-## Wireframe
-The following wireframes show the planned layout and user flow of Cinemateca, giving a visual overview of the application’s structure and functionality.
+## Wireframes
+The following wireframes show the planned layout of Cinemateca, giving a visual overview of the application’s structure and functionality.
+
+### Wide Screen Views
+![image](./wireframes/screenWide_startView.png "Start View")
+![image](./wireframes/screenWide_movieView.png "Detail View of a selected Movie")
+![image](./wireframes/screenWide_personView.png "Detail View of a selected Person")
+
+### Mobile Views
+![image](./wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
