@@ -11,6 +11,8 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 
 ## Functionality
 ### Entites
+![image](./uml/uml_entities.png "UML diagram")
+
 #### Movies
 Movies are the central entities of the web application. Each movie contains essential information and is connected to the people involved in its production. One Movie can have one or more Persons.
 
