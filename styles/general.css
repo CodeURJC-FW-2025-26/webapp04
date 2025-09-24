@@ -1,0 +1,43 @@
+* {
+    font-family: sans-serif;
+    color: #f2f2f2;
+    background-color: #14181c;
+}
+
+body {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-transform: uppercase;
+    letter-spacing: 0.15rex;
+}
+
+header .headerContent {
+    text-align: left;
+}
+
+footer {
+    text-align: center;
+}
+
+footer p {
+    color: #a0a0a0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: #8ebbcc;
+}
+
+a:hover {
+    color: white;
+}
+
+a:visited {
+    color: #445566;
+}
