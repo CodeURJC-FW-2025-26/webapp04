@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Challengers (2025) on Cinemateca</title>
     <link rel="stylesheet" href="../styles/general.css">
+    <link rel="stylesheet" href="../styles/movieDetails.css">
 </head>
 <body>
     <header>
@@ -12,15 +13,92 @@
         </div>
     </header>
 
-    This is the details page about the movie Challengers (2025) on Cinemateca.
+    <main>
 
-    <h3>Actors</h3>
-    <ul>
-        <li><a href="personDetails.html">Zendaya</a></li>
-        <li><a href="personDetails.html">Mike Faist</a></li>
-        <li><a href="personDetails.html">Josh O'Connor</a></li>
-        <li><a href="https://www.facebook.com">Unvisited Link</a></li>
-    </ul>
+        <div class="headerMovieContent">
+            <button>Back</button>
+            <h2>Challengers</h2>
+            <button>Edit</button>
+            <button>Delete</button>
+        </div>
+
+        <div class="movieContent">
+            <div class="card-portrait">
+                <img src="../images/moviePosters/1_challengers.jpg" alt="Poster of Challengers (2025)">
+            </div>
+
+            <div class="movieDetails">
+
+                <div class="movieMeta">
+                    <h3 id="movieGenre">Romance, Drama</h3>
+                    <h3 id="movieAgeRestriction">12</h3>
+                </div>
+
+                <div class="movieMeta">
+                    <h3 id="movieReleaseYear">2025</h3>
+                    <h3 id="movieCountryOfProduction">Italy, USA</h3>
+                </div>
+
+                <p id="movieDescription">
+                    Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a
+                    world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for
+                    a “Challenger” event — close to the lowest level of pro tournament — where he finds himself
+                    standing across the net from his former best friend and Tashi’s former boyfriend.
+                </p>
+
+                <div class="persons" id="movieDirectors">
+                    <div class="headerPersons">
+                        <h3>Directed by</h3>
+                        <button>Add</button>
+                    </div>
+
+                    <ul>
+                        <li>
+                            <a href="personDetails.html">
+                                <img class="personIconSmall" src="../images/persons/1_circle_zendaya.png" alt="Zendaya">
+                                Zendaya
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="persons" id="movieActors">
+                    <div class="headerPersons">
+                        <h3>Starring</h3>
+                        <button>Add</button>
+                    </div>
+
+                    <ul class="persons">
+                        <li>
+                            <a href="personDetails.html">
+                                <img class="personIconSmall" src="../images/persons/1_circle_zendaya.png" alt="Zendaya">
+                                Zendaya
+                            </a>
+                            as Tashi Duncan Donaldson
+                        </li>
+
+                        <li>
+                            <a href="personDetails.html">
+                                <img class="personIconSmall" src="../images/persons/2_circle_mike-feist.png" alt="Mike Faist">
+                                Mike Faist
+                            </a>
+                            as Art Donaldson
+                        </li>
+
+                        <li>
+                            <a href="personDetails.html">
+                                <img class="personIconSmall" src="../images/persons/3_circle_josh-oconnor.png" alt="Josh O'Connor">
+                                Josh O'Connor
+                            </a>
+                            as Patrick Zweig
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
 
     <footer>
         <p>&copy; Fokusfreunde 2025</p>

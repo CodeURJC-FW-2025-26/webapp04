@@ -1,7 +1,10 @@
+@import url("colors.css");
+
 * {
     font-family: sans-serif;
-    color: #f2f2f2;
-    background-color: #14181c;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    box-sizing: border-box;
 }
 
 body {
@@ -23,7 +26,7 @@ footer {
 }
 
 footer p {
-    color: #a0a0a0;
+    color: var(--color-footer);
 }
 
 a {
@@ -31,13 +34,57 @@ a {
 }
 
 a:link {
-    color: #8ebbcc;
+    color: var(--color-accent);
 }
 
 a:hover {
-    color: white;
+    color: var(--color-accent-hover);
 }
 
 a:visited {
-    color: #445566;
+    color: var(--color-accent-visited);
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-button);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-button-hover);
+}
+
+h3 {
+    margin: 0.25rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.15rex;
+    font-weight: lighter;
+}
+
+.card-portrait {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+}
+
+.card-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-square {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.card-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }

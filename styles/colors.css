@@ -1,0 +1,15 @@
+:root {
+    --color-bg: #14181c;
+    --color-text: #f2f2f2;
+
+    --color-accent: #8ebbcc;
+    --color-accent-hover: #ffffff;
+    --color-accent-visited: #445566;
+
+    --color-button: #404f5a;
+    --color-button-hover: #8ebbcc;
+
+    --color-footer: #a0a0a0;
+
+    --shadow-card: 0 2px 6px rgba(0,0,0,0.2);
+}
