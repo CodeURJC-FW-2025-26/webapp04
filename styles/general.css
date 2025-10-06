@@ -68,6 +68,7 @@ h3 {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: var(--shadow-card);
+    margin-bottom: 25px;
 }
 
 .card-portrait img {
