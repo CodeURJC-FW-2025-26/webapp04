@@ -1,0 +1,21 @@
+@import url("colors.css");
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: var(--color-text);
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 0.15rex;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+input, select, textarea {
+    padding: 0.5rem;
+    margin: 0 0 1rem 0;
+    border-radius: 10px;
+}
