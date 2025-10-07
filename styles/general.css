@@ -68,14 +68,23 @@ h3 {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: var(--shadow-card);
-    margin-bottom: 25px;
+    position: relative; 
+}
+
+.card-portrait a {
+    display: block; 
+    width: 100%;
+    height: 100%;
 }
 
 .card-portrait img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; 
     display: block;
+    position: absolute; 
+    top: 0;
+    left: 0;
 }
 
 .card-square {
