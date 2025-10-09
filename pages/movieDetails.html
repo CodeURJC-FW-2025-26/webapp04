@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title>Challengers (2025) on Cinemateca</title>
@@ -8,103 +8,127 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="../styles/general.css">
+    <link rel="stylesheet" href="../styles/pageLayout.css">
     <link rel="stylesheet" href="../styles/movieDetails.css">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <header>
         <div class="headerContent">
-            <h1>Cinemateca</h1>
+            <a href="index.html">
+                <h1>Cinemateca</h1>
+            </a>
         </div>
     </header>
 
     <main>
-
-        <div class="headerMovieContent">
-            <button type="button" onclick="history.back()">Back</button>
-            <h2>Challengers</h2>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-
-        <div class="movieContent">
-            <div class="card-portrait">
-                <img src="../images/moviePosters/1_challengers.jpg" alt="Poster of Challengers (2025)">
+        <div class="topRow">
+            <div>
+                <div class="btn" onclick="history.back()">Back</div>
+                <h2>Challengers</h2>
             </div>
 
-            <div class="movieDetails">
+            <div>
+                <div class="btn">Edit</div>
+                <div class="btn">Delete</div>
+            </div>
+        </div>
 
-                <div class="movieMeta">
-                    <h3 id="movieGenre">Romance, Drama</h3>
-                    <h3 id="movieAgeRestriction">12</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 moviePoster">
+                    <img src="../images/moviePosters/1_challengers.jpg" alt="Poster of Challengers (2025)">
                 </div>
 
-                <div class="movieMeta">
-                    <h3 id="movieReleaseYear">2025</h3>
-                    <h3 id="movieCountryOfProduction">Italy, USA</h3>
-                </div>
+                <div class="col-6 details">
+                    <div class="detailsBlock">
+                        <div class="meta">
+                            <h3 id="movieGenre">Romance, Drama</h3>
+                            <h3 id="movieAgeRestriction">12</h3>
+                        </div>
 
-                <p id="movieDescription">
-                    Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a
-                    world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for
-                    a “Challenger” event — close to the lowest level of pro tournament — where he finds himself
-                    standing across the net from his former best friend and Tashi’s former boyfriend.
-                </p>
-
-                <div class="persons" id="movieDirectors">
-                    <div class="headerPersons">
-                        <h3>Directed by</h3>
-                        <button>Add</button>
+                        <div class="meta">
+                            <h3 id="movieReleaseYear">2025</h3>
+                            <h3 id="movieCountryOfProduction">Italy, USA</h3>
+                        </div>
                     </div>
 
-                    <ul>
-                        <li>
-                            <a href="personDetails.html">
-                                <img class="personIconSmall" src="../images/persons/1_circle_zendaya.png" alt="Zendaya">
-                                Zendaya
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="persons" id="movieActors">
-                    <div class="headerPersons">
-                        <h3>Starring</h3>
-                        <button>Add</button>
+                    <div class="detailsBlock">
+                        <p id="movieDescription">
+                            Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a
+                            world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for
+                            a “Challenger” event — close to the lowest level of pro tournament — where he finds himself
+                            standing across the net from his former best friend and Tashi’s former boyfriend.
+                        </p>
                     </div>
 
-                    <ul class="persons">
-                        <li>
-                            <a href="personDetails.html">
-                                <img class="personIconSmall" src="../images/persons/1_circle_zendaya.png" alt="Zendaya">
-                                Zendaya
-                            </a>
-                            as Tashi Duncan Donaldson
-                        </li>
+                    <div class="detailsBlock">
+                        <div class="persons" id="movieActors">
+                            <div class="container p-0">
+                                <div class="row headerPersons">
+                                    <h3 class="col-md-10">Starring</h3>
+                                    <div class="btn col-md-2">Add</div>
+                                </div>
+                            </div>
 
-                        <li>
-                            <a href="personDetails.html">
-                                <img class="personIconSmall" src="../images/persons/2_circle_mike-feist.png" alt="Mike Faist">
-                                Mike Faist
-                            </a>
-                            as Art Donaldson
-                        </li>
+                            <div class="persons">
+                                <div class="person">
+                                    <!--
+                                    <div class="personOverlay">
+                                        <div class="btn">Edit</div>
+                                        <div class="btn">Delete</div>
+                                    </div>
+                                    -->
+                                    <div class="">
+                                        <a href="personDetails.html">
+                                            <img class="personIconSmall" src="../images/persons/1_circle_zendaya.png" alt="Zendaya">
+                                            Zendaya
+                                        </a>
+                                        <span>as Tashi Duncan Donaldson</span>
+                                    </div>
+                                </div>
 
-                        <li>
-                            <a href="personDetails.html">
-                                <img class="personIconSmall" src="../images/persons/3_circle_josh-oconnor.png" alt="Josh O'Connor">
-                                Josh O'Connor
-                            </a>
-                            as Patrick Zweig
-                        </li>
-                    </ul>
+                                <div class="person">
+                                    <!--
+                                    <div class="personOverlay">
+                                        <div class="btn">Edit</div>
+                                        <div class="btn">Delete</div>
+                                    </div>
+                                    -->
+                                    <div class="">
+                                        <a href="personDetails.html">
+                                            <img class="personIconSmall" src="../images/persons/2_circle_mike-feist.png" alt="Mike Faist">
+                                            Mike Faist
+                                        </a>
+                                        <span>as Art Donaldson</span>
+                                    </div>
+                                </div>
+
+                                <div class="person">
+                                    <!--
+                                    <div class="personOverlay">
+                                        <div class="btn">Edit</div>
+                                        <div class="btn">Delete</div>
+                                    </div>
+                                    -->
+                                    <div class="">
+                                        <a href="personDetails.html">
+                                            <img class="personIconSmall" src="../images/persons/3_circle_josh-oconnor.png" alt="Josh O'Connor">
+                                            Josh O'Connor
+                                        </a>
+                                        <span>as Patrick Zweig</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 
     </main>
 
-    <footer class="fixed-bottom">
+    <footer class="footer mt-auto py-1">
         <p>&copy; Fokusfreunde 2025</p>
     </footer>
 </body>
