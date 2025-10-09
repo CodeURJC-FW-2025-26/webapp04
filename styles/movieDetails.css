@@ -1,55 +1,30 @@
-.headerMovieContent {
-    display: grid;
-    grid-template-columns: 0.1fr 0.7fr 0.1fr 0.1fr;
-    gap: 1rem;
-    padding: 1rem 0;
-}
-
-.movieContent {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-.movieMeta {
+.persons {
+    padding: 0;
     display: flex;
-    align-items: center;
-}
-
-.movieMeta h3::after {
-    padding: 0 0.5rem;
-    content: "•";
-}
-
-.movieMeta h3:last-child::after {
-    content: "";
+    flex-direction: column;
+    gap: 0.5em;
 }
 
 .headerPersons {
-    display: grid;
-    grid-template-columns: 0.9fr 0.1fr;
+    height: 2em;
+    margin: 0;
+}
+
+.headerPersons > * {
+    height: 100%;
+    padding: 0;
 }
 
 .personIconSmall {
+    margin: 0 0.5em 0 0;
     max-width: 50px;
     max-height: 50px;
 }
 
-.persons ul {
-    margin: 0;
-    padding: 0.5rem 0 1rem 0;
+.personOverlay {
+    opacity: 0;
 }
 
-.persons li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    list-style: none;
-}
-
-.persons li a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.personOverlay:hover {
+    opacity: 1;
 }

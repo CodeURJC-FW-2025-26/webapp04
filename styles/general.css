@@ -1,34 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url("colors.css");
+@import url("variables.css");
 
 * {
     font-family: "Montserrat", sans-serif;
     color: var(--color-text);
-    background-color: var(--color-bg);
-    box-sizing: border-box;
 }
 
 body {
-    max-width: 800px;
+    max-width: var(--max-width);
+    width: 80%;
+    background-color: var(--color-bg);
     margin: 0 auto;
 }
 
 header {
-
+    margin: 2em 0;
+    padding: 0;
 }
 
 header .headerContent {
     text-align: left;
 }
 
-header .headerContent h1 {
+header > .headerContent > a > h1 {
+    color: var(--color-text);
     text-transform: uppercase;
-    letter-spacing: 0.25rex;
-    font-weight: 600;
+    letter-spacing: 0.3rex;
+    font-weight: 300;
 }
 
 footer {
     text-align: center;
+    background-color: var(--color-bg);
 }
 
 footer p {
@@ -53,26 +56,31 @@ a:visited {
     color: var(--color-accent-visited);
 }
 
-button {
+.btn, a.btn {
     height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     border-radius: 10px;
+    color: var(--color-text);
     background-color: var(--color-button);
     cursor: pointer;
 }
 
-button:hover {
+.btn:hover, a.btn:hover {
     background-color: var(--color-button-hover);
 }
 
 h3 {
-    margin: 0.25rem 0;
+    padding: 0;
+    margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.15rex;
     font-weight: lighter;
 }
 
-.card-portrait {
+.moviePoster {
     aspect-ratio: 2 / 3;
     overflow: hidden;
     border-radius: 10px;
@@ -80,14 +88,13 @@ h3 {
     position: relative; 
 }
 
-.card-portrait a {
+.moviePoster a {
     display: block; 
     width: 100%;
     height: 100%;
-
 }
 
-.card-portrait img {
+.moviePoster img {
     width: 100%;
     height: 100%;
     object-fit: cover; 
@@ -98,11 +105,11 @@ h3 {
     transition: filter 0.3s ease;
 }
 
-.card-portrait a:hover img {
-    filter: brightness(40%); 
+.moviePoster a:hover img {
+    filter: brightness(25%);
 }
 
-.card-portrait .movie-title {
+.moviePoster .moviePosterTitle {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -118,16 +125,16 @@ h3 {
     width: 100%;
 }
 
-.card-portrait a:hover .movie-title {
+.moviePoster a:hover .moviePosterTitle {
     opacity: 1;
 }
 
-.card-square {
+.personPortrait {
     aspect-ratio: 1 / 1;
     overflow: hidden;
 }
 
-.card-square img {
+.personPortrait img {
     width: 100%;
     height: 100%;
     object-fit: contain;
