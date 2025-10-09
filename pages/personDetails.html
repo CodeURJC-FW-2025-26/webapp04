@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title>Mike Faist on Cinemateca</title>
@@ -8,46 +8,62 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="../styles/general.css">
+    <link rel="stylesheet" href="../styles/pageLayout.css">
     <link rel="stylesheet" href="../styles/personDetails.css">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <header>
         <div class="headerContent">
-            <h1>Cinemateca</h1>
+            <a href="index.html">
+                <h1>Cinemateca</h1>
+            </a>
         </div>
     </header>
 
-    <main class="container">
-        <div class="row headerPersonContent">
-            <button class="col-3" type="button" onclick="history.back()">Back</button>
-            <h2 class="col-3">Mike Faist</h2>
-            <button class="col-3">Edit</button>
-            <button class="col-3">Delete</button>
-        </div>
-
-        <div class="row personContent">
-            <div class="col-md-6 card-square">
-                <img src="../images/persons/2_circle_mike-feist.png" alt="Portrait of Mike Faist">
+    <main>
+        <div class="topRow">
+            <div>
+                <div class="btn" onclick="history.back()">Back</div>
+                <h2>Mike Faist</h2>
             </div>
 
-            <div class="col-md-6 personDetails">
-
-                <h3 id="personBirthday">January 5, 1992</h3>
-                <h3 id="personAge">33</h3>
-                <h3 id="personPlaceOfBirth">Gahanna, Ohio, U.S.</h3>
-
-                <p id="personDescription">
-                    Michael David Faist is an American actor, dancer, and singer. He is known for starring in
-                    the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as
-                    West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).
-                </p>
+            <div>
+                <div class="btn">Edit</div>
+                <div class="btn">Delete</div>
             </div>
-
         </div>
 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6 personPortrait">
+                    <img src="../images/persons/2_circle_mike-feist.png" alt="Portrait of Mike Faist">
+                </div>
+
+                <div class="col-6 details">
+                    <div class="detailsBlock">
+                        <div class="meta">
+                            <h3 id="personBirthday">January 5, 1992</h3>
+                            <h3 id="personAge">33</h3>
+                        </div>
+
+                        <div class="meta">
+                            <h3 id="personPlaceOfBirth">Gahanna, Ohio, U.S.</h3>
+                        </div>
+                    </div>
+
+                    <div class="detailsBlock">
+                        <p id="personDescription">
+                            Michael David Faist is an American actor, dancer, and singer. He is known for starring in
+                            the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as
+                            West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer class="fixed-bottom">
+    <footer class="footer mt-auto py-1">
         <p>&copy; Fokusfreunde 2025</p>
     </footer>
 </body>
