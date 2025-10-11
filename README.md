@@ -2,7 +2,7 @@
 Cinemateca is a web application that serves as a comprehensive movie catalog, allowing users to browse and search a vast database of films.
 
 ## Members of the Group
-* Alejandro Guzmán Sánchez (E-Mail: a.guzmans.2025@urjc.es, GitHub: [AlejandroGS47](https://github.com/AlejandroGS47)
+* Alejandro Guzmán Sánchez (E-Mail: a.guzmans.2025@urjc.es, GitHub: [AlejandroGS47](https://github.com/AlejandroGS47))
 * Farina Schlegel (E-Mail: f.schlegel.2025@alumnos.urjc.es, GitHub: [frinnana](https://github.com/frinnana))
 * Felix Schwabe (E-Mail: f.schwabe.2025@alumnos.urjc.es, GitHub: [7dns](https://github.com/7dns))
 
@@ -11,36 +11,35 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 
 ## Functionality
 ### Entites
-![image](./uml/uml_entities.png "UML diagram")
+![image](uml/uml_entities_v02.png "UML diagram")
 
 #### Movies
-Movies are the central entities of the web application. Each movie contains essential information and is connected to the people involved in its production. One Movie can have one or more Persons.
+`Movie` is the primary entity of the web application. Each `Movie` contains essential information and is linked to its actors. Each `Movie` has at least one actor.
 
-A Movie has: 
+A `Movie` has:
 * unique ID,
-* title, 
-* poster (image file), 
-* short description, 
-* genre, 
+* title,
+* poster (image file),
+* short description,
+* genre,
 * release year,
-* country of production, 
+* country of production,
 * age rating,
-* one or more persons
+* one or more actors
 
 #### Person
-The secondary entity in the application is Person. A person represents an individual involved in one or more movies, such as an actor, director or writer. Every person must be linked to at least one movie.
+The secondary entity in the application is `Person`. A `Person` is someone who acts in a `Movie`. *(Optional: A `Person` may also represent any individual involved in at least one `Movie`, such as an actor, director or writer. Every `Person` must be linked to at least one movie.)*
 
-A Person has:
-* unique ID, 
-* first name,
-* last name,
-* portrait  (image file),
-* date of birth, 
-* short description, 
-* one or more movies (role/function)
+A `Person` has:
+* unique ID,
+* name
+* portrait (image file),
+* date of birth,
+* place of birth,
+* short description
 
 ### Search
-The application will include a search function that allows users to find movies by their title or by the name of a person (e.g. actor, director or writer) involved in the movie.
+The application will include a search function that allows users to find movies by their title. *(Optional: Users may also enter the name of a person (e.g. actor, director or writer) involved in the movie.)*
 
 ### Filtering
 The application will include a function to filter search results (e.g. by genre, release year or country of production).
@@ -49,9 +48,9 @@ The application will include a function to filter search results (e.g. by genre,
 The following wireframes show the planned layout of Cinemateca, giving a visual overview of the application’s structure and functionality.
 
 ### Wide Screen Views
-![image](./wireframes/screenWide_startView.png "Start View")
-![image](./wireframes/screenWide_movieView.png "Detail View of a selected Movie")
-![image](./wireframes/screenWide_personView.png "Detail View of a selected Person")
+![image](wireframes/screenWide_startView.png "Start View")
+![image](wireframes/screenWide_movieView.png "Detail View of a selected Movie")
+![image](wireframes/screenWide_personView.png "Detail View of a selected Person")
 
 ### Mobile Views
-![image](./wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
+![image](wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
