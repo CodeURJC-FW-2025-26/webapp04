@@ -1,30 +1,45 @@
-.persons {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-}
+@import url("variables.css");
 
 .headerPersons {
     height: 2em;
     margin: 0;
 }
 
-.headerPersons > * {
-    height: 100%;
-    padding: 0;
+.headerPersons i {
+    font-size: 1.1em;
+    padding: 0.4rem;
+}
+
+.person {
+    box-sizing: content-box;
+    height: 3em;
+    padding: 0.5em;
+    border-radius: var(--border-radius);
+    transition: background-color var(--animation);
+}
+
+.person:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.person i {
+    font-size: 1.2em;
+    padding: 0.6em;
 }
 
 .personIconSmall {
     margin: 0 0.5em 0 0;
     max-width: 50px;
     max-height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .personOverlay {
     opacity: 0;
+    transition: opacity var(--animation);
 }
 
-.personOverlay:hover {
+.person:hover .personOverlay {
     opacity: 1;
 }
