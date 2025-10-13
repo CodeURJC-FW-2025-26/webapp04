@@ -1,5 +1,7 @@
 :root {
     --color-bg: #14181c;
+    --color-bg-hover: #262E36;
+
     --color-text: #f2f2f2;
 
     --color-accent: #8ebbcc;
@@ -11,7 +13,11 @@
 
     --color-footer: #a0a0a0;
 
+    --border-radius: 1.5em;
+
     --shadow-card: 0 2px 6px rgba(0,0,0,0.2);
 
     --max-width: 800px;
+
+    --animation: 0.3s ease;
 }
