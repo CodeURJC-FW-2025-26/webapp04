@@ -91,6 +91,9 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 # Práctica 1
 
 ## Screenshots
+![image](documentation/practica-1_screenshot-1.png)
+![image](documentation/practica-1_screenshot-2.png)
+![image](documentation/practica-1_screenshot-3.png)
 
 ## Participation
 
