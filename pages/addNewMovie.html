@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en" class="h-100" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Add new movie to Cinemateca</title>
@@ -30,8 +30,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 p-0 poster">
-                    <label for="moviePoster">Upload poster</label>
+                    <label for="moviePoster" class="upload-box">
+                        <i class="bi bi-upload"></iclass></i>
                     <input type="file" id="moviePoster" name="poster" accept="image/*">
+                    </label>
                 </div>
 
                 <div class="col-6 details">
@@ -83,8 +85,20 @@
                         <textarea name="description" id="movieDescription" rows="3" required></textarea>
 
                         <label>Actors</label>
+                        <div class="actors-row d-flex align-items-center gap-2">
+                            <div class="actors-col flex-grow-1">
+                                <div class="actors-row">
+                                    <input type="search" class="actor-input" placeholder="Search actors...">
+                                    <button class="btn btn-inline"><i class="bi bi-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
 
-                        <button type="submit" class="btn"><i class ="bi bi-save"></i></button>
+                        <button type="submit" class="btn btn-full">
+                            <span>Save</span>
+                            <i class ="bi bi-save"></i>
+                        </button>
+
                     </form>
                 </div>
             </div>
