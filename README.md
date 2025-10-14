@@ -98,40 +98,50 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 ## Participation
 
 ### Alejandro
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Farina
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Felix
-**Description of the Tasks Completed**
-...
+**Description of the Tasks Completed:**
+Before Alejandro joined the group, Farina and I developed the initial idea for our project and created the wireframes along with the UML class diagram.
+I implemented the first version of all four HTML pages and their corresponding CSS files. Early on, I continuously refined the CSS to eliminate redundancies and ensure a consistent design across all pages. To achieve this, I created separate CSS files to store shared variables and common styles. I also made sure that the header and footer were consistent on every page.
+When Bootstrap was introduced in class, I refactored some of the existing CSS grids to use Bootstrap’s grid system instead.
+I added hover effects to the buttons for the secondary entities (the actors) in `movieDetails.html` to allow editing and deleting them.
+Finally, I verified that all pages were fully responsive and made some last adjustments.
 
-**Five most significant commits**
-- ...
-- ...
+**Five Most Significant Commits**
+- [d3f02d5](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/d3f02d5a08640904ea29045cf7774de73a87f1dc): Documented the initial project ideas in the README file (together with Farina).
+- [324bd1a](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/324bd1ab063eac974a9d8dfe2eb4b577bbc490b7): Realized the first wireframes as HTML pages (`index.html`, `movieDetails.html`, and `personDetails.html`) with CSS. 
+- [4b83b8a](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/4b83b8ad5ee8b023b5ce10b58884bf99b2cd9275): Built an initial prototype of the “Add New Primary Entity” feature (`addNewMovie.html`) with CSS. 
+- [e4f6304](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e4f6304aaaeb0ac3b578ed944d5c7bad36b21625): Refactored the CSS structure to include common styles in a shared CSS file and defined reusable values in a separate file for future reuse. 
+- [9a4f26f](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/9a4f26f1b65f8a8b885e1db86843ddfd50a25a27): Improved the responsiveness of `movieDetails.html`, particularly the hover effect in the actors list, and `personDetails.html`.
 
-**Five most contributed files**
-- ...
-- ...
+**Five Most Contributed Files**
+- [`movieDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
+- [`personDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/personDetails.html)
+- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/variables.css)
+- [`pageLayout.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/pageLayout.css)
+- all images files used for [movie posters](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/moviePosters) and [actor portraits](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/persons)
 
 # Práctica 2
 
@@ -140,38 +150,38 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 ## Participation
 
 ### Alejandro
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Farina
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Felix
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
@@ -182,37 +192,37 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 ## Participation
 
 ### Alejandro
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Farina
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
 
 ### Felix
-**Description of the Tasks Completed**
+**Description of the Tasks Completed:**
 ...
 
-**Five most significant commits**
+**Five Most Significant Commits**
 - ...
 - ...
 
-**Five most contributed files**
+**Five Most Contributed Files**
 - ...
 - ...
