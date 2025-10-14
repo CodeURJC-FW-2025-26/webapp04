@@ -22,6 +22,11 @@
     background-color: var(--color-bg-hover);
 }
 
+.person p {
+    display: inline;
+    white-space: nowrap;
+}
+
 .person i {
     font-size: 1.2em;
     padding: 0.6em;
