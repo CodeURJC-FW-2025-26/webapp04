@@ -111,15 +111,24 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 
 ### Farina
 **Description of the Tasks Completed:**
-...
+At the beginning of the project, I worked together with Felix to develop the initial concept for our web application. We documented our ideas in the README file and created the first wireframes. Later, I focused mainly on the visual aspects of the web app. I contributed to the CSS styling and helped ensure that the overall design remained visually consistent across all pages. During this phase, I also familiarized myself with the Bootstrap framework and used it to improve the structure of certain layouts. I integrated the Bootstrap Icons library and added icons to all buttons across the application to create a more intuitive and uniform interface. In addition, I was mainly responsible for styling the 'addNewMovie.html', making sure it aligned with the overall look and feel of the project.
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [9f57e80](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/9f57e80eee313b6c282380eb65b843b5cbaa9b15): Replaced text-based buttons with Bootstrap icons across multiple pages to create a cleaner and more consistent interface.
+- [f9b51c7](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/f9b51c73dc61aca82cbbc9ac525f04cd587bc406): Added missing icons to buttons on addNewMovie.html and personDetails.html to ensure consistent visual design across pages.
+- [e83fe7b](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e83fe7ba1104e15f8e2f75252bc4f6473b4dc642): Updated the README file and wireframes together with Felix to document the initial project idea and design concept.
+- [f4f0968](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/f4f0968f37aa774c384106ea363f1be151b9e4f2): Styled addNewMovie.html and refined addNewMovie.css to define the overall layout and color scheme for the page.
+- [1869d91](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/1869d91ccf7b724d6b6e58754b5bee4b272e0880): Improved hover behavior and interaction logic between icons and buttons in general.css to ensure consistent visual feedback.
+
 
 **Five Most Contributed Files**
-- ...
-- ...
+- [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/general.css)
+- [`addNewMovie.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/addNewMovie.css)
+- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/variables.css)
+- [`README.md`](https://github.com/CodeURJC-FW-2025-26/webapp04/README.md) documented project ideas together with Felix
+- Felix and I worked together on the wireframes while developing the project idea
+
+
 
 ### Felix
 **Description of the Tasks Completed:**
