@@ -89,6 +89,9 @@ a:visited {
     width: 100%;
     justify-content: center;
 }
+.btn-delete:hover {
+    background-color: var(--color-button-delete);
+}
 
 .btn-full i {
     align-items: center;
