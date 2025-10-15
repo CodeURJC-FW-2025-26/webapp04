@@ -111,9 +111,9 @@ By the time I joined the team, the initial idea of the project had already been 
 **Five Most Contributed Files**
 - [`index.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/index.html)
 - [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/general.css)
-- ['movieDetails.css'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/movieDetails.css)
-- ['movieDetails.html'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
-- ['addNeyMovie.html'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/addNewMovie.html)
+- [`movieDetails.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/movieDetails.css)
+- [`movieDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
+- [`addNeyMovie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/addNewMovie.html)
 
 ### Farina
 **Description of the Tasks Completed:**
