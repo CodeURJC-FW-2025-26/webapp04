@@ -99,7 +99,7 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 
 ### Alejandro
 **Description of the Tasks Completed:**
-...
+By the time I joined the team, the initial idea of the project had already been developed by my Farina and Felix, so a lot of progress had already been done, specially the main functionalities for the app. Having this in mind, I focused entirely on improving some elements to make it more visually attractive. One of my main tasks was changing our movie catalog grid layout from CSS to Bootstrap, which now has the posibility to adapt to the different screen widths, decreasing the amount of columns when the screen is narrow, making it only one column for mobile devices and three columns for wider screens. Also, using CSS, I developed a hover effect for the movie posters to show each movie's name and year of production when the cursor is placed over the poster using a smooth transition. My third contrbution to the project so far was making the text size in the "Movie details" increase or decrease depending on the screen width so the text doesn't jump so many lines and gets unaligned with the movie poster and the rest of the content. Finally, I added the favicon for all HTML pages through the website. 
 
 **Five Most Significant Commits**
 - ...
