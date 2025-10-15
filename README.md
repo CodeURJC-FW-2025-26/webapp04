@@ -109,7 +109,7 @@ By the time I joined the team, the initial idea of the project had already been 
 - [b9cf5ce](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b9cf5ceb852b3bfa1d7a86837246620ef96ae9fd): Added the favicon to all HTML pages through the website. 
 
 **Five Most Contributed Files**
-- ['index.html'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/index.html)
+- [`index.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/index.html)
 - [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/general.css)
 - ['movieDetails.css'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/movieDetails.css)
 - ['movieDetails.html'](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
