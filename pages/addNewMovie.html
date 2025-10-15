@@ -29,79 +29,82 @@
             <h2>Add a new movie</h2>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-6 p-0 poster">
-                    <label for="moviePoster" class="upload-box">
-                        <i class="bi bi-upload"></iclass></i>
-                    <input type="file" id="moviePoster" name="poster" accept="image/*">
-                    </label>
+        <div class="container-fluid p-0">
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <div>
+                        <label for="moviePoster" class="upload-box p-0 m-0">
+                            <i class="bi bi-upload"></i>
+                            <input type="file" id="moviePoster" name="poster" accept="image/*">
+                        </label>
+                    </div>
                 </div>
 
-                <div class="col-6 details">
-                    <form role="form">
-                        <label for="movieTitle">Movie Title</label>
-                        <input name="title" id="movieTitle" type="text" placeholder="Movie Title" required>
+                <div class="col-12 col-md-6">
+                    <div>
+                        <form role="form">
+                            <label for="movieTitle">Movie Title</label>
+                            <input name="title" id="movieTitle" type="text" placeholder="Movie Title" required>
 
-                        <label for="movieGenre">Genre</label>
-                        <select name="genre" id="movieGenre" multiple required>
-                            <option value="action">Action</option>
-                            <option value="adventure">Adventure</option>
-                            <option value="comedy">Comedy</option>
-                            <option value="drama">Drama</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="history">History</option>
-                            <option value="horror">Horror</option>
-                            <option value="music">Music</option>
-                            <option value="romance">Romance</option>
-                            <option value="sci-fi">Sci-Fi</option>
-                            <option value="sport">Sport</option>
-                        </select>
+                            <label for="movieGenre">Genre</label>
+                            <select name="genre" id="movieGenre" multiple required>
+                                <option value="action">Action</option>
+                                <option value="adventure">Adventure</option>
+                                <option value="comedy">Comedy</option>
+                                <option value="drama">Drama</option>
+                                <option value="fantasy">Fantasy</option>
+                                <option value="history">History</option>
+                                <option value="horror">Horror</option>
+                                <option value="music">Music</option>
+                                <option value="romance">Romance</option>
+                                <option value="sci-fi">Sci-Fi</option>
+                                <option value="sport">Sport</option>
+                            </select>
 
-                        <label for="movieAgeRestriction">Age Restriction</label>
-                        <select name="ageRestriction" id="movieAgeRestriction" required>
-                            <option value="A">A</option>
-                            <option value="7">7</option>
-                            <option value="12">12</option>
-                            <option value="16">16</option>
-                            <option value="18">18</option>
-                        </select>
+                            <label for="movieAgeRestriction">Age Restriction</label>
+                            <select name="ageRestriction" id="movieAgeRestriction" required>
+                                <option value="A">A</option>
+                                <option value="7">7</option>
+                                <option value="12">12</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                            </select>
 
-                        <label for="movieReleaseYear">Release Year</label>
-                        <input name="releaseYear" id="movieReleaseYear" type="number" min="1900" max="2026" step="1" placeholder="2025" required/>
+                            <label for="movieReleaseYear">Release Year</label>
+                            <input name="releaseYear" id="movieReleaseYear" type="number" min="1900" max="2026" step="1" placeholder="2025" required/>
 
-                        <label for="movieCountryOfProduction">Country of Production</label>
-                        <select name="countryOfProduction" id="movieCountryOfProduction" multiple required>
-                            <option value="Afghanistan">Afghanistan</option>
-                            <option value="France">France</option>
-                            <option value="Germany">Germany</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Japan">Japan</option>
-                            <option value="Poland">Poland</option>
-                            <option value="Spain">Spain</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="USA">USA</option>
-                        </select>
+                            <label for="movieCountryOfProduction">Country of Production</label>
+                            <select name="countryOfProduction" id="movieCountryOfProduction" multiple required>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Japan">Japan</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Spain">Spain</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="USA">USA</option>
+                            </select>
 
-                        <label for="movieDescription">Description</label>
-                        <textarea name="description" id="movieDescription" rows="3" required></textarea>
+                            <label for="movieDescription">Description</label>
+                            <textarea name="description" id="movieDescription" rows="3" required></textarea>
 
-                        <label>Actors</label>
-                        <div class="actors-row d-flex align-items-center gap-2">
-                            <div class="actors-col flex-grow-1">
-                                <div class="actors-row">
-                                    <input type="search" class="actor-input" placeholder="Search actors...">
-                                    <button class="btn btn-inline"><i class="bi bi-plus"></i></button>
+                            <label>Actors</label>
+                            <div class="actors-row d-flex align-items-center gap-2">
+                                <div class="actors-col flex-grow-1">
+                                    <div class="actors-row">
+                                        <input type="search" class="actor-input" placeholder="Search actors...">
+                                        <button class="btn btn-inline"><i class="bi bi-plus"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-full">
-                            <span>Save</span>
-                            <i class ="bi bi-save"></i>
-                        </button>
-
-                    </form>
+                            <button type="submit" class="btn btn-full">
+                                <span>Save</span>
+                                <i class ="bi bi-save"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
