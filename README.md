@@ -44,7 +44,7 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 
 ## Functionality
 ### Entities
-![image](uml/uml_entities_v02.png "UML diagram")
+![image](documentation/uml/uml_entities_v02.png "UML diagram")
 
 #### Movies
 `Movie` is the primary entity of the web application. Each `Movie` contains essential information and is linked to its actors. Each `Movie` has at least one actor.
@@ -81,20 +81,20 @@ The application will include a function to filter search results (e.g. by genre,
 The following wireframes show the planned layout of Cinemateca, giving a visual overview of the application’s structure and functionality.
 
 ### Wide Screen Views
-![image](wireframes/screenWide_startView.png "Start View")
-![image](wireframes/screenWide_movieView.png "Detail View of a selected Movie")
-![image](wireframes/screenWide_personView.png "Detail View of a selected Person")
+![image](documentation/wireframes/screenWide_startView.png "Start View")
+![image](documentation/wireframes/screenWide_movieView.png "Detail View of a selected Movie")
+![image](documentation/wireframes/screenWide_personView.png "Detail View of a selected Person")
 
 ### Mobile Views
-![image](wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
+![image](documentation/wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
 
 # Práctica 1
 
 ## Screenshots
-![image](documentation/practica-1_screenshot-1.png)
-![image](documentation/practica-1_screenshot-2.png)
-![image](documentation/practica-1_screenshot-3.png)
-![image](documentation/practica-1_screenshot-4.png)
+![image](documentation/screenshot/practica-1_screenshot-1.png)
+![image](documentation/screenshot/practica-1_screenshot-2.png)
+![image](documentation/screenshot/practica-1_screenshot-3.png)
+![image](documentation/screenshot/practica-1_screenshot-4.png)
 
 ## Participation
 

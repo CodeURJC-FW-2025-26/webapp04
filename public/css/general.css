@@ -81,15 +81,18 @@ a:visited {
 .btn:hover , a.btn:hover  {
     background-color: var(--color-button-hover);
 }
+
 .btn-text {
     margin: 0.5rem;
     font-size: 1rem;
 }
+
 .btn-full {
     width: 100%;
     justify-content: center;
 }
-.btn-delete:hover,  a.btn-delete:hover {
+
+.btn-delete:hover, a.btn-delete:hover {
     background-color: var(--color-button-delete);
 }
 
@@ -99,6 +102,7 @@ a:visited {
     font-size: 1.1rem;
     padding: 1rem 0.5rem 1rem;
 }
+
 h3 {
     padding: 0;
     margin: 0;
