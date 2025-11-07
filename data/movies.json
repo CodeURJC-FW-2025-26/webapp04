@@ -7,7 +7,11 @@
     "releaseYear": 2025,
     "countryOfProduction": ["USA", "Finland"],
     "ageRating": 12,
-    "actors": null
+    "actors": [
+      { "name": "Dakota Johnson", "role": "Lucy" },
+      { "name": "Chris Evans", "role": "John" },
+      { "name": "Pedro Pascal", "role": "Harry" }
+    ]
   },
   {
     "title": "One Battle After Another",
@@ -17,7 +21,11 @@
     "releaseYear": 2025,
     "countryOfProduction": ["USA"],
     "ageRating": 16,
-    "actors": null
+    "actors": [
+      { "name": "Leonardo DiCaprio", "role": "Bob" },
+      { "name": "Sean Penn", "role": "Steven J. Lockjaw" },
+      { "name": "Chase Infiniti", "role": "Willa" }
+    ]
   },
   {
     "title": "The Conjuring: Last Rites",
@@ -27,7 +35,10 @@
     "releaseYear": 2025,
     "countryOfProduction": ["USA"],
     "ageRating": 16,
-    "actors": null
+    "actors": [
+      { "name": "Vera Farmiga", "role": "Lorraine Warren" },
+      { "name": "Patrick Wilson", "role": "Ed Warren" }
+    ]
   },
   {
     "title": "The Long Walk",
@@ -81,7 +92,11 @@
     "releaseYear": 2024,
     "countryOfProduction": ["France", "Belgium"],
     "ageRating": 12,
-    "actors": null
+    "actors": [
+      { "name": "Charlotte Le Bon", "role": "Niki de Saint Phalle" },
+      { "name": "Damien Bonnard", "role": "Jean Tinguely" },
+      { "name": "John Robinson", "role": "Harry Matthews" }
+    ]
   },
   {
     "title": "Queer",
@@ -91,7 +106,10 @@
     "releaseYear": 2024,
     "countryOfProduction": ["Italy", "USA"],
     "ageRating": 16,
-    "actors": null
+    "actors": [
+      { "name": "Daniel Craig", "role": "William Lee" },
+      { "name": "Drew Starkey", "role": "Eugene Allerton" }
+    ]
   },
   {
     "title": "The Penguin Lessons",
@@ -101,7 +119,9 @@
     "releaseYear": 2024,
     "countryOfProduction": ["Spain", "UK", "USA"],
     "ageRating": 6,
-    "actors": null
+    "actors": [
+      { "name": "Steve Coogan", "role": "Tom Michell" }
+    ]
   },
   {
     "title": "Call me by your Name",
@@ -111,7 +131,10 @@
     "releaseYear": 2017,
     "countryOfProduction": ["Brazil", "France", "Italy", "USA"],
     "ageRating": 12,
-    "actors": null
+    "actors": [
+      { "name": "Armie Hammer", "role": "Oliver" },
+      { "name": "Timothée Chalamet", "role": "Elio" }
+    ]
   },
   {
     "title": "The Invisible Guest",
@@ -121,6 +144,9 @@
     "releaseYear": 2016,
     "countryOfProduction": ["Spain"],
     "ageRating": 12,
-    "actors": null
+    "actors": [
+      { "name": "Mario Casas", "role": "Adrián Doria" },
+      { "name": "Ana Wagener", "role": "Elvira Garrido" }
+    ]
   }
 ]

@@ -72,7 +72,13 @@
                                 <div class="person position-relative">
                                     <div class="d-flex">
                                         <a href="/personDetails/{{_id}}">
+                                            {{#portrait}}
                                             <img class="personIconSmall" src="/img/persons/{{portrait}}" alt="{{name}}">
+                                            {{/portrait}}
+
+                                            {{^portrait}}
+                                            <img class="personIconSmall" src="/img/persons/placeholder.jpg" alt="{{name}}">
+                                            {{/portrait}}
                                         </a>
                                         <div>
                                             <p><a href="/personDetails/{{id}}">{{name}}</a> as</p><br>

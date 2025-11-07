@@ -1,5 +1,61 @@
 [
   {
+    "name": "Dakota Johnson",
+    "portrait": null,
+    "description": "Dakota Mayi Johnson is an American actress and model best known for her role as Anastasia Steele in the Fifty Shades film series. She has since starred in a wide range of independent and studio films, establishing herself as a versatile performer.",
+    "dateOfBirth": "1989-10-04",
+    "placeOfBirth": "Austin, Texas, USA"
+  },
+  {
+    "name": "Chris Evans",
+    "portrait": null,
+    "description": "Christopher Robert Evans is an American actor best known for portraying Steve Rogers / Captain America in the Marvel Cinematic Universe. He has also appeared in films such as Snowpiercer, Knives Out, and Gifted.",
+    "dateOfBirth": "1981-06-13",
+    "placeOfBirth": "Boston, Massachusetts, USA"
+  },
+  {
+    "name": "Pedro Pascal",
+    "portrait": null,
+    "description": "José Pedro Balmaceda Pascal is a Chilean–American actor known for his roles in Game of Thrones, Narcos, The Mandalorian, and The Last of Us. His career spans both television and major film productions.",
+    "dateOfBirth": "1975-04-02",
+    "placeOfBirth": "Santiago, Chile"
+  },
+  {
+    "name": "Leonardo DiCaprio",
+    "portrait": null,
+    "description": "Leonardo Wilhelm DiCaprio is an American actor and film producer. Known for his critically acclaimed performances in films such as Titanic, Inception, The Wolf of Wall Street, and The Revenant, he is one of the most recognized actors of his generation.",
+    "dateOfBirth": "1974-11-11",
+    "placeOfBirth": "Los Angeles, California, USA"
+  },
+  {
+    "name": "Sean Penn",
+    "portrait": null,
+    "description": "Sean Justin Penn is an American actor, filmmaker, and activist. He has received multiple awards, including two Academy Awards for his roles in Mystic River and Milk.",
+    "dateOfBirth": "1960-08-17",
+    "placeOfBirth": "Santa Monica, California, USA"
+  },
+  {
+    "name": "Chase Infiniti",
+    "portrait": null,
+    "description": "Chase Infiniti is an American actress known primarily for independent film roles and emerging performances in dramatic and socially engaged cinema.",
+    "dateOfBirth": "2000-05-05",
+    "placeOfBirth": "Indianapolis, Indiana, U.S."
+  },
+  {
+    "name": "Vera Farmiga",
+    "portrait": null,
+    "description": "Vera Ann Farmiga is an American actress, producer, and director. She is known for her roles in The Departed, Up in the Air, and The Conjuring film series, in which she portrays paranormal investigator Lorraine Warren.",
+    "dateOfBirth": "1973-08-06",
+    "placeOfBirth": "Clifton, New Jersey, USA"
+  },
+  {
+    "name": "Patrick Wilson",
+    "portrait": null,
+    "description": "Patrick Joseph Wilson is an American actor and singer known for his work in film, television, and musical theater. He is widely recognized for his roles in the Insidious and The Conjuring franchises.",
+    "dateOfBirth": "1973-07-03",
+    "placeOfBirth": "Norfolk, Virginia, USA"
+  },
+  {
     "name": "Zendaya",
     "portrait": "zendaya.png",
     "description": "Zendaya Maree Stoermer Coleman is an American actress and singer. She began her career as a child model and backup dancer. She rose to mainstream prominence for her role as Rocky Blue on the Disney Channel sitcom Shake It Up (2010–2013).",
@@ -19,5 +75,75 @@
     "description": "Joshua O'Connor is a British actor. After training at the Bristol Old Vic Theatre School, he had supporting roles in television series such as Doctor Who in 2013 and Peaky Blinders in 2014. He had his breakthrough playing the lead role of a sheep farmer in Francis Lee's romantic drama God's Own Country (2017), for which he won a British Independent Film Award.",
     "dateOfBirth": "1990-05-20",
     "placeOfBirth": "Southampton, England"
+  },
+  {
+    "name": "Charlotte Le Bon",
+    "portrait": null,
+    "description": "Charlotte Le Bon is a Canadian actress, model, and filmmaker. She has appeared in international productions and made her directorial debut with the critically acclaimed film Falcon Lake.",
+    "dateOfBirth": "1986-09-04",
+    "placeOfBirth": "Montreal, Quebec, Canada"
+  },
+  {
+    "name": "Damien Bonnard",
+    "portrait": null,
+    "description": "Damien Bonnard is a French actor known for his performances in Staying Vertical, Dunkirk, and Les Misérables (2019). He is recognized for his understated and emotionally grounded acting style.",
+    "dateOfBirth": "1978-07-22",
+    "placeOfBirth": "Alès, France"
+  },
+  {
+    "name": "John Robinson",
+    "portrait": null,
+    "description": "John Robinson is an American actor best known for his roles in Elephant and Lords of Dogtown. His work has been primarily in independent and character-driven films.",
+    "dateOfBirth": "1985-10-25",
+    "placeOfBirth": "Portland, Oregon, USA"
+  },
+  {
+    "name": "Daniel Craig",
+    "portrait": null,
+    "description": "Daniel Wroughton Craig is an English actor best known for portraying James Bond in the film series from Casino Royale (2006) to No Time to Die (2021). He has also starred in films such as Knives Out and Layer Cake.",
+    "dateOfBirth": "1968-03-02",
+    "placeOfBirth": "Chester, England"
+  },
+  {
+    "name": "Drew Starkey",
+    "portrait": null,
+    "description": "Joseph Andrew Starkey is an American actor known for his role as Rafe Cameron in the Netflix series Outer Banks and his performances in The Other King and Queer (2024).",
+    "dateOfBirth": "1993-11-04",
+    "placeOfBirth": "Hickory, North Carolina, USA"
+  },
+  {
+    "name": "Steve Coogan",
+    "portrait": null,
+    "description": "Stephen John Coogan is an English actor, comedian, writer, and producer. He is best known for creating and portraying the character Alan Partridge, as well as films such as Philomena and The Trip.",
+    "dateOfBirth": "1965-10-14",
+    "placeOfBirth": "Middleton, Greater Manchester, England"
+  },
+  {
+    "name": "Armie Hammer",
+    "portrait": null,
+    "description": "Armand Douglas Hammer is an American actor known for his roles in The Social Network, Call Me by Your Name, and The Man from U.N.C.L.E.",
+    "dateOfBirth": "1986-08-28",
+    "placeOfBirth": "Santa Monica, California, USA"
+  },
+  {
+    "name": "Timothée Chalamet",
+    "portrait": null,
+    "description": "Timothée Hal Chalamet is an American actor known for his performances in Call Me by Your Name, Dune, and Little Women. He is noted for his emotionally nuanced acting style.",
+    "dateOfBirth": "1995-12-27",
+    "placeOfBirth": "New York City, New York, USA"
+  },
+  {
+    "name": "Mario Casas",
+    "portrait": null,
+    "description": "Mario Casas Sierra is a Spanish actor who gained fame in Spanish television before moving into film. He has appeared in The Invisible Guest, Three Steps Above Heaven, and Cross the Line.",
+    "dateOfBirth": "1986-06-12",
+    "placeOfBirth": "A Coruña, Spain"
+  },
+  {
+    "name": "Ana Wagener",
+    "portrait": null,
+    "description": "Ana María Wagener is a Spanish actress known for her roles in The Invisible Guest, Biutiful, and The Sleeping Voice, often portraying strong and authoritative characters.",
+    "dateOfBirth": "1962-10-11",
+    "placeOfBirth": "Las Palmas, Spain"
   }
 ]
