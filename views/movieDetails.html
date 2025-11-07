@@ -27,12 +27,12 @@
         <div class="topRow">
             <div>
                 <div class="btn" onclick="history.back()"><i class="bi bi-chevron-left"></i></div>
-                <h2>Challengers</h2>
+                <h2>{{title}}</h2>
             </div>
 
             <div>
                 <div class="btn"><i class="bi bi-pencil"></i></div>
-                <div class="btn btn-delete"><i class ="bi bi-trash"></i></div>
+                <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
             <div class="row g-3">
                 <div class="col-12 col-md-6">
                     <div class="moviePoster">
-                        <img src="/img/moviePosters/1_challengers.jpg" alt="Poster of Challengers (2025)">
+                        <img src="/img/moviePosters/{{poster}}" alt="Poster of {{title}} ({{releaseYear}})">
                     </div>
                 </div>
 
@@ -48,90 +48,56 @@
                     <div class="details">
                         <div class="detailsBlock">
                             <div class="meta">
-                                <h3 id="movieGenre">Romance, Drama</h3>
-                                <h3 id="movieAgeRestriction">12</h3>
-                                <h3 id="movieReleaseYear">2025</h3>
-                                <h3 id="movieCountryOfProduction">Italy, USA</h3>
+                                <h3>{{genresText}}</h3>
+                                <h3>{{ageRating}}</h3>
+                                <h3>{{releaseYear}}</h3>
+                                <h3>{{countriesText}}</h3>
                             </div>
                         </div>
 
                         <div class="detailsBlock">
-                            <p id="movieDescription">
-                                Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a
-                                world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for
-                                a “Challenger” event — close to the lowest level of pro tournament — where he finds himself
-                                standing across the net from his former best friend and Tashi’s former boyfriend.
-                            </p>
+                            <p>{{description}}</p>
                         </div>
 
                         <div class="detailsBlock">
-                            <div class="persons d-flex flex-column gap-1" id="movieActors">
+                            <div class="persons d-flex flex-column gap-1">
+
                                 <div class="topRow headerPersons">
-                                    <div>
-                                        <h3>Starring</h3>
-                                    </div>
-
-                                    <div>
-                                        <div class="btn"><i class="bi bi-plus"></i></div>
-                                    </div>
+                                    <h3>Starring</h3>
+                                    <div class="btn"><i class="bi bi-plus"></i></div>
                                 </div>
 
+                                {{#hasActors}}
+                                {{#actors}}
                                 <div class="person position-relative">
                                     <div class="d-flex">
-                                        <a href="/personDetails">
-                                            <img class="personIconSmall" src="/img/persons/1_zendaya.png" alt="Zendaya">
+                                        <a href="/personDetails/{{_id}}">
+                                            <img class="personIconSmall" src="/img/persons/{{portrait}}" alt="{{name}}">
                                         </a>
                                         <div>
-                                            <p><a href="/personDetails">Zendaya</a> as</p><br>
-                                            <p class="m-0 p-0">Tashi Duncan Donaldson</p>
+                                            <p><a href="/personDetails/{{id}}">{{name}}</a> as</p><br>
+                                            <p class="m-0 p-0">{{role}}</p>
                                         </div>
                                     </div>
+
                                     <div class="personOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
                                         <div class="btn"><i class="bi bi-pencil"></i></div>
                                         <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
                                     </div>
                                 </div>
+                                {{/actors}}
+                                {{/hasActors}}
 
-                                <div class="person position-relative">
-                                    <div class="d-flex">
-                                        <a href="/personDetails">
-                                            <img class="personIconSmall" src="/img/persons/2_mike-feist.png" alt="Mike Faist">
-                                        </a>
-                                        <div>
-                                            <p><a href="/personDetails">Mike Faist</a> as</p><br>
-                                            <p class="m-0 p-0">Art Donaldson</p>
-                                        </div>
-                                    </div>
-                                    <div class="personOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-                                        <div class="btn"><i class="bi bi-pencil"></i></div>
-                                        <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
-                                    </div>
-                                </div>
-
-                                <div class="person position-relative">
-                                    <div class="d-flex">
-                                        <a href="/personDetails">
-                                            <img class="personIconSmall" src="/img/persons/3_josh-oconnor.png" alt="Josh O'Connor">
-                                        </a>
-                                        <div>
-                                            <p><a href="/personDetails">Josh O'Connor</a> as</p><br>
-                                            <p class="m-0 p-0">Patrick Zweig</p>
-                                        </div>
-                                    </div>
-                                    <div class="personOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-                                        <div class="btn"><i class="bi bi-pencil"></i></div>
-                                        <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
-                                    </div>
-                                </div>
-
-
+                                {{^hasActors}}
+                                <p>No actors listed yet.</p>
+                                {{/hasActors}}
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-
     </main>
 
     <footer class="footer mt-auto py-1">

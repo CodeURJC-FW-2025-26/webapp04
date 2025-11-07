@@ -38,116 +38,22 @@
 
         <div class="container-fluid p-0">
             <div class="row g-3">
+                {{#movies}}
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/1_challengers.jpg" alt="Poster of Challengers (2025)">
+                        <a href="/movieDetails/{{_id}}">
+                            <img src="/img/moviePosters/{{poster}}" alt="Poster of {{title}} ({{releaseYear}})">
                             <div class="moviePosterTitle">
-                                <span class="title">Challengers</span><br>
-                                <span class="year">2025</span>
+                                <span class="title">{{title}}</span><br>
+                                <span class="year">{{releaseYear}}</span>
                             </div>
                         </a>
                     </div>
                 </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/2_materialists.jpg" alt="Poster of Materialists (2025)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Materialists</span><br>
-                                <span class="year">2025</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/3_the-penguin-lessons.jpg" alt="Poster of The Penguin Lessons (2024)">
-                            <div class="moviePosterTitle">
-                                <span class="title">The Penguin Lessons</span><br>
-                                <span class="year">2024</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/4_queer.jpg" alt="Poster of Queer (2024)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Queer</span><br>
-                                <span class="year">2024</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/5_niki.jpg" alt="Poster of Niki (2024)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Niki</span><br>
-                                <span class="year">2024</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/6_flow.jpg" alt="Poster of Flow (2024)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Flow</span><br>
-                                <span class="year">2024</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/7_call-me-by-your-name.jpg" alt="Poster of Call Me by Your Name (2017)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Call Me by Your Name</span><br>
-                                <span class="year">2017</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/8_the-long-walk.jpg" alt="Poster of The Long Walk (2025)">
-                            <div class="moviePosterTitle">
-                                <span class="title">The Long Walk</span><br>
-                                <span class="year">2025</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="moviePoster">
-                        <a href="/movieDetails">
-                            <img src="/img/moviePosters/9_weapons.jpg" alt="Poster of Weapons (2025)">
-                            <div class="moviePosterTitle">
-                                <span class="title">Weapons</span><br>
-                                <span class="year">2025</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
+                {{/movies}}
             </div>
         </div>
+
     </main>
 
     <footer class="footer mt-auto py-1">

@@ -27,7 +27,7 @@
         <div class="topRow">
             <div>
                 <div class="btn" onclick="history.back()"><i class="bi bi-chevron-left"></i></div>
-                <h2>Mike Faist</h2>
+                <h2>{{name}}</h2>
             </div>
 
             <div>
@@ -40,7 +40,7 @@
             <div class="row g-3">
                 <div class="col-12 col-md-6">
                     <div class="personPortrait">
-                        <img src="/img/persons/2_mike-feist.png" alt="Portrait of Mike Faist">
+                        <img src="/img/persons/{{portrait}}" alt="Portrait of {{name}}">
                     </div>
                 </div>
 
@@ -48,18 +48,14 @@
                     <div class="details">
                         <div class="detailsBlock">
                             <div class="meta">
-                                <h3 id="personBirthday">January 5, 1992</h3>
-                                <h3 id="personAge">33</h3>
-                                <h3 id="personPlaceOfBirth">Gahanna, Ohio, U.S.</h3>
+                                <h3 id="personBirthday">{{birthdayFormatted}}</h3>
+                                <h3>{{age}}</h3>
+                                <h3 id="personPlaceOfBirth">{{placeOfBirth}}</h3>
                             </div>
                         </div>
 
                         <div class="detailsBlock">
-                            <p id="personDescription">
-                                Michael David Faist is an American actor, dancer, and singer. He is known for starring in
-                                the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as
-                                West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).
-                            </p>
+                            <p id="personDescription">{{description}}</p>
                         </div>
                     </div>
                 </div>
