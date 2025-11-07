@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Materialists",
+    "poster": "materialists_2025.jpg",
+    "description": "A young, ambitious New York City matchmaker finds herself torn between the perfect match and her imperfect ex.",
+    "genre": ["Romance", "Drama"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA", "Finland"],
+    "ageRating": 12,
+    "actors": null
+  },
+  {
+    "title": "One Battle After Another",
+    "poster": "one-battle-after-another_2025.jpg",
+    "description": "When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries reunite to rescue the daughter of one of their own.",
+    "genre": ["Thriller", "Comedy", "Action", "Crime"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA"],
+    "ageRating": 16,
+    "actors": null
+  },
+  {
+    "title": "The Conjuring: Last Rites",
+    "poster": "the-conjuring-last-rites_2025.jpg",
+    "description": "Paranormal investigators Ed and Lorraine Warren take on one last terrifying case involving mysterious entities they must confront.",
+    "genre": ["Horror"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA"],
+    "ageRating": 16,
+    "actors": null
+  },
+  {
+    "title": "The Long Walk",
+    "poster": "the-long-walk_2025.jpg",
+    "description": "In a dystopian, alternate-America ruled by a totalitarian regime, 50 teenage boys take part in a deadly annual walking contest, forced to maintain a minimum pace or be executed, until only one survivor remains.",
+    "genre": ["Horror", "Science Fiction", "Thriller"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA"],
+    "ageRating": 16,
+    "actors": null
+  },
+  {
+    "title": "Weapons",
+    "poster": "weapons_2025.jpg",
+    "description": "When all but one child from the same class mysteriously vanish on the same night at exactly the same time, a community is left questioning who or what is behind their disappearance.",
+    "genre": ["Horror", "Mystery"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA"],
+    "ageRating": 18,
+    "actors": null
+  },
+  {
+    "title": "Challengers",
+    "poster": "challengers_2024.jpg",
+    "description": "Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for a “Challenger” event — close to the lowest level of pro tournament — where he finds himself standing across the net from his former best friend and Tashi’s former boyfriend.",
+    "genre": ["Romance", "Drama"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Italy", "USA"],
+    "ageRating": 12,
+    "actors": [
+      { "name": "Zendaya", "role": "Tashi Duncan Donaldson" },
+      { "name": "Mike Faist", "role": "Art Donaldson" },
+      { "name": "Josh O'Connor", "role": "Patrick Zweig" }
+    ]
+  },
+  {
+    "title": "Flow",
+    "poster": "flow_2024.jpg",
+    "description": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
+    "genre": ["Family", "Fantasy", "Animation", "Adventure"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Latvia", "Belgium", "France"],
+    "ageRating": 6,
+    "actors": null
+  },
+  {
+    "title": "Niki",
+    "poster": "niki_2024.jpg",
+    "description": "French-American artist Niki de Saint-Phalle, from the age of 23, is a model and an aspiring actor who is married and has a two year old daughter. Together, they flee the U.S. during the oppressive McCarthy era and come to France, where they experience a short-lived euphoria. Soon, distant and frightening memories begin to emerge in Niki’s mind. Her vocation as an artist will be her salvation.",
+    "genre": ["Drama", "History"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["France", "Belgium"],
+    "ageRating": 12,
+    "actors": null
+  },
+  {
+    "title": "Queer",
+    "poster": "queer_2024.jpg",
+    "description": "In 1950s Mexico City, William Lee, an American ex-pat in his late forties, leads a solitary life amidst a small American community. However, the arrival in town of Eugene Allerton, a young student, stirs William into finally establishing a meaningful connection with someone.",
+    "genre": ["Romance", "Drama"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Italy", "USA"],
+    "ageRating": 16,
+    "actors": null
+  },
+  {
+    "title": "The Penguin Lessons",
+    "poster": "the-penguin-lessons_2024.jpg",
+    "description": "In 1976, as Argentina descends into violence and chaos, a world-weary English teacher regains his compassion for others thanks to an unlikely friendship with a penguin.",
+    "genre": ["Drama"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Spain", "UK", "USA"],
+    "ageRating": 6,
+    "actors": null
+  },
+  {
+    "title": "Call me by your Name",
+    "poster": "call-me-by-your-name_2017.jpg",
+    "description": "In the summer of 1983, a 17-year-old Elio spends his days in his family’s villa in Italy. One day Oliver, a graduate student, arrives to assist Elio’s father, a professor of Greco-Roman culture. Soon, Elio and Oliver discover a summer that will alter their lives forever.",
+    "genre": ["Romance", "Drama"],
+    "releaseYear": 2017,
+    "countryOfProduction": ["Brazil", "France", "Italy", "USA"],
+    "ageRating": 12,
+    "actors": null
+  },
+  {
+    "title": "The Invisible Guest",
+    "poster": "the-invisible-guest_2016.jpg",
+    "description": "Barcelona, Spain. Adrián Doria, a young and successful businessman accused of murder, meets one night with Virginia Goodman, an expert interrogation lawyer, in order to devise a defense strategy.",
+    "genre": ["Mystery", "Thriller", "Drama"],
+    "releaseYear": 2016,
+    "countryOfProduction": ["Spain"],
+    "ageRating": 12,
+    "actors": null
+  }
+]

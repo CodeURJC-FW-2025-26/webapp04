@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Zendaya",
+    "portrait": "zendaya.png",
+    "description": "Zendaya Maree Stoermer Coleman is an American actress and singer. She began her career as a child model and backup dancer. She rose to mainstream prominence for her role as Rocky Blue on the Disney Channel sitcom Shake It Up (2010–2013).",
+    "dateOfBirth": "1996-09-01",
+    "placeOfBirth": "Oakland, California, US"
+  },
+  {
+    "name": "Mike Faist",
+    "portrait": "mike-faist.png",
+    "description": "Michael David Faist is an American actor, dancer, and singer. He is known for starring in the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).",
+    "dateOfBirth": "1992-01-05",
+    "placeOfBirth": "Gahanna, Ohio, U.S."
+  },
+  {
+    "name": "Josh O'Connor",
+    "portrait": "josh-oconnor.png",
+    "description": "Joshua O'Connor is a British actor. After training at the Bristol Old Vic Theatre School, he had supporting roles in television series such as Doctor Who in 2013 and Peaky Blinders in 2014. He had his breakthrough playing the lead role of a sheep farmer in Francis Lee's romantic drama God's Own Country (2017), for which he won a British Independent Film Award.",
+    "dateOfBirth": "1990-05-20",
+    "placeOfBirth": "Southampton, England"
+  }
+]
