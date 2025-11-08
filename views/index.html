@@ -15,13 +15,8 @@
     <link rel="stylesheet" href="/css/searchResults.css">
 </head>
 <body class="d-flex flex-column h-100">
-    <header>
-        <div class="headerContent">
-            <a href="/">
-                <h1>Cinemateca</h1>
-            </a>
-        </div>
-    </header>
+
+    {{>header}}
 
     <main>
         <div class="topRow">
@@ -56,8 +51,7 @@
 
     </main>
 
-    <footer class="footer mt-auto py-1">
-        <p>&copy; Fokusfreunde 2025</p>
-    </footer>
+    {{>footer}}
+
 </body>
 </html>
