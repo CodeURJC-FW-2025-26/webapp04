@@ -1,19 +1,5 @@
 [
   {
-    "title": "Materialists",
-    "poster": "materialists_2025.jpg",
-    "description": "A young, ambitious New York City matchmaker finds herself torn between the perfect match and her imperfect ex.",
-    "genre": ["Romance", "Drama"],
-    "releaseYear": 2025,
-    "countryOfProduction": ["USA", "Finland"],
-    "ageRating": 12,
-    "actors": [
-      { "name": "Dakota Johnson", "role": "Lucy" },
-      { "name": "Chris Evans", "role": "John" },
-      { "name": "Pedro Pascal", "role": "Harry" }
-    ]
-  },
-  {
     "title": "One Battle After Another",
     "poster": "one-battle-after-another_2025.jpg",
     "description": "When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries reunite to rescue the daughter of one of their own.",
@@ -61,41 +47,51 @@
     "actors": null
   },
   {
-    "title": "Challengers",
-    "poster": "challengers_2024.jpg",
-    "description": "Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for a “Challenger” event — close to the lowest level of pro tournament — where he finds himself standing across the net from his former best friend and Tashi’s former boyfriend.",
+    "title": "Materialists",
+    "poster": "materialists_2025.jpg",
+    "description": "A young, ambitious New York City matchmaker finds herself torn between the perfect match and her imperfect ex.",
     "genre": ["Romance", "Drama"],
-    "releaseYear": 2024,
-    "countryOfProduction": ["Italy", "USA"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA", "Finland"],
     "ageRating": 12,
     "actors": [
-      { "name": "Zendaya", "role": "Tashi Duncan Donaldson" },
-      { "name": "Mike Faist", "role": "Art Donaldson" },
-      { "name": "Josh O'Connor", "role": "Patrick Zweig" }
+      { "name": "Dakota Johnson", "role": "Lucy" },
+      { "name": "Chris Evans", "role": "John" },
+      { "name": "Pedro Pascal", "role": "Harry" }
     ]
   },
   {
-    "title": "Flow",
-    "poster": "flow_2024.jpg",
-    "description": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
-    "genre": ["Family", "Fantasy", "Animation", "Adventure"],
+    "title": "Mickey 17",
+    "poster": "mickey-17_2025.jpg",
+    "description": "Unlikely hero Mickey Barnes finds himself in the extraordinary circumstance of working for an employer who demands the ultimate commitment to the job… to die, for a living.",
+    "genre": ["Comedy, Adventure, Science Fiction"],
+    "releaseYear": 2025,
+    "countryOfProduction": ["USA", "UK"],
+    "ageRating": 16,
+    "actors": [
+      { "name": "Robert Pattinson", "role": "Mickey Barnes" }
+    ]
+  },
+  {
+    "title": "The Wild Robot",
+    "poster": "the-wild-robot_2024.jpg",
+    "description": "",
+    "genre": ["Animation", "Drama", "Family", "Science Fiction"],
     "releaseYear": 2024,
-    "countryOfProduction": ["Latvia", "Belgium", "France"],
-    "ageRating": 6,
+    "countryOfProduction": ["USA"],
+    "ageRating": 0,
     "actors": null
   },
   {
-    "title": "Niki",
-    "poster": "niki_2024.jpg",
-    "description": "French-American artist Niki de Saint-Phalle, from the age of 23, is a model and an aspiring actor who is married and has a two year old daughter. Together, they flee the U.S. during the oppressive McCarthy era and come to France, where they experience a short-lived euphoria. Soon, distant and frightening memories begin to emerge in Niki’s mind. Her vocation as an artist will be her salvation.",
-    "genre": ["Drama", "History"],
+    "title": "The Penguin Lessons",
+    "poster": "the-penguin-lessons_2024.jpg",
+    "description": "In 1976, as Argentina descends into violence and chaos, a world-weary English teacher regains his compassion for others thanks to an unlikely friendship with a penguin.",
+    "genre": ["Drama"],
     "releaseYear": 2024,
-    "countryOfProduction": ["France", "Belgium"],
-    "ageRating": 12,
+    "countryOfProduction": ["Spain", "UK", "USA"],
+    "ageRating": 6,
     "actors": [
-      { "name": "Charlotte Le Bon", "role": "Niki de Saint Phalle" },
-      { "name": "Damien Bonnard", "role": "Jean Tinguely" },
-      { "name": "John Robinson", "role": "Harry Matthews" }
+      { "name": "Steve Coogan", "role": "Tom Michell" }
     ]
   },
   {
@@ -112,15 +108,93 @@
     ]
   },
   {
-    "title": "The Penguin Lessons",
-    "poster": "the-penguin-lessons_2024.jpg",
-    "description": "In 1976, as Argentina descends into violence and chaos, a world-weary English teacher regains his compassion for others thanks to an unlikely friendship with a penguin.",
-    "genre": ["Drama"],
+    "title": "Niki",
+    "poster": "niki_2024.jpg",
+    "description": "French-American artist Niki de Saint-Phalle, from the age of 23, is a model and an aspiring actor who is married and has a two year old daughter. Together, they flee the U.S. during the oppressive McCarthy era and come to France, where they experience a short-lived euphoria. Soon, distant and frightening memories begin to emerge in Niki’s mind. Her vocation as an artist will be her salvation.",
+    "genre": ["Drama", "History"],
     "releaseYear": 2024,
-    "countryOfProduction": ["Spain", "UK", "USA"],
-    "ageRating": 6,
+    "countryOfProduction": ["France", "Belgium"],
+    "ageRating": 12,
     "actors": [
-      { "name": "Steve Coogan", "role": "Tom Michell" }
+      { "name": "Charlotte Le Bon", "role": "Niki de Saint Phalle" },
+      { "name": "Damien Bonnard", "role": "Jean Tinguely" },
+      { "name": "John Robinson", "role": "Harry Matthews" }
+    ]
+  },
+  {
+    "title": "Flow",
+    "poster": "flow_2024.jpg",
+    "description": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
+    "genre": ["Family", "Fantasy", "Animation", "Adventure"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Latvia", "Belgium", "France"],
+    "ageRating": 6,
+    "actors": null
+  },
+  {
+    "title": "Challengers",
+    "poster": "challengers_2024.jpg",
+    "description": "Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for a “Challenger” event — close to the lowest level of pro tournament — where he finds himself standing across the net from his former best friend and Tashi’s former boyfriend.",
+    "genre": ["Romance", "Drama"],
+    "releaseYear": 2024,
+    "countryOfProduction": ["Italy", "USA"],
+    "ageRating": 12,
+    "actors": [
+      { "name": "Zendaya", "role": "Tashi Duncan Donaldson" },
+      { "name": "Mike Faist", "role": "Art Donaldson" },
+      { "name": "Josh O'Connor", "role": "Patrick Zweig" }
+    ]
+  },
+  {
+    "title": "All of Us Strangers",
+    "poster": "all-of-us-stranger_2023.jpg",
+    "description": "",
+    "genre": ["Drama", "Romance", "Fantasy"],
+    "releaseYear": 2023,
+    "countryOfProduction": ["UK", "USA"],
+    "ageRating": 16,
+    "actors": [
+      { "name": "Andrew Scott", "role": "Adam" },
+      { "name": "Paul Mescal", "role": "Harry" }
+    ]
+  },
+  {
+    "title": "Saltburn",
+    "poster": "saltburn_2023.jpg",
+    "description": "",
+    "genre": ["Comedy", "Drama", "Thriller"],
+    "releaseYear": 2023,
+    "countryOfProduction": ["UK", "USA"],
+    "ageRating": 16,
+    "actors": [
+      { "name": "Barry Keoghan", "role": "Oliver Quick" },
+      { "name": "Jacob Elordi", "role": "Felix Catton" }
+    ]
+  },
+  {
+    "title": "Rotting in the Sun",
+    "poster": "rotting-in-the-sun_2023.jpg",
+    "description": "",
+    "genre": ["Thriller", "Comedy", "Mystery"],
+    "releaseYear": 2023,
+    "countryOfProduction": ["Chile", "Mexico", "USA"],
+    "ageRating": 18,
+    "actors": [
+      { "name": "Sebastián Silva", "role": "himself" },
+      { "name": "Jordan Firstman", "role": "himself" }
+    ]
+  },
+  {
+    "title": "Triangle of Sadness",
+    "poster": "triangle-of-sadness_2022.jpg",
+    "description": "",
+    "genre": ["Drama", "Comedy"],
+    "releaseYear": 2022,
+    "countryOfProduction": ["Denmark", "France", "Germany", "Greece", "Mexico", "Sweden", "Switzerland", "Turkey", "UK", "USA"],
+    "ageRating": 12,
+    "actors": [
+      { "name": "Harris Dickinson", "role": "Carl" },
+      { "name": "Charlbi Dean", "role": "Yaya" }
     ]
   },
   {
@@ -148,5 +222,41 @@
       { "name": "Mario Casas", "role": "Adrián Doria" },
       { "name": "Ana Wagener", "role": "Elvira Garrido" }
     ]
+  },
+  {
+    "title": "The Imitation Game",
+    "poster": "the-imitation-game_2014.jpg",
+    "description": "",
+    "genre": ["Drama", "War", "Thriller", "History"],
+    "releaseYear": 2014,
+    "countryOfProduction": ["USA", "UK"],
+    "ageRating": 6,
+    "actors": [
+      { "name": "Benedict Cumberbatch", "role": "Alan Turing" },
+      { "name": "Keira Knightley", "role": "Joan Clarke" }
+    ]
+  },
+  {
+    "title": "The Conjuring",
+    "poster": "the-conjuring_2013.jpg",
+    "description": "",
+    "genre": ["Horror", "Thriller"],
+    "releaseYear": 2013,
+    "countryOfProduction": ["USA"],
+    "ageRating": 16,
+    "actors": [
+      { "name": "Vera Farmiga", "role": "Lorraine Warren" },
+      { "name": "Patrick Wilson", "role": "Ed Warren" }
+    ]
+  },
+  {
+    "title": "Spirited Away",
+    "poster": "spirited-away_2001.jpg",
+    "description": "",
+    "genre": ["Family", "Fantasy", "Animation"],
+    "releaseYear": 2001,
+    "countryOfProduction": ["Japan"],
+    "ageRating": 0,
+    "actors": null
   }
 ]

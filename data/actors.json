@@ -1,5 +1,40 @@
 [
   {
+    "name": "Leonardo DiCaprio",
+    "portrait": "leonardo-dicaprio.png",
+    "description": "Leonardo Wilhelm DiCaprio is an American actor and film producer. Known for his critically acclaimed performances in films such as Titanic, Inception, The Wolf of Wall Street, and The Revenant, he is one of the most recognized actors of his generation.",
+    "dateOfBirth": "1974-11-11",
+    "placeOfBirth": "Los Angeles, California, USA"
+  },
+  {
+    "name": "Sean Penn",
+    "portrait": "sean_penn.png",
+    "description": "Sean Justin Penn is an American actor, filmmaker, and activist. He has received multiple awards, including two Academy Awards for his roles in Mystic River and Milk.",
+    "dateOfBirth": "1960-08-17",
+    "placeOfBirth": "Santa Monica, California, USA"
+  },
+  {
+    "name": "Chase Infiniti",
+    "portrait": "chase-infiniti.png",
+    "description": "Chase Infiniti is an American actress known primarily for independent film roles and emerging performances in dramatic and socially engaged cinema.",
+    "dateOfBirth": "2000-05-05",
+    "placeOfBirth": "Indianapolis, Indiana, USA"
+  },
+  {
+    "name": "Vera Farmiga",
+    "portrait": "vera-farmiga.png",
+    "description": "Vera Ann Farmiga is an American actress, producer, and director. She is known for her roles in The Departed, Up in the Air, and The Conjuring film series, in which she portrays paranormal investigator Lorraine Warren.",
+    "dateOfBirth": "1973-08-06",
+    "placeOfBirth": "Clifton, New Jersey, USA"
+  },
+  {
+    "name": "Patrick Wilson",
+    "portrait": "patrick-wilson.png",
+    "description": "Patrick Joseph Wilson is an American actor and singer known for his work in film, television, and musical theater. He is widely recognized for his roles in the Insidious and The Conjuring franchises.",
+    "dateOfBirth": "1973-07-03",
+    "placeOfBirth": "Norfolk, Virginia, USA"
+  },
+  {
     "name": "Dakota Johnson",
     "portrait": null,
     "description": "Dakota Mayi Johnson is an American actress and model best known for her role as Anastasia Steele in the Fifty Shades film series. She has since starred in a wide range of independent and studio films, establishing herself as a versatile performer.",
@@ -21,60 +56,32 @@
     "placeOfBirth": "Santiago, Chile"
   },
   {
-    "name": "Leonardo DiCaprio",
+    "name": "Robert Pattinson",
     "portrait": null,
-    "description": "Leonardo Wilhelm DiCaprio is an American actor and film producer. Known for his critically acclaimed performances in films such as Titanic, Inception, The Wolf of Wall Street, and The Revenant, he is one of the most recognized actors of his generation.",
-    "dateOfBirth": "1974-11-11",
-    "placeOfBirth": "Los Angeles, California, USA"
+    "description": "Robert Douglas Thomas Pattinson is an English actor. Known for starring in both major studio productions and independent films, he often portrays eccentric characters across a diverse range of genres. Pattinson has been ranked among the world's highest-paid actors and his works have grossed over $4.7 billion worldwide. In 2010, Time included him in its list of the 100 most influential people in the world, and he was also featured in the Forbes Celebrity 100.",
+    "dateOfBirth": "1986-05-13",
+    "placeOfBirth": "Barnes, London, England"
   },
   {
-    "name": "Sean Penn",
+    "name": "Steve Coogan",
     "portrait": null,
-    "description": "Sean Justin Penn is an American actor, filmmaker, and activist. He has received multiple awards, including two Academy Awards for his roles in Mystic River and Milk.",
-    "dateOfBirth": "1960-08-17",
-    "placeOfBirth": "Santa Monica, California, USA"
+    "description": "Stephen John Coogan is an English actor, comedian, writer, and producer. He is best known for creating and portraying the character Alan Partridge, as well as films such as Philomena and The Trip.",
+    "dateOfBirth": "1965-10-14",
+    "placeOfBirth": "Middleton, Greater Manchester, England"
   },
   {
-    "name": "Chase Infiniti",
+    "name": "Daniel Craig",
     "portrait": null,
-    "description": "Chase Infiniti is an American actress known primarily for independent film roles and emerging performances in dramatic and socially engaged cinema.",
-    "dateOfBirth": "2000-05-05",
-    "placeOfBirth": "Indianapolis, Indiana, U.S."
+    "description": "Daniel Wroughton Craig is an English actor best known for portraying James Bond in the film series from Casino Royale (2006) to No Time to Die (2021). He has also starred in films such as Knives Out and Layer Cake.",
+    "dateOfBirth": "1968-03-02",
+    "placeOfBirth": "Chester, England"
   },
   {
-    "name": "Vera Farmiga",
+    "name": "Drew Starkey",
     "portrait": null,
-    "description": "Vera Ann Farmiga is an American actress, producer, and director. She is known for her roles in The Departed, Up in the Air, and The Conjuring film series, in which she portrays paranormal investigator Lorraine Warren.",
-    "dateOfBirth": "1973-08-06",
-    "placeOfBirth": "Clifton, New Jersey, USA"
-  },
-  {
-    "name": "Patrick Wilson",
-    "portrait": null,
-    "description": "Patrick Joseph Wilson is an American actor and singer known for his work in film, television, and musical theater. He is widely recognized for his roles in the Insidious and The Conjuring franchises.",
-    "dateOfBirth": "1973-07-03",
-    "placeOfBirth": "Norfolk, Virginia, USA"
-  },
-  {
-    "name": "Zendaya",
-    "portrait": "zendaya.png",
-    "description": "Zendaya Maree Stoermer Coleman is an American actress and singer. She began her career as a child model and backup dancer. She rose to mainstream prominence for her role as Rocky Blue on the Disney Channel sitcom Shake It Up (2010–2013).",
-    "dateOfBirth": "1996-09-01",
-    "placeOfBirth": "Oakland, California, US"
-  },
-  {
-    "name": "Mike Faist",
-    "portrait": "mike-faist.png",
-    "description": "Michael David Faist is an American actor, dancer, and singer. He is known for starring in the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).",
-    "dateOfBirth": "1992-01-05",
-    "placeOfBirth": "Gahanna, Ohio, U.S."
-  },
-  {
-    "name": "Josh O'Connor",
-    "portrait": "josh-oconnor.png",
-    "description": "Joshua O'Connor is a British actor. After training at the Bristol Old Vic Theatre School, he had supporting roles in television series such as Doctor Who in 2013 and Peaky Blinders in 2014. He had his breakthrough playing the lead role of a sheep farmer in Francis Lee's romantic drama God's Own Country (2017), for which he won a British Independent Film Award.",
-    "dateOfBirth": "1990-05-20",
-    "placeOfBirth": "Southampton, England"
+    "description": "Joseph Andrew Starkey is an American actor known for his role as Rafe Cameron in the Netflix series Outer Banks and his performances in The Other King and Queer (2024).",
+    "dateOfBirth": "1993-11-04",
+    "placeOfBirth": "Hickory, North Carolina, USA"
   },
   {
     "name": "Charlotte Le Bon",
@@ -98,32 +105,89 @@
     "placeOfBirth": "Portland, Oregon, USA"
   },
   {
-    "name": "Daniel Craig",
-    "portrait": null,
-    "description": "Daniel Wroughton Craig is an English actor best known for portraying James Bond in the film series from Casino Royale (2006) to No Time to Die (2021). He has also starred in films such as Knives Out and Layer Cake.",
-    "dateOfBirth": "1968-03-02",
-    "placeOfBirth": "Chester, England"
+    "name": "Zendaya",
+    "portrait": "zendaya.png",
+    "description": "Zendaya Maree Stoermer Coleman is an American actress and singer. She began her career as a child model and backup dancer. She rose to mainstream prominence for her role as Rocky Blue on the Disney Channel sitcom Shake It Up (2010–2013).",
+    "dateOfBirth": "1996-09-01",
+    "placeOfBirth": "Oakland, California, USA"
   },
   {
-    "name": "Drew Starkey",
-    "portrait": null,
-    "description": "Joseph Andrew Starkey is an American actor known for his role as Rafe Cameron in the Netflix series Outer Banks and his performances in The Other King and Queer (2024).",
-    "dateOfBirth": "1993-11-04",
-    "placeOfBirth": "Hickory, North Carolina, USA"
+    "name": "Mike Faist",
+    "portrait": "mike-faist.png",
+    "description": "Michael David Faist is an American actor, dancer, and singer. He is known for starring in the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).",
+    "dateOfBirth": "1992-01-05",
+    "placeOfBirth": "Gahanna, Ohio, USA"
   },
   {
-    "name": "Steve Coogan",
+    "name": "Josh O'Connor",
+    "portrait": "josh-oconnor.png",
+    "description": "Joshua O'Connor is a British actor. After training at the Bristol Old Vic Theatre School, he had supporting roles in television series such as Doctor Who in 2013 and Peaky Blinders in 2014. He had his breakthrough playing the lead role of a sheep farmer in Francis Lee's romantic drama God's Own Country (2017), for which he won a British Independent Film Award.",
+    "dateOfBirth": "1990-05-20",
+    "placeOfBirth": "Southampton, England"
+  },
+  {
+    "name": "Andrew Scott",
     "portrait": null,
-    "description": "Stephen John Coogan is an English actor, comedian, writer, and producer. He is best known for creating and portraying the character Alan Partridge, as well as films such as Philomena and The Trip.",
-    "dateOfBirth": "1965-10-14",
-    "placeOfBirth": "Middleton, Greater Manchester, England"
+    "description": "Andrew Scott is an Irish actor. Known for his roles on stage and screen, his accolades include two Laurence Olivier Awards, a BAFTA TV Award, and a Silver Bear, in addition to nominations for three Primetime Emmy Awards and three Golden Globe Awards. ",
+    "dateOfBirth": "1976-10-21",
+    "placeOfBirth": "Dublin, Ireland"
+  },
+  {
+    "name": "Paul Mescal",
+    "portrait": null,
+    "description": "Paul Colm Michael Mescal is an Irish actor. His accolades include two BAFTA Awards, a Laurence Olivier Award, in addition to nominations for an Academy Award and a Primetime Emmy Award.",
+    "dateOfBirth": "1996-02-02",
+    "placeOfBirth": "Maynooth, County Kildare, Ireland"
+  },
+  {
+    "name": "Barry Keoghan",
+    "portrait": null,
+    "description": "Barry Keoghan is an Irish actor. His accolades include a BAFTA Award, along with nominations for an Academy Award and two Golden Globe Awards. In 2020, he was listed at number 27 on The Irish Times list of Ireland's greatest film actors.",
+    "dateOfBirth": "1992-10-18",
+    "placeOfBirth": "Dublin, Ireland"
+  },
+  {
+    "name": "Jacob Elordi",
+    "portrait": null,
+    "description": "Jacob Elordi is an Australian actor. He rose to prominence with his role as Noah Flynn in Netflix's The Kissing Booth franchise (2018–2021) and earned critical acclaim for his portrayal of Nate Jacobs in the HBO drama series Euphoria (2019–present).",
+    "dateOfBirth": "1997-06-26",
+    "placeOfBirth": "Brisbane, Queensland, Australia"
+  },
+  {
+    "name": "Sebastián Silva",
+    "portrait": null,
+    "description": "Sebastián Silva Irarrázabal is a Chilean director, actor, screenwriter, painter, and musician.",
+    "dateOfBirth": "1979-04-09",
+    "placeOfBirth": "Santiago, Chile"
+  },
+  {
+    "name": "Jordan Firstman",
+    "portrait": null,
+    "description": "Jordan Firstman is an American writer, producer, comedian, and singer living in Los Angeles, California. He is known for the short films Men Don't Whisper (2017), the Sundance-nominated Call Your Father (2016), and for the feature film Rotting in the Sun (2023). Firstman rose to prominence for his short skits, called Impressions, shared on Instagram Live in 2020, during the COVID-19 pandemic.",
+    "dateOfBirth": "1991-07-08",
+    "placeOfBirth": "Long Island, New York, USA"
+  },
+  {
+    "name": "Harris Dickinson",
+    "portrait": null,
+    "description": "Harris Dickinson is an English actor. He began his acting career in British television and had his first starring role in the drama film Beach Rats (2017), for which he was nominated for the Independent Spirit Award for Best Male Lead. He played John Paul Getty III in the FX drama series Trust (2018).",
+    "dateOfBirth": "1996-06-24",
+    "placeOfBirth": "London, England"
+  },
+  {
+    "name": "Charlbi Dean",
+    "portrait": null,
+    "description": "Charlbi Dean Kriek was a South African model and actress. She was best known for her roles in the Spud films (2010–2013), the superhero drama series Black Lightning (2018) and the Palme d'Or-winning dark comedy Triangle of Sadness (2022).",
+    "dateOfBirth": "1990-02-05",
+    "placeOfBirth": "Cape Town, South Africa",
+    "dateOfDeath": "2022-08-29"
   },
   {
     "name": "Armie Hammer",
     "portrait": null,
     "description": "Armand Douglas Hammer is an American actor known for his roles in The Social Network, Call Me by Your Name, and The Man from U.N.C.L.E.",
     "dateOfBirth": "1986-08-28",
-    "placeOfBirth": "Santa Monica, California, USA"
+    "placeOfBirth": "Santa Monica, California, USAA"
   },
   {
     "name": "Timothée Chalamet",
@@ -145,5 +209,19 @@
     "description": "Ana María Wagener is a Spanish actress known for her roles in The Invisible Guest, Biutiful, and The Sleeping Voice, often portraying strong and authoritative characters.",
     "dateOfBirth": "1962-10-11",
     "placeOfBirth": "Las Palmas, Spain"
+  },
+  {
+    "name": "Benedict Cumberbatch",
+    "portrait": null,
+    "description": "Benedict Timothy Carlton Cumberbatch is an English actor. He has received various accolades, including a BAFTA TV Award, a Primetime Emmy Award and a Laurence Olivier Award, in addition to nominations for two Academy Awards and four Golden Globes. In 2014, Time magazine named him one of the 100 most influential people in the world, and in 2015, he was appointed a CBE for services to performing arts and charity.",
+    "dateOfBirth": "1976-07-19",
+    "placeOfBirth": "Hammersmith, London, England"
+  },
+  {
+    "name": "Keira Knightley",
+    "portrait": null,
+    "description": "Keira Christina Knightley is an English actress. Known for her work in independent films and blockbusters, particularly period dramas, she has received numerous accolades, including nominations for two Academy Awards, two British Academy Film Awards, four Golden Globes, and a Laurence Olivier Award. In 2018, she was appointed an OBE at Buckingham Palace for services to drama and charity.",
+    "dateOfBirth": "1985-03-26",
+    "placeOfBirth": "London, England"
   }
 ]
