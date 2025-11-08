@@ -49,6 +49,32 @@
             </div>
         </div>
 
+        {{#totalPages}}
+        <nav>
+            <ul class="pagination justify-content-center">
+
+                {{#hasPrev}}
+                <li class="page-item">
+                    <a class="page-link" href="/?page={{prevPage}}" tabindex="-1">Previous</a>
+                </li>
+                {{/hasPrev}}
+
+                {{#pages}}
+                <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
+                    <a class="page-link" href="/?page={{number}}">{{number}}</a>
+                </li>
+                {{/pages}}
+
+                {{#hasNext}}
+                <li class="page-item">
+                    <a class="page-link" href="/?page={{nextPage}}">Next</a>
+                </li>
+                {{/hasNext}}
+
+            </ul>
+        </nav>
+        {{/totalPages}}
+
     </main>
 
     {{>footer}}

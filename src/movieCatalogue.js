@@ -14,3 +14,11 @@ export async function getMovie(movieId) {
 export async function getMovies() {
     return await collection.find().toArray();
 }
+
+export async function getMoviesPaginated(skip, limit) {
+    return await collection.find().skip(skip).limit(limit).toArray();
+}
+
+export async function getTotalNumberOfMovies() {
+    return await collection.countDocuments();
+}

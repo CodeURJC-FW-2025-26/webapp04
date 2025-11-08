@@ -8,10 +8,34 @@ const router = express.Router();
 export default router;
 
 router.get('/', async (req, res) => {
-    const movies = await movieCatalogue.getMovies();
-    res.render('index', { movies });
-});
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6;
+    const skip = (page - 1) * limit;
 
+    const totalMovies = await movieCatalogue.getTotalNumberOfMovies();
+    const movies = await movieCatalogue.getMoviesPaginated(skip, limit);
+
+    const totalPages = Math.ceil(totalMovies / limit);
+
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages.push({
+            number: i,
+            isCurrent: i === page
+        });
+    }
+
+    res.render('index', {
+        movies,
+        page,
+        totalPages,
+        pages,
+        hasPrev: page > 1,
+        hasNext: page < totalPages,
+        prevPage: page - 1,
+        nextPage: page + 1
+    });
+});
 
 router.get('/movieDetails/:id', async (req, res) => {
     try {
