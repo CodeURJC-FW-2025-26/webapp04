@@ -58,6 +58,26 @@
                         <div class="detailsBlock">
                             <p id="personDescription">{{description}}</p>
                         </div>
+
+                        <div class="detailsBlock">
+                            <h3>Filmography</h3>
+
+                            {{#hasMovies}}
+                            <ul class="list-unstyled">
+                                {{#movies}}
+                                <li class="mb-2">
+                                    <a href="/movieDetails/{{_id}}">
+                                        {{title}} ({{releaseYear}})
+                                    </a>
+                                </li>
+                                {{/movies}}
+                            </ul>
+                            {{/hasMovies}}
+
+                            {{^hasMovies}}
+                            <p>No movies listed for this actor.</p>
+                            {{/hasMovies}}
+                        </div>
                     </div>
                 </div>
             </div>

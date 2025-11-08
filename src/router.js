@@ -82,7 +82,7 @@ router.get('/personDetails/:id', async (req, res) => {
     try {
         const actorId = new ObjectId(req.params.id);
         const actor = await actorCatalogue.getActor(actorId);
-    
+
         if (!actor) {
             return res.status(404).send('Actor not found');
         }
@@ -96,11 +96,14 @@ router.get('/personDetails/:id', async (req, res) => {
 
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
-    
+        const movies = await movieCatalogue.getMoviesByActor(actorId);
+
         res.render('personDetails', {
             ...actor,
             birthdayFormatted,
-            age
+            age,
+            movies,
+            hasMovies: movies.length > 0
         });
     } catch (err) {
         res.status(500).send('Server error');

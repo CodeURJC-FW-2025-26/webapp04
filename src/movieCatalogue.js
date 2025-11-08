@@ -19,6 +19,10 @@ export async function getMoviesPaginated(skip, limit) {
     return await collection.find().skip(skip).limit(limit).toArray();
 }
 
+export async function getMoviesByActor(actorId) {
+    return await collection.find({ actors: { $elemMatch: { actorId: actorId } } }).toArray();
+}
+
 export async function getTotalNumberOfMovies() {
     return await collection.countDocuments();
 }
