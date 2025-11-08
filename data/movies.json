@@ -75,7 +75,7 @@
   {
     "title": "The Wild Robot",
     "poster": "the-wild-robot_2024.jpg",
-    "description": "",
+    "description": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island’s animals and cares for an orphaned baby goose.",
     "genre": ["Animation", "Drama", "Family", "Science Fiction"],
     "releaseYear": 2024,
     "countryOfProduction": ["USA"],
@@ -148,7 +148,7 @@
   {
     "title": "All of Us Strangers",
     "poster": "all-of-us-stranger_2023.jpg",
-    "description": "",
+    "description": "One night in his near-empty tower block in contemporary London, Adam has a chance encounter with a mysterious neighbor Harry, which punctures the rhythm of his everyday life.",
     "genre": ["Drama", "Romance", "Fantasy"],
     "releaseYear": 2023,
     "countryOfProduction": ["UK", "USA"],
@@ -161,7 +161,7 @@
   {
     "title": "Saltburn",
     "poster": "saltburn_2023.jpg",
-    "description": "",
+    "description": "Struggling to find his place at Oxford University, student Oliver Quick finds himself drawn into the world of the charming and aristocratic Felix Catton, who invites him to Saltburn, his eccentric family’s sprawling estate, for a summer never to be forgotten.",
     "genre": ["Comedy", "Drama", "Thriller"],
     "releaseYear": 2023,
     "countryOfProduction": ["UK", "USA"],
@@ -174,7 +174,7 @@
   {
     "title": "Rotting in the Sun",
     "poster": "rotting-in-the-sun_2023.jpg",
-    "description": "",
+    "description": "A filmmaker facing an existential crisis goes on a vacation to a Mexican gay nudist beach, where he meets a social media celebrity who convinces him to collaborate with him on his new TV show. But one disappears and another embarks on a wild journey through Mexico City to find him.",
     "genre": ["Thriller", "Comedy", "Mystery"],
     "releaseYear": 2023,
     "countryOfProduction": ["Chile", "Mexico", "USA"],
@@ -187,7 +187,7 @@
   {
     "title": "Triangle of Sadness",
     "poster": "triangle-of-sadness_2022.jpg",
-    "description": "",
+    "description": "A celebrity model couple are invited on a luxury cruise for the uber-rich, helmed by an unhinged, alcoholic captain. What first appears Instagrammable ends catastrophically, leaving the survivors stranded on a desert island in a struggle of hierarchy.",
     "genre": ["Drama", "Comedy"],
     "releaseYear": 2022,
     "countryOfProduction": ["Denmark", "France", "Germany", "Greece", "Mexico", "Sweden", "Switzerland", "Turkey", "UK", "USA"],
@@ -226,7 +226,7 @@
   {
     "title": "The Imitation Game",
     "poster": "the-imitation-game_2014.jpg",
-    "description": "",
+    "description": "Based on the real life story of legendary cryptanalyst Alan Turing, the film portrays the nail-biting race against time by Turing and his brilliant team of code-breakers at Britain’s top-secret Government Code and Cypher School at Bletchley Park, during the darkest days of World War II.",
     "genre": ["Drama", "War", "Thriller", "History"],
     "releaseYear": 2014,
     "countryOfProduction": ["USA", "UK"],
@@ -239,7 +239,7 @@
   {
     "title": "The Conjuring",
     "poster": "the-conjuring_2013.jpg",
-    "description": "",
+    "description": "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse. Forced to confront a powerful entity, the Warrens find themselves caught in the most terrifying case of their lives.",
     "genre": ["Horror", "Thriller"],
     "releaseYear": 2013,
     "countryOfProduction": ["USA"],
@@ -252,7 +252,7 @@
   {
     "title": "Spirited Away",
     "poster": "spirited-away_2001.jpg",
-    "description": "",
+    "description": "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.",
     "genre": ["Family", "Fantasy", "Animation"],
     "releaseYear": 2001,
     "countryOfProduction": ["Japan"],
