@@ -32,13 +32,13 @@
         <div class="container-fluid p-0">
             <div class="row g-3">
                 <div class="col-12 col-md-6">
-                    <div class="personPortrait">
+                    <div>
                         {{#portrait}}
-                        <img src="/img/persons/{{portrait}}" alt="Portrait of {{name}}">
+                        <img class="personIconLarge" src="/img/persons/{{portrait}}" alt="Portrait of {{name}}">
                         {{/portrait}}
 
                         {{^portrait}}
-                        <img src="/img/persons/placeholder.jpg" alt="No portrait available">
+                        <img class="personIconLarge" src="/img/persons/placeholder.jpg" alt="No portrait available">
                         {{/portrait}}
                     </div>
                 </div>
