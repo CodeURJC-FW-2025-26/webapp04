@@ -11,26 +11,58 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="/css/searchResults.css">
+
+    <script src="/js/search.js" defer></script>
 </head>
 <body class="d-flex flex-column h-100">
 
-    {{>header}}
+{{>header}}
 
-    <main>
-        <div class="topRow">
-            <div>
-                <p>This is where the search bar should go.</p>
-            </div>
-
-            <div>
-                <div class="btn"><i class="bi bi-filter"></i></div>
-                <div class="btn"><i class="bi bi-funnel"></i></div>
-                <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
-            </div>
+<main>
+    <div class="topRow">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search movies...">
         </div>
 
+        <div>
+            <div class="btn" id="filterBtn"><i class="bi bi-filter"></i></div>
+            <div class="btn" id="sortBtn"><i class="bi bi-funnel"></i></div>
+            <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
+        </div>
+    </div>
+
+    <div id="filterOptions" class="filter-options" style="display: none;">
+        <div class="filter-group">
+            <label for="genreFilter">Genre:</label>
+            <select id="genreFilter" class="form-select">
+                <option value="all">All Genres</option>
+                {{#genres}}
+                <option value="{{.}}">{{.}}</option>
+                {{/genres}}
+            </select>
+        </div>
+    </div>
+
+    <div id="sortOptions" class="sort-options" style="display: none;">
+        <div class="sort-group">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy" class="form-select">
+                <option value="title">Title</option>
+                <option value="releaseYear">Release Year</option>
+            </select>
+        </div>
+        <div class="sort-group">
+            <label for="sortOrder">Order:</label>
+            <select id="sortOrder" class="form-select">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="resultsContainer">
         <div class="container-fluid p-0">
-            <div class="row g-3">
+            <div class="row g-3" id="movieGrid">
                 {{#movies}}
                 <div class="col-md-4 col-sm-6 col-12">
                     <div class="moviePoster">
@@ -48,7 +80,7 @@
         </div>
 
         {{#totalPages}}
-        <nav>
+        <nav id="paginationNav">
             <ul class="pagination justify-content-center">
 
                 {{#hasPrev}}
@@ -76,10 +108,11 @@
             </ul>
         </nav>
         {{/totalPages}}
+    </div>
 
-    </main>
+</main>
 
-    {{>footer}}
+{{>footer}}
 
 </body>
 </html>
