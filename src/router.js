@@ -3,13 +3,14 @@ import { ObjectId } from 'mongodb';
 
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
+import {getImagePath, renameUploadedFile, uploadPoster} from "./imageUploader.js";
 
 const router = express.Router();
 export default router;
 
 router.get('/', async (req, res) => {
     const movies = await movieCatalogue.getMovies();
-    res.render('index', { movies });
+    res.render('index', {movies});
 });
 
 
@@ -58,7 +59,7 @@ router.get('/personDetails/:id', async (req, res) => {
     try {
         const actorId = new ObjectId(req.params.id);
         const actor = await actorCatalogue.getActor(actorId);
-    
+
         if (!actor) {
             return res.status(404).send('Actor not found');
         }
@@ -72,7 +73,7 @@ router.get('/personDetails/:id', async (req, res) => {
 
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
-    
+
         res.render('personDetails', {
             ...actor,
             birthdayFormatted,
@@ -85,17 +86,36 @@ router.get('/personDetails/:id', async (req, res) => {
 
 
 router.get('/addNewMovie', (req, res) => {
+    try {
+        res.render('addNewMovie', {});
 
-    res.render('addNewMovie', {
-
-    });
-
+    } catch (err) {
+        res.status(500).send('Server error');
+    }
 });
 
-router.post('/addNewMovie', (req, res) => {
+router.post('/addNewMovie', uploadPoster, (req, res) => {
+    try {
+        let oldName = req.file?.filename;
 
-    res.render('addNewMovie', {
-        title: req.body.title
-    });
+        const finName = renameUploadedFile(oldName, req.body.title, req.body.releaseYear);
 
+        const movie = {
+            title: req.body.title,
+            poster: getImagePath(finName),
+            description: req.body.description,
+            genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
+            releaseYear: Number(req.body.releaseYear),
+            countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
+            ageRestriction: Number(req.body.ageRestriction),
+            actors: Array.isArray(req.body.actors) ? req.body.actors : [req.body.actors]
+        };
+
+        movieCatalogue.addMovie(movie);
+        res.redirect('/');
+
+    } catch (err) {
+        res.status(500).send('Server error');
+
+    }
 });
