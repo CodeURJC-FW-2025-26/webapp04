@@ -1,4 +1,6 @@
-@import url("variables.css");
+@import url("general.css");
+@import url("pageLayout.css");
+@import url("moviePoster.css");
 
 .headerPersons {
     height: 2em;
@@ -47,21 +49,4 @@
 
 .person:hover .personOverlay {
     opacity: 1;
-}
-
-@media (min-width: 768px) {
-    body h1, .headerContent h1 {
-        font-size: clamp(1.125rem, 3vw, 1.9rem) !important;
-    }
-
-    body h2, .topRow h2 {
-        font-size: clamp(0.875rem, 2.5vw, 2rem) !important;
-    }
-
-    body h3, .details h3, .meta h3, .headerPersons h3 {
-        font-size: clamp(1.5em, 2vw, 1.9rem) !important;
-    }
-    body p, .details p, .movieDescription p, .person p {
-        font-size: clamp(0.625rem, 1.8vw, 1.125rem) !important;
-    }
 }

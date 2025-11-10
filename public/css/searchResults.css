@@ -1,0 +1,46 @@
+@import url("general.css");
+@import url("pageLayout.css");
+@import url("moviePoster.css");
+
+.pagination {
+    margin: 3rem 0;
+    gap: 0.5rem;
+}
+
+.pagination .page-item {
+    margin: 0;
+}
+
+.pagination .page-link {
+    padding: 0;
+    background-color: var(--color-button);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    cursor: pointer;
+    min-width: 3rem;
+    height: 3rem;
+    transition: background-color var(--animation);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--color-button-hover);
+    color: var(--color-text);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-button-hover);
+    font-weight: 600;
+}
+
+.pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination .page-item.disabled .page-link:hover {
+    background-color: var(--color-button);
+}
