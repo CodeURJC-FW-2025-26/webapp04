@@ -1,6 +1,7 @@
 import { database } from './database.js';
 
 const collection = database.collection('movies');
+await collection.createIndex({ title: 'text' });
 
 export async function addMovie(movie) {
     const result = await collection.insertOne(movie);
