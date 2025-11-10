@@ -3,7 +3,7 @@
 @import url("moviePoster.css");
 
 .pagination {
-    margin: 3rem 0;
+    margin: 1.5rem 0;
     gap: 0.5rem;
 }
 
@@ -18,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) !important;
     color: var(--color-text);
     cursor: pointer;
     min-width: 3rem;
@@ -43,4 +43,9 @@
 
 .pagination .page-item.disabled .page-link:hover {
     background-color: var(--color-button);
+}
+
+.pagination .page-item:first-child .page-link,
+.pagination .page-item:last-child .page-link {
+    border-radius: var(--border-radius) !important;
 }
