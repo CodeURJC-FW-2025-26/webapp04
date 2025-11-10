@@ -26,7 +26,10 @@ router.get('/', async (req, res) => {
         const pagination = calculatePagination(page, totalPages);
 
         res.render('index', {
-            movies,
+            movies: movies.map(m => ({
+                ...m,
+                releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
+            })),
             page,
             totalPages,
             ...pagination,
@@ -55,7 +58,10 @@ router.get('/api/search', async (req, res) => {
         const pagination = calculatePagination(page, totalPages);
 
         res.json({
-            movies,
+            movies: movies.map(m => ({
+                ...m,
+                releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
+            })),
             page,
             totalPages,
             ...pagination,
@@ -77,8 +83,11 @@ router.get('/movieDetails/:id', async (req, res) => {
 
         const actors = await resolveActorsForMovie(movie);
 
+        const releaseYear = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
+
         res.render('movieDetails', {
             ...movie,
+            releaseYear,
             id: movie._id.toString(),
             genresText: movie.genre?.join(', ') || '',
             countriesText: movie.countryOfProduction?.join(', ') || '',
@@ -90,6 +99,7 @@ router.get('/movieDetails/:id', async (req, res) => {
     }
 });
 
+
 router.get('/personDetails/:id', async (req, res) => {
     try {
         const actorId = new ObjectId(req.params.id);
@@ -100,7 +110,12 @@ router.get('/personDetails/:id', async (req, res) => {
         }
 
         const { birthdayFormatted, age } = formatActorDetails(actor);
-        const movies = await movieCatalogue.getMoviesByActor(actorId);
+        const moviesRaw = await movieCatalogue.getMoviesByActor(actorId);
+
+        const movies = moviesRaw.map(m => ({
+            ...m,
+            releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
+        }));
 
         res.render('personDetails', {
             ...actor,
@@ -172,7 +187,7 @@ function getSearchParams(req) {
     return {
         searchQuery: req.query.q || '',
         genre: req.query.genre || 'all',
-        sortBy: req.query.sortBy || 'releaseYear',
+        sortBy: req.query.sortBy || 'releaseDate',
         sortOrder: req.query.sortOrder || 'desc'
     };
 }

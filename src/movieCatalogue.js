@@ -43,7 +43,7 @@ export async function searchMovies(searchQuery, genre, sortBy, sortOrder, skip, 
     if (sortBy) {
         sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
     } else {
-        sort.releaseYear = -1;
+        sort.releaseDate = -1;
     }
 
     const movies = await collection
