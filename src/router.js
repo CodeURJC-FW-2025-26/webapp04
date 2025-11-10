@@ -18,7 +18,25 @@ router.get('/', async (req, res) => {
     const totalPages = Math.ceil(totalMovies / limit);
 
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    let startPage, endPage;
+
+    if (totalPages <= 3) {
+        startPage = 1;
+        endPage = totalPages;
+    } else {
+        if (page <= 2) {
+            startPage = 1;
+            endPage = 3;
+        } else if (page >= totalPages - 1) {
+            startPage = totalPages - 2;
+            endPage = totalPages;
+        } else {
+            startPage = page - 1;
+            endPage = page + 1;
+        }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
         pages.push({
             number: i,
             isCurrent: i === page
