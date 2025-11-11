@@ -1,6 +1,7 @@
 @import url("general.css");
 @import url("pageLayout.css");
 @import url("moviePoster.css");
+@import url("personPortrait.css");
 
 .headerPersons {
     height: 2em;
@@ -32,14 +33,6 @@
 .person i {
     font-size: 1.2em;
     padding: 0.6em;
-}
-
-.personIconSmall {
-    margin: 0 0.5em 0 0;
-    max-width: 50px;
-    max-height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
 }
 
 .personOverlay {
