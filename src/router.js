@@ -72,6 +72,34 @@ router.get('/api/search', async (req, res) => {
     }
 });
 
+// Route for movies with slug
+router.get('/movieDetails/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            return res.status(404).send('Movie not found');
+        }
+
+        const actors = await resolveActorsForMovie(movie);
+
+        res.render('movieDetails', {
+            ...movie,
+            id: movie._id.toString(),
+            slug: movie.slug,
+            genresText: movie.genre?.join(', ') || '',
+            countriesText: movie.countryOfProduction?.join(', ') || '',
+            hasActors: actors.length > 0,
+            actors
+        });
+    } catch (error) {
+        console.error('Error loading movie details:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// Route for movies without slug (backwards compatibility)
 router.get('/movieDetails/:id', async (req, res) => {
     try {
         const movieId = new ObjectId(req.params.id);
@@ -79,6 +107,10 @@ router.get('/movieDetails/:id', async (req, res) => {
 
         if (!movie) {
             return res.status(404).send('Movie not found');
+        }
+
+        if (movie.slug) {
+            return res.redirect(301, `/movie/${movie.slug}`);
         }
 
         const actors = await resolveActorsForMovie(movie);
@@ -98,7 +130,6 @@ router.get('/movieDetails/:id', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
-
 
 router.get('/personDetails/:id', async (req, res) => {
     try {

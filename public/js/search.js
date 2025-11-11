@@ -69,7 +69,7 @@ function updateResults(data) {
             col.className = 'col-md-4 col-sm-6 col-12';
             col.innerHTML = `
                 <div class="moviePoster">
-                    <a href="/movieDetails/${movie._id}">
+                    <a href="/movie/${movie.slug}">
                         <img src="/img/moviePosters/${movie.poster}" alt="Poster of ${movie.title} (${movie.releaseYear})">
                         <div class="moviePosterTitle">
                             <span class="title">${movie.title}</span><br>
