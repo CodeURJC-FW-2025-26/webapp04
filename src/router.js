@@ -72,8 +72,7 @@ router.get('/api/search', async (req, res) => {
     }
 });
 
-// Route for movies with slug
-router.get('/movieDetails/:slug', async (req, res) => {
+router.get('/movie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const movie = await movieCatalogue.getMovieBySlug(slug);
@@ -84,7 +83,7 @@ router.get('/movieDetails/:slug', async (req, res) => {
 
         const actors = await resolveActorsForMovie(movie);
 
-        res.render('movieDetails', {
+        res.render('movie', {
             ...movie,
             id: movie._id.toString(),
             slug: movie.slug,
@@ -99,40 +98,7 @@ router.get('/movieDetails/:slug', async (req, res) => {
     }
 });
 
-// Route for movies without slug (backwards compatibility)
-router.get('/movieDetails/:id', async (req, res) => {
-    try {
-        const movieId = new ObjectId(req.params.id);
-        const movie = await movieCatalogue.getMovie(movieId);
-
-        if (!movie) {
-            return res.status(404).send('Movie not found');
-        }
-
-        if (movie.slug) {
-            return res.redirect(301, `/movie/${movie.slug}`);
-        }
-
-        const actors = await resolveActorsForMovie(movie);
-
-        const releaseYear = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
-
-        res.render('movieDetails', {
-            ...movie,
-            releaseYear,
-            id: movie._id.toString(),
-            genresText: movie.genre?.join(', ') || '',
-            countriesText: movie.countryOfProduction?.join(', ') || '',
-            hasActors: actors.length > 0,
-            actors
-        });
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
-// Route for actors with slug
-router.get('/personDetails/:slug', async (req, res) => {
+router.get('/person/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const actor = await actorCatalogue.getActorBySlug(slug);
@@ -149,43 +115,9 @@ router.get('/personDetails/:slug', async (req, res) => {
             releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
         }));
 
-        res.render('personDetails', {
+        res.render('person', {
             ...actor,
             slug: actor.slug,
-            birthdayFormatted,
-            age,
-            movies,
-            hasMovies: movies.length > 0
-        });
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
-// Route for actors without slug (backwards compatibility)
-router.get('/personDetails/:id', async (req, res) => {
-    try {
-        const actorId = new ObjectId(req.params.id);
-        const actor = await actorCatalogue.getActor(actorId);
-
-        if (!actor) {
-            return res.status(404).send('Actor not found');
-        }
-
-        if (actor.slug) {
-            return res.redirect(301, `/person/${actor.slug}`);
-        }
-
-        const { birthdayFormatted, age } = formatActorDetails(actor);
-        const moviesRaw = await movieCatalogue.getMoviesByActor(actorId);
-
-        const movies = moviesRaw.map(m => ({
-            ...m,
-            releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
-        }));
-
-        res.render('personDetails', {
-            ...actor,
             birthdayFormatted,
             age,
             movies,
