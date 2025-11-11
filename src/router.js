@@ -82,9 +82,11 @@ router.get('/movie/:slug', async (req, res) => {
         }
 
         const actors = await resolveActorsForMovie(movie);
+        const releaseYear = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
 
         res.render('movie', {
             ...movie,
+            releaseYear,
             id: movie._id.toString(),
             slug: movie.slug,
             genresText: movie.genre?.join(', ') || '',
