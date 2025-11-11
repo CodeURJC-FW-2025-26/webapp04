@@ -67,7 +67,7 @@
                                 {{#actors}}
                                 <div class="person position-relative">
                                     <div class="d-flex">
-                                        <a href="/personDetails/{{_id}}">
+                                        <a href="/personDetails/{{slug}}">
                                             {{#portrait}}
                                             <img class="personIconSmall" src="/img/persons/{{portrait}}" alt="{{name}}">
                                             {{/portrait}}
@@ -77,7 +77,7 @@
                                             {{/portrait}}
                                         </a>
                                         <div>
-                                            <p><a href="/personDetails/{{id}}">{{name}}</a> as</p><br>
+                                            <p><a href="/personDetails/{{slug}}">{{name}}</a> as</p><br>
                                             <p class="m-0 p-0">{{role}}</p>
                                         </div>
                                     </div>

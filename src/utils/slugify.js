@@ -9,6 +9,17 @@ export function createMovieSlug(title, year) {
     return `${slug}_${year}`;
 }
 
+export function createActorSlug(name) {
+    const slug = name
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim();
+
+    return slug;
+}
+
 export function parseMovieSlug(slug) {
     const lastUnderscoreIndex = slug.lastIndexOf('_');
     if (lastUnderscoreIndex === -1) {

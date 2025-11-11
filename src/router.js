@@ -131,6 +131,38 @@ router.get('/movieDetails/:id', async (req, res) => {
     }
 });
 
+// Route for actors with slug
+router.get('/personDetails/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const actor = await actorCatalogue.getActorBySlug(slug);
+
+        if (!actor) {
+            return res.status(404).send('Actor not found');
+        }
+
+        const { birthdayFormatted, age } = formatActorDetails(actor);
+        const moviesRaw = await movieCatalogue.getMoviesByActor(actor._id);
+
+        const movies = moviesRaw.map(m => ({
+            ...m,
+            releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
+        }));
+
+        res.render('personDetails', {
+            ...actor,
+            slug: actor.slug,
+            birthdayFormatted,
+            age,
+            movies,
+            hasMovies: movies.length > 0
+        });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+// Route for actors without slug (backwards compatibility)
 router.get('/personDetails/:id', async (req, res) => {
     try {
         const actorId = new ObjectId(req.params.id);
@@ -138,6 +170,10 @@ router.get('/personDetails/:id', async (req, res) => {
 
         if (!actor) {
             return res.status(404).send('Actor not found');
+        }
+
+        if (actor.slug) {
+            return res.redirect(301, `/person/${actor.slug}`);
         }
 
         const { birthdayFormatted, age } = formatActorDetails(actor);
@@ -235,6 +271,7 @@ async function resolveActorsForMovie(movie) {
         if (actor) {
             actorsResolved.push({
                 id: actor._id.toString(),
+                slug: actor.slug,
                 name: actor.name,
                 portrait: actor.portrait,
                 description: actor.description,
