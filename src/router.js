@@ -41,6 +41,28 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/movie/:id/poster', async (req, res) => {
+
+    const movieId = new ObjectId(req.params.id);
+    const movie = await movieCatalogue.getMovie(movieId);
+
+    if (!movie || !movie.poster) {
+        return res.status(404).send('Poster not found');
+    }
+
+    const posterPath = `./uploads/${movie.poster}`;
+
+    res.download(posterPath, movie.poster, (err) => {
+        if (err) {
+            console.error('Error sending poster:', err);
+            if (!res.headersSent) {
+                res.status(500).send('Error downloading poster');
+            }
+        }
+    });
+
+});
+
 router.get('/api/search', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
@@ -100,6 +122,13 @@ router.get('/movieDetails/:id', async (req, res) => {
     }
 });
 
+router.get('/movieDetails/:id/poster', async (req, res) => {
+    const movieId = new ObjectId(req.params.id);
+    const movie = await movieCatalogue.getMovie(movieId);
+
+    res.download('uploads/' + movie.poster);
+
+});
 
 router.get('/personDetails/:id', async (req, res) => {
     try {
@@ -142,19 +171,20 @@ router.get('/addNewMovie', (req, res) => {
 
 router.post('/addNewMovie', uploadPoster, (req, res) => {
     try {
+        const releaseYear = req.body.releaseDate ? new Date(req.body.releaseDate).getFullYear() : '';
         let oldName = req.file?.filename;
-
-        const finName = renameUploadedFile(oldName, req.body.title, req.body.releaseYear);
+        const finName = renameUploadedFile(oldName, req.body.title, releaseYear);
 
         const movie = {
             title: req.body.title,
             poster: getImagePath(finName),
             description: req.body.description,
             genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
-            releaseYear: Number(req.body.releaseYear),
+            releaseDate: req.body.releaseDate,
             countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
-            ageRestriction: Number(req.body.ageRestriction),
-            actors: Array.isArray(req.body.actors) ? req.body.actors : [req.body.actors]
+            ageRating: Number(req.body.ageRating),
+            actors: null
+            //TODO acutally add actors in array
         };
 
         movieCatalogue.addMovie(movie);
