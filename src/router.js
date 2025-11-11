@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 import {getImagePath, renameUploadedFile, uploadPoster} from "./imageUploader.js";
+import {createMovieSlug} from "./utils/slugify.js";
 
 const router = express.Router();
 export default router;
@@ -123,9 +124,9 @@ router.get('/movie/:slug', async (req, res) => {
     }
 });
 
-router.get('/movieDetails/:id/poster', async (req, res) => {
-    const movieId = new ObjectId(req.params.id);
-    const movie = await movieCatalogue.getMovie(movieId);
+router.get('/movie/:slug/poster', async (req, res) => {
+    const slug = req.params.slug;
+    const movie = await movieCatalogue.getMovieBySlug(slug);
 
     res.download('uploads/' + movie.poster);
 
@@ -180,14 +181,14 @@ router.post('/addNewMovie', uploadPoster, (req, res) => {
         const movie = {
             title: req.body.title,
             poster: getImagePath(finName),
-            //slug: createMovieSlug(req.body.title, releaseYear),
+            slug: createMovieSlug(req.body.title, releaseYear),
             description: req.body.description,
             genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
             releaseDate: req.body.releaseDate,
             countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
             ageRating: Number(req.body.ageRating),
             actors: null
-            //TODO acutally add actors in array add slug
+            //TODO acutally add actors in array
         };
 
         movieCatalogue.addMovie(movie);
