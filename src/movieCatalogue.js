@@ -1,15 +1,25 @@
 import { database } from './database.js';
+import { createMovieSlug } from './utils/slugify.js';
 
 const collection = database.collection('movies');
 await collection.createIndex({ title: 'text' });
+await collection.createIndex({ slug: 1 }, { unique: true });
 
 export async function addMovie(movie) {
+    if (!movie.slug && movie.title && movie.releaseYear) {
+        movie.slug = createMovieSlug(movie.title, movie.releaseYear);
+    }
+
     const result = await collection.insertOne(movie);
     return result.insertedId;
 }
 
 export async function getMovie(movieId) {
     return await collection.findOne({ _id: movieId });
+}
+
+export async function getMovieBySlug(slug) {
+    return await collection.findOne({ slug: slug });
 }
 
 export async function getMovies() {

@@ -41,10 +41,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/movie/:id/poster', async (req, res) => {
+router.get('/movie/:slug/poster', async (req, res) => {
 
-    const movieId = new ObjectId(req.params.id);
-    const movie = await movieCatalogue.getMovie(movieId);
+    const slug = req.params.slug;
+    const movie = await movieCatalogue.getMovieBySlug(slug);
 
     if (!movie || !movie.poster) {
         return res.status(404).send('Poster not found');
@@ -95,29 +95,30 @@ router.get('/api/search', async (req, res) => {
     }
 });
 
-router.get('/movieDetails/:id', async (req, res) => {
+router.get('/movie/:slug', async (req, res) => {
     try {
-        const movieId = new ObjectId(req.params.id);
-        const movie = await movieCatalogue.getMovie(movieId);
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
 
         if (!movie) {
             return res.status(404).send('Movie not found');
         }
 
         const actors = await resolveActorsForMovie(movie);
-
         const releaseYear = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
 
-        res.render('movieDetails', {
+        res.render('movie', {
             ...movie,
             releaseYear,
             id: movie._id.toString(),
+            slug: movie.slug,
             genresText: movie.genre?.join(', ') || '',
             countriesText: movie.countryOfProduction?.join(', ') || '',
             hasActors: actors.length > 0,
             actors
         });
     } catch (error) {
+        console.error('Error loading movie details:', error);
         res.status(500).send('Server error');
     }
 });
@@ -130,25 +131,26 @@ router.get('/movieDetails/:id/poster', async (req, res) => {
 
 });
 
-router.get('/personDetails/:id', async (req, res) => {
+router.get('/person/:slug', async (req, res) => {
     try {
-        const actorId = new ObjectId(req.params.id);
-        const actor = await actorCatalogue.getActor(actorId);
+        const slug = req.params.slug;
+        const actor = await actorCatalogue.getActorBySlug(slug);
 
         if (!actor) {
             return res.status(404).send('Actor not found');
         }
 
         const { birthdayFormatted, age } = formatActorDetails(actor);
-        const moviesRaw = await movieCatalogue.getMoviesByActor(actorId);
+        const moviesRaw = await movieCatalogue.getMoviesByActor(actor._id);
 
         const movies = moviesRaw.map(m => ({
             ...m,
             releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
         }));
 
-        res.render('personDetails', {
+        res.render('person', {
             ...actor,
+            slug: actor.slug,
             birthdayFormatted,
             age,
             movies,
@@ -178,13 +180,14 @@ router.post('/addNewMovie', uploadPoster, (req, res) => {
         const movie = {
             title: req.body.title,
             poster: getImagePath(finName),
+            //slug: createMovieSlug(req.body.title, releaseYear),
             description: req.body.description,
             genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
             releaseDate: req.body.releaseDate,
             countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
             ageRating: Number(req.body.ageRating),
             actors: null
-            //TODO acutally add actors in array
+            //TODO acutally add actors in array add slug
         };
 
         movieCatalogue.addMovie(movie);
@@ -259,6 +262,7 @@ async function resolveActorsForMovie(movie) {
         if (actor) {
             actorsResolved.push({
                 id: actor._id.toString(),
+                slug: actor.slug,
                 name: actor.name,
                 portrait: actor.portrait,
                 description: actor.description,
@@ -269,6 +273,7 @@ async function resolveActorsForMovie(movie) {
 
     return actorsResolved;
 }
+
 function formatActorDetails(actor) {
     const birthDate = new Date(actor.dateOfBirth);
     const birthdayFormatted = birthDate.toLocaleDateString("en-US", {

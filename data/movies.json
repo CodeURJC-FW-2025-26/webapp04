@@ -1,6 +1,7 @@
 [
   {
     "title": "One Battle After Another",
+    "slug": "one-battle-after-another_2025",
     "poster": "one-battle-after-another_2025.jpg",
     "description": "When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries reunite to rescue the daughter of one of their own.",
     "genre": ["Thriller", "Comedy", "Action", "Crime"],
@@ -15,6 +16,7 @@
   },
   {
     "title": "The Conjuring: Last Rites",
+    "slug": "the-conjuring-last-rites_2025",
     "poster": "the-conjuring-last-rites_2025.jpg",
     "description": "Paranormal investigators Ed and Lorraine Warren take on one last terrifying case involving mysterious entities they must confront.",
     "genre": ["Horror"],
@@ -28,6 +30,7 @@
   },
   {
     "title": "The Long Walk",
+    "slug": "the-long-walk_2025",
     "poster": "the-long-walk_2025.jpg",
     "description": "In a dystopian, alternate-America ruled by a totalitarian regime, 50 teenage boys take part in a deadly annual walking contest, forced to maintain a minimum pace or be executed, until only one survivor remains.",
     "genre": ["Horror", "Science Fiction", "Thriller"],
@@ -38,6 +41,7 @@
   },
   {
     "title": "Weapons",
+    "slug": "weapons_2025",
     "poster": "weapons_2025.jpg",
     "description": "When all but one child from the same class mysteriously vanish on the same night at exactly the same time, a community is left questioning who or what is behind their disappearance.",
     "genre": ["Horror", "Mystery"],
@@ -48,6 +52,7 @@
   },
   {
     "title": "Materialists",
+    "slug": "materialists_2025",
     "poster": "materialists_2025.jpg",
     "description": "A young, ambitious New York City matchmaker finds herself torn between the perfect match and her imperfect ex.",
     "genre": ["Romance", "Drama"],
@@ -62,6 +67,7 @@
   },
   {
     "title": "Mickey 17",
+    "slug": "mickey-17_2025",
     "poster": "mickey-17_2025.jpg",
     "description": "Unlikely hero Mickey Barnes finds himself in the extraordinary circumstance of working for an employer who demands the ultimate commitment to the job… to die, for a living.",
     "genre": ["Comedy", "Adventure", "Science Fiction"],
@@ -74,6 +80,7 @@
   },
   {
     "title": "The Wild Robot",
+    "slug": "the-wild-robot_2024",
     "poster": "the-wild-robot_2024.jpg",
     "description": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island’s animals and cares for an orphaned baby goose.",
     "genre": ["Animation", "Drama", "Family", "Science Fiction"],
@@ -84,6 +91,7 @@
   },
   {
     "title": "The Penguin Lessons",
+    "slug": "the-penguin-lessons_2024",
     "poster": "the-penguin-lessons_2024.jpg",
     "description": "In 1976, as Argentina descends into violence and chaos, a world-weary English teacher regains his compassion for others thanks to an unlikely friendship with a penguin.",
     "genre": ["Drama"],
@@ -96,6 +104,7 @@
   },
   {
     "title": "Queer",
+    "slug": "queer_2024",
     "poster": "queer_2024.jpg",
     "description": "In 1950s Mexico City, William Lee, an American ex-pat in his late forties, leads a solitary life amidst a small American community. However, the arrival in town of Eugene Allerton, a young student, stirs William into finally establishing a meaningful connection with someone.",
     "genre": ["Romance", "Drama"],
@@ -109,6 +118,7 @@
   },
   {
     "title": "Niki",
+    "slug": "niki_2024",
     "poster": "niki_2024.jpg",
     "description": "French-American artist Niki de Saint-Phalle, from the age of 23, is a model and an aspiring actor who is married and has a two year old daughter. Together, they flee the U.S. during the oppressive McCarthy era and come to France, where they experience a short-lived euphoria. Soon, distant and frightening memories begin to emerge in Niki’s mind. Her vocation as an artist will be her salvation.",
     "genre": ["Drama", "History"],
@@ -123,6 +133,7 @@
   },
   {
     "title": "Flow",
+    "slug": "flow_2024",
     "poster": "flow_2024.jpg",
     "description": "A solitary cat, displaced by a great flood, finds refuge on a boat with various species and must navigate the challenges of adapting to a transformed world together.",
     "genre": ["Family", "Fantasy", "Animation", "Adventure"],
@@ -133,6 +144,7 @@
   },
   {
     "title": "Challengers",
+    "slug": "challengers_2024",
     "poster": "challengers_2024.jpg",
     "description": "Tennis player turned coach Tashi has taken her husband, Art, and transformed him into a world-famous Major champion. To jolt him out of his recent losing streak, she signs him up for a “Challenger” event — close to the lowest level of pro tournament — where he finds himself standing across the net from his former best friend and Tashi’s former boyfriend.",
     "genre": ["Romance", "Drama"],
@@ -147,6 +159,7 @@
   },
   {
     "title": "All of Us Strangers",
+    "slug": "all-of-us-stranger_2023",
     "poster": "all-of-us-stranger_2023.jpg",
     "description": "One night in his near-empty tower block in contemporary London, Adam has a chance encounter with a mysterious neighbor Harry, which punctures the rhythm of his everyday life.",
     "genre": ["Drama", "Romance", "Fantasy"],
@@ -160,6 +173,7 @@
   },
   {
     "title": "Saltburn",
+    "slug": "saltburn_2023",
     "poster": "saltburn_2023.jpg",
     "description": "Struggling to find his place at Oxford University, student Oliver Quick finds himself drawn into the world of the charming and aristocratic Felix Catton, who invites him to Saltburn, his eccentric family’s sprawling estate, for a summer never to be forgotten.",
     "genre": ["Comedy", "Drama", "Thriller"],
@@ -173,6 +187,7 @@
   },
   {
     "title": "Rotting in the Sun",
+    "slug": "rotting-in-the-sun_2023",
     "poster": "rotting-in-the-sun_2023.jpg",
     "description": "A filmmaker facing an existential crisis goes on a vacation to a Mexican gay nudist beach, where he meets a social media celebrity who convinces him to collaborate with him on his new TV show. But one disappears and another embarks on a wild journey through Mexico City to find him.",
     "genre": ["Thriller", "Comedy", "Mystery"],
@@ -186,6 +201,7 @@
   },
   {
     "title": "Triangle of Sadness",
+    "slug": "triangle-of-sadness_2022",
     "poster": "triangle-of-sadness_2022.jpg",
     "description": "A celebrity model couple are invited on a luxury cruise for the uber-rich, helmed by an unhinged, alcoholic captain. What first appears Instagrammable ends catastrophically, leaving the survivors stranded on a desert island in a struggle of hierarchy.",
     "genre": ["Drama", "Comedy"],
@@ -199,6 +215,7 @@
   },
   {
     "title": "Call me by your Name",
+    "slug": "call-me-by-your-name_2017",
     "poster": "call-me-by-your-name_2017.jpg",
     "description": "In the summer of 1983, a 17-year-old Elio spends his days in his family’s villa in Italy. One day Oliver, a graduate student, arrives to assist Elio’s father, a professor of Greco-Roman culture. Soon, Elio and Oliver discover a summer that will alter their lives forever.",
     "genre": ["Romance", "Drama"],
@@ -212,6 +229,7 @@
   },
   {
     "title": "The Invisible Guest",
+    "slug": "the-invisible-guest_2016",
     "poster": "the-invisible-guest_2016.jpg",
     "description": "Barcelona, Spain. Adrián Doria, a young and successful businessman accused of murder, meets one night with Virginia Goodman, an expert interrogation lawyer, in order to devise a defense strategy.",
     "genre": ["Mystery", "Thriller", "Drama"],
@@ -225,6 +243,7 @@
   },
   {
     "title": "The Imitation Game",
+    "slug": "the-imitation-game_2014",
     "poster": "the-imitation-game_2014.jpg",
     "description": "Based on the real life story of legendary cryptanalyst Alan Turing, the film portrays the nail-biting race against time by Turing and his brilliant team of code-breakers at Britain’s top-secret Government Code and Cypher School at Bletchley Park, during the darkest days of World War II.",
     "genre": ["Drama", "War", "Thriller", "History"],
@@ -238,6 +257,7 @@
   },
   {
     "title": "The Conjuring",
+    "slug": "the-conjuring_2013",
     "poster": "the-conjuring_2013.jpg",
     "description": "Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse. Forced to confront a powerful entity, the Warrens find themselves caught in the most terrifying case of their lives.",
     "genre": ["Horror", "Thriller"],
@@ -251,6 +271,7 @@
   },
   {
     "title": "Spirited Away",
+    "slug": "spirited-away_2001",
     "poster": "spirited-away_2001.jpg",
     "description": "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.",
     "genre": ["Family", "Fantasy", "Animation"],
