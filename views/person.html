@@ -61,12 +61,12 @@
                         </div>
 
                         <div class="detailsBlock">
-                            <h3>Filmography</h3>
+                            <h3 class="pb-1">Filmography</h3>
 
                             {{#hasMovies}}
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled d-flex flex-column gap-1">
                                 {{#movies}}
-                                <li class="mb-2">
+                                <li>
                                     <a href="/movie/{{slug}}">
                                         {{title}} ({{releaseYear}})
                                     </a>
