@@ -3,8 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 // Ensure uploads directory exists
-//TODO actually change to 'uploads/'
-const uploadsDir = './public/img/moviePosters';
+const uploadsDir = 'uploads/';
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
