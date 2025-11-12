@@ -38,7 +38,7 @@ export async function getTotalNumberOfMovies() {
     return await collection.countDocuments();
 }
 
-export async function searchMovies(searchQuery, genre, sortBy, sortOrder, skip, limit) {
+export async function searchMovies(searchQuery, genre, country, sortBy, sortOrder, skip, limit) {
     const query = {};
 
     if (searchQuery && searchQuery.trim() !== '') {
@@ -47,6 +47,10 @@ export async function searchMovies(searchQuery, genre, sortBy, sortOrder, skip, 
 
     if (genre && genre !== 'all') {
         query.genre = genre;
+    }
+
+    if (country && country !== 'all') {
+        query.countryOfProduction = country;
     }
 
     const sort = {};
@@ -79,4 +83,17 @@ export async function getAllGenres() {
     });
 
     return Array.from(genresSet).sort();
+}
+
+export async function getAllCountries() {
+    const movies = await collection.find().toArray();
+    const countrySet = new Set();
+
+    movies.forEach(movie => {
+        if (Array.isArray(movie.countryOfProduction)) {
+            movie.countryOfProduction.forEach(g => countrySet.add(g));
+        }
+    });
+
+    return Array.from(countrySet).sort();
 }

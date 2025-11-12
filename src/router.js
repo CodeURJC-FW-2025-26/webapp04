@@ -16,10 +16,11 @@ router.get('/', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
 
-        const [totalMovies, movies, genres] = await Promise.all([
+        const [totalMovies, movies, genres, countries] = await Promise.all([
             movieCatalogue.getTotalNumberOfMovies(),
             movieCatalogue.getMoviesPaginated(skip, limit),
-            movieCatalogue.getAllGenres()
+            movieCatalogue.getAllGenres(),
+            movieCatalogue.getAllCountries()
         ]);
 
         const totalPages = Math.ceil(totalMovies / limit);
@@ -33,7 +34,8 @@ router.get('/', async (req, res) => {
             page,
             totalPages,
             ...pagination,
-            genres
+            genres,
+            countries
         });
     } catch (error) {
         res.status(500).send('Server error');
@@ -70,6 +72,7 @@ router.get('/api/search', async (req, res) => {
         const { movies, total } = await movieCatalogue.searchMovies(
             searchParams.searchQuery,
             searchParams.genre,
+            searchParams.country,
             searchParams.sortBy,
             searchParams.sortOrder,
             skip,
@@ -200,6 +203,7 @@ router.post('/addNewMovie', uploadPoster, (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 // - - - HELPER - - -
 
 function calculatePagination(currentPage, totalPages) {
@@ -248,6 +252,7 @@ function getSearchParams(req) {
     return {
         searchQuery: req.query.q || '',
         genre: req.query.genre || 'all',
+        country: req.query.country || 'all',
         sortBy: req.query.sortBy || 'releaseDate',
         sortOrder: req.query.sortOrder || 'desc'
     };

@@ -3,6 +3,7 @@ let currentPage = 1;
 
 const searchInput = document.getElementById('searchInput');
 const genreFilter = document.getElementById('genreFilter');
+const countryFilter = document.getElementById('countryFilter');
 const sortBy = document.getElementById('sortBy');
 const sortOrder = document.getElementById('sortOrder');
 const filterButton = document.getElementById('filterBtn');
@@ -31,6 +32,11 @@ genreFilter.addEventListener('change', () => {
     performSearch();
 });
 
+countryFilter.addEventListener('change', () => {
+    currentPage = 1;
+    performSearch();
+})
+
 sortBy.addEventListener('change', () => {
     currentPage = 1;
     performSearch();
@@ -44,11 +50,12 @@ sortOrder.addEventListener('change', () => {
 async function performSearch(page = 1) {
     const query = searchInput.value;
     const genre = genreFilter.value;
+    const country = countryFilter.value;
     const sort = sortBy.value;
     const order = sortOrder.value;
 
     try {
-        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&genre=${genre}&sortBy=${sort}&sortOrder=${order}&page=${page}`);
+        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}&genre=${genre}&country=${country}&sortBy=${sort}&sortOrder=${order}&page=${page}`);
         const data = await response.json();
 
         updateResults(data);
