@@ -3,6 +3,17 @@
 @import url("moviePoster.css");
 @import url("personPortrait.css");
 
+.metaRow > div {
+    max-width: 100%;
+    min-width: 50%;
+}
+
+.metaRow > h3 {
+    text-align: right;
+    min-width: min-content;
+    max-width: 50%;
+}
+
 .headerPersons {
     height: 2em;
     margin: 0;

@@ -34,20 +34,47 @@
 
         <div class="container-fluid p-0">
             <div class="row g-3">
-                <div class="col-12 col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <div class="moviePoster">
                         <img src="/img/moviePosters/{{poster}}" alt="Poster of {{title}} ({{releaseYear}})">
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <div class="details">
                         <div class="detailsBlock">
-                            <div class="meta">
-                                <h3>{{genresText}}</h3>
-                                <h3>{{ageRating}}</h3>
-                                <h3>{{releaseYear}}</h3>
-                                <h3>{{countriesText}}</h3>
+                            <div class="meta p-0 m-0">
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Release Year</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3>{{releaseYear}}</h3>
+                                </div>
+
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Genre</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3 class="flex-shrink-1">{{genresText}}</h3>
+                                </div>
+
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Country</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3>{{countriesText}}</h3>
+                                </div>
+
+                                <div class="metaRow d-flex m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Age Rating</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3>{{ageRating}}</h3>
+                                </div>
                             </div>
                         </div>
 

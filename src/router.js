@@ -1,6 +1,4 @@
 import express from 'express';
-import { ObjectId } from 'mongodb';
-
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 
@@ -96,7 +94,6 @@ router.get('/movie/:slug', async (req, res) => {
         });
     } catch (error) {
         console.error('Error loading movie details:', error);
-        res.status(500).send('Server error');
     }
 });
 
@@ -109,7 +106,9 @@ router.get('/person/:slug', async (req, res) => {
             return res.status(404).send('Actor not found');
         }
 
-        const { birthdayFormatted, age } = formatActorDetails(actor);
+        const { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath } = formatActorDateDetails(actor);
+        const alive = dayOfDeathFormatted === null;
+
         const moviesRaw = await movieCatalogue.getMoviesByActor(actor._id);
 
         const movies = moviesRaw.map(m => ({
@@ -120,8 +119,11 @@ router.get('/person/:slug', async (req, res) => {
         res.render('person', {
             ...actor,
             slug: actor.slug,
+            alive,
             birthdayFormatted,
             age,
+            dayOfDeathFormatted,
+            ageAtDeath,
             movies,
             hasMovies: movies.length > 0
         });
@@ -217,16 +219,42 @@ async function resolveActorsForMovie(movie) {
     return actorsResolved;
 }
 
-function formatActorDetails(actor) {
-    const birthDate = new Date(actor.dateOfBirth);
-    const birthdayFormatted = birthDate.toLocaleDateString("en-US", {
+function formatActorDateDetails(actor) {
+    const birthdayFormatted = formatDate(actor.dateOfBirth);
+    let age = null; let dayOfDeathFormatted = null; let ageAtDeath = null;
+
+    if (actor.dateOfDeath) {
+        dayOfDeathFormatted = formatDate(actor.dateOfDeath);
+        ageAtDeath = getActorsAgeAtDeath(actor);
+    } else {
+        age = getActorsCurrentAge(actor);
+    }
+
+    return { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath };
+}
+
+function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric"
     });
+}
 
-    const today = new Date();
-    const age = today.getFullYear() - birthDate.getFullYear();
+function getActorsCurrentAge(actor) {
+    return calculateYearDifference(actor.dateOfBirth);
+}
 
-    return { birthdayFormatted, age };
+function getActorsAgeAtDeath(actor) {
+    if (!actor.dateOfDeath) { return null; }
+    return calculateYearDifference(actor.dateOfBirth, actor.dateOfDeath);
+}
+
+function calculateYearDifference(startDate, endDate) {
+    const endDateMs = !endDate ? Date.now() : new Date(endDate).getTime();
+    const startDateMs = new Date(startDate).getTime();
+
+    const ageDifMs = endDateMs - startDateMs;
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
 }

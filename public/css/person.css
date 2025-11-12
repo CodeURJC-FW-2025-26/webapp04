@@ -1,3 +1,14 @@
 @import url("general.css");
 @import url("pageLayout.css");
 @import url("personPortrait.css");
+
+.metaRow > div {
+    max-width: 100%;
+    min-width: 30%;
+}
+
+.metaRow > h3 {
+    text-align: right;
+    min-width: min-content;
+    max-width: 70%;
+}

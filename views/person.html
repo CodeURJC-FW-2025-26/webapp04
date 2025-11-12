@@ -34,7 +34,7 @@
 
         <div class="container-fluid p-0">
             <div class="row g-3">
-                <div class="col-12 col-md-6">
+                <div class="col-md-4 col-sm-12">
                     <div>
                         {{#portrait}}
                         <img class="personIconLarge" src="/img/persons/{{portrait}}" alt="Portrait of {{name}}">
@@ -46,14 +46,57 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-md-8 col-sm-12">
                     <div class="details">
                         <div class="detailsBlock">
-                            <div class="meta">
-                                <h3 id="personBirthday">{{birthdayFormatted}}</h3>
-                                <h3>{{age}}</h3>
-                                <h3 id="personPlaceOfBirth">{{placeOfBirth}}</h3>
+                            <div class="meta p-0 m-0">
+
+                                {{#alive}}
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Birthday</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3>{{birthdayFormatted}} ({{age}})</h3>
+                                </div>
+
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Birthplace</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
+                                </div>
+                                {{/alive}}
+
+                                {{^alive}}
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Birthday</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3>{{birthdayFormatted}}</h3>
+                                </div>
+
+                                <div class="metaRow d-flex pb-1 m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Birthplace</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
+                                </div>
+
+                                <div class="metaRow d-flex m-0">
+                                    <div class="flex-fill d-flex p-0 m-0">
+                                        <p>Died</p>
+                                        <hr class="flex-grow-1 mx-3">
+                                    </div>
+                                    <h3 class="text-end">{{dayOfDeathFormatted}} (Aged {{ageAtDeath}})</h3>
+                                </div>
+                                {{/alive}}
+
                             </div>
+
                         </div>
 
                         <div class="detailsBlock">

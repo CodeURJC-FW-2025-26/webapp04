@@ -43,15 +43,8 @@
     margin: 0 0 0.25em 0;
 }
 
-.meta h3 {
-    display: inline;
-}
-
-.meta h3::after {
-    padding: 0 0.5rem;
-    content: "•";
-}
-
-.meta h3:last-child::after {
-    content: "";
+.meta h3,
+.meta p {
+    margin: 0;
+    padding: 0;
 }
