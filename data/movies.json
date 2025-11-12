@@ -7,7 +7,7 @@
     "genre": ["Horror", "Science Fiction", "Thriller"],
     "releaseDate": "2025-09-12",
     "countryOfProduction": ["USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": null
   },
   {
@@ -18,7 +18,7 @@
     "genre": ["Thriller", "Comedy", "Action", "Crime"],
     "releaseDate": "2025-09-08",
     "countryOfProduction": ["USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Leonardo DiCaprio", "role": "Bob" },
       { "name": "Sean Penn", "role": "Steven J. Lockjaw" },
@@ -33,7 +33,7 @@
     "genre": ["Horror"],
     "releaseDate": "2025-09-05",
     "countryOfProduction": ["USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Vera Farmiga", "role": "Lorraine Warren" },
       { "name": "Patrick Wilson", "role": "Ed Warren" }
@@ -47,7 +47,7 @@
     "genre": ["Horror", "Mystery"],
     "releaseDate": "2025-08-08",
     "countryOfProduction": ["USA"],
-    "ageRating": 18,
+    "ageRating": "18",
     "actors": null
   },
   {
@@ -58,7 +58,7 @@
     "genre": ["Romance", "Drama"],
     "releaseDate": "2025-06-13",
     "countryOfProduction": ["USA", "Finland"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Dakota Johnson", "role": "Lucy" },
       { "name": "Chris Evans", "role": "John" },
@@ -73,7 +73,7 @@
     "genre": ["Comedy", "Adventure", "Science Fiction"],
     "releaseDate": "2025-02-13",
     "countryOfProduction": ["USA", "UK"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Robert Pattinson", "role": "Mickey Barnes" }
     ]
@@ -86,7 +86,7 @@
     "genre": ["Animation", "Drama", "Family", "Science Fiction"],
     "releaseDate": "2024-09-08",
     "countryOfProduction": ["USA"],
-    "ageRating": 0,
+    "ageRating": "A",
     "actors": null
   },
   {
@@ -97,7 +97,7 @@
     "genre": ["Drama"],
     "releaseDate": "2024-09-06",
     "countryOfProduction": ["Spain", "UK", "USA"],
-    "ageRating": 6,
+    "ageRating": "7",
     "actors": [
       { "name": "Steve Coogan", "role": "Tom Michell" }
     ]
@@ -110,7 +110,7 @@
     "genre": ["Romance", "Drama"],
     "releaseDate": "2024-09-03",
     "countryOfProduction": ["Italy", "USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Daniel Craig", "role": "William Lee" },
       { "name": "Drew Starkey", "role": "Eugene Allerton" }
@@ -124,7 +124,7 @@
     "genre": ["Drama", "History"],
     "releaseDate": "2024-05-23",
     "countryOfProduction": ["France", "Belgium"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Charlotte Le Bon", "role": "Niki de Saint Phalle" },
       { "name": "Damien Bonnard", "role": "Jean Tinguely" },
@@ -139,7 +139,7 @@
     "genre": ["Family", "Fantasy", "Animation", "Adventure"],
     "releaseDate": "2024-05-22",
     "countryOfProduction": ["Latvia", "Belgium", "France"],
-    "ageRating": 6,
+    "ageRating": "7",
     "actors": null
   },
   {
@@ -150,7 +150,7 @@
     "genre": ["Romance", "Drama"],
     "releaseDate": "2024-03-26",
     "countryOfProduction": ["Italy", "USA"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Zendaya", "role": "Tashi Duncan Donaldson" },
       { "name": "Mike Faist", "role": "Art Donaldson" },
@@ -165,7 +165,7 @@
     "genre": ["Drama", "Romance", "Fantasy"],
     "releaseDate": "2023-08-31",
     "countryOfProduction": ["UK", "USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Andrew Scott", "role": "Adam" },
       { "name": "Paul Mescal", "role": "Harry" }
@@ -179,7 +179,7 @@
     "genre": ["Comedy", "Drama", "Thriller"],
     "releaseDate": "2023-08-31",
     "countryOfProduction": ["UK", "USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Barry Keoghan", "role": "Oliver Quick" },
       { "name": "Jacob Elordi", "role": "Felix Catton" }
@@ -193,7 +193,7 @@
     "genre": ["Thriller", "Comedy", "Mystery"],
     "releaseDate": "2023-01-22",
     "countryOfProduction": ["Chile", "Mexico", "USA"],
-    "ageRating": 18,
+    "ageRating": "18",
     "actors": [
       { "name": "Sebastián Silva", "role": "himself" },
       { "name": "Jordan Firstman", "role": "himself" }
@@ -207,7 +207,7 @@
     "genre": ["Drama", "Comedy"],
     "releaseDate": "2022-05-22",
     "countryOfProduction": ["Denmark", "France", "Germany", "Greece", "Mexico", "Sweden", "Switzerland", "Turkey", "UK", "USA"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Harris Dickinson", "role": "Carl" },
       { "name": "Charlbi Dean", "role": "Yaya" }
@@ -221,7 +221,7 @@
     "genre": ["Romance", "Drama"],
     "releaseDate": "2017-01-22",
     "countryOfProduction": ["Brazil", "France", "Italy", "USA"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Armie Hammer", "role": "Oliver" },
       { "name": "Timothée Chalamet", "role": "Elio" }
@@ -235,7 +235,7 @@
     "genre": ["Mystery", "Thriller", "Drama"],
     "releaseDate": "2016-09-23",
     "countryOfProduction": ["Spain"],
-    "ageRating": 12,
+    "ageRating": "12",
     "actors": [
       { "name": "Mario Casas", "role": "Adrián Doria" },
       { "name": "Ana Wagener", "role": "Elvira Garrido" }
@@ -249,7 +249,7 @@
     "genre": ["Drama", "War", "Thriller", "History"],
     "releaseDate": "2014-08-29",
     "countryOfProduction": ["USA", "UK"],
-    "ageRating": 6,
+    "ageRating": "7",
     "actors": [
       { "name": "Benedict Cumberbatch", "role": "Alan Turing" },
       { "name": "Keira Knightley", "role": "Joan Clarke" }
@@ -263,7 +263,7 @@
     "genre": ["Horror", "Thriller"],
     "releaseDate": "2013-07-15",
     "countryOfProduction": ["USA"],
-    "ageRating": 16,
+    "ageRating": "16",
     "actors": [
       { "name": "Vera Farmiga", "role": "Lorraine Warren" },
       { "name": "Patrick Wilson", "role": "Ed Warren" }
@@ -277,7 +277,7 @@
     "genre": ["Family", "Fantasy", "Animation"],
     "releaseDate": "2001-07-20",
     "countryOfProduction": ["Japan"],
-    "ageRating": 0,
+    "ageRating": "A",
     "actors": null
   }
 ]
