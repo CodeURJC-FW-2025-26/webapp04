@@ -1,6 +1,8 @@
 import express from 'express';
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
+import {getImagePath, renameUploadedFile, uploadPoster} from "./imageUploader.js";
+import {createMovieSlug} from "./utils/slugify.js";
 
 const router = express.Router();
 export default router;
@@ -36,6 +38,28 @@ router.get('/', async (req, res) => {
     } catch (error) {
         res.status(500).send('Server error');
     }
+});
+
+router.get('/movie/:slug/poster', async (req, res) => {
+
+    const slug = req.params.slug;
+    const movie = await movieCatalogue.getMovieBySlug(slug);
+
+    if (!movie || !movie.poster) {
+        return res.status(404).send('Poster not found');
+    }
+
+    const posterPath = `./uploads/${movie.poster}`;
+
+    res.download(posterPath, movie.poster, (err) => {
+        if (err) {
+            console.error('Error sending poster:', err);
+            if (!res.headersSent) {
+                res.status(500).send('Error downloading poster');
+            }
+        }
+    });
+
 });
 
 router.get('/api/search', async (req, res) => {
@@ -97,6 +121,14 @@ router.get('/movie/:slug', async (req, res) => {
     }
 });
 
+router.get('/movie/:slug/poster', async (req, res) => {
+    const slug = req.params.slug;
+    const movie = await movieCatalogue.getMovieBySlug(slug);
+
+    res.download('uploads/' + movie.poster);
+
+});
+
 router.get('/person/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -132,16 +164,42 @@ router.get('/person/:slug', async (req, res) => {
     }
 });
 
+
 router.get('/addNewMovie', (req, res) => {
-    res.render('addNewMovie');
+    try {
+        res.render('addNewMovie', {});
+
+    } catch (err) {
+        res.status(500).send('Server error');
+    }
 });
 
-router.post('/addNewMovie', (req, res) => {
-    res.render('addNewMovie', {
-        title: req.body.title
-    });
-});
+router.post('/addNewMovie', uploadPoster, (req, res) => {
+    try {
+        const releaseYear = req.body.releaseDate ? new Date(req.body.releaseDate).getFullYear() : '';
+        let oldName = req.file?.filename;
+        const finName = renameUploadedFile(oldName, req.body.title, releaseYear);
 
+        const movie = {
+            title: req.body.title,
+            poster: getImagePath(finName),
+            slug: createMovieSlug(req.body.title, releaseYear),
+            description: req.body.description,
+            genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
+            releaseDate: req.body.releaseDate,
+            countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
+            ageRating: Number(req.body.ageRating),
+            actors: null
+            //TODO acutally add actors in array
+        };
+
+        movieCatalogue.addMovie(movie);
+        res.redirect('/');
+
+    } catch (err) {
+        res.status(500).send('Server error');
+    }
+});
 // - - - HELPER - - -
 
 function calculatePagination(currentPage, totalPages) {

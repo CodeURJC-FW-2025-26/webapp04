@@ -4,6 +4,7 @@ import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 
 const DATA_FOLDER = './data';
+const UPLOADS_FOLDER = './uploads';
 const dataMovies = 'movies.json';
 const dataActors = 'actors.json';
 
@@ -43,5 +44,9 @@ for (const movie of movies) {
     }
     await movieCatalogue.addMovie(movie);
 }
+
+await fs.rm(UPLOADS_FOLDER, { recursive: true, force: true });
+await fs.mkdir(UPLOADS_FOLDER);
+await fs.cp(DATA_FOLDER + '/../public/img/moviePosters', UPLOADS_FOLDER, { recursive: true });
 
 console.log('Demo data loaded');
