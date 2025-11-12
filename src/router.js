@@ -1,12 +1,16 @@
 import express from 'express';
+import path from 'path';
+import fs from 'fs/promises';
+
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
-import {getImagePath, renameUploadedFile, uploadPoster} from "./imageUploader.js";
-import {createMovieSlug} from "./utils/slugify.js";
+import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
+import { createMovieSlug } from './utils/slugify.js';
 
 const router = express.Router();
 export default router;
 
+// Constants
 const MOVIES_PER_PAGE = 6;
 const MAX_PAGINATION_BUTTONS = 3;
 const UPLOADS_FOLDER = './uploads';
@@ -28,10 +32,7 @@ router.get('/', async (req, res) => {
         const pagination = calculatePagination(page, totalPages);
 
         res.render('index', {
-            movies: movies.map(m => ({
-                ...m,
-                releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
-            })),
+            movies: addReleaseYearToMovies(movies),
             page,
             totalPages,
             ...pagination,
@@ -44,25 +45,27 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/movie/:slug/poster', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
 
-    const slug = req.params.slug;
-    const movie = await movieCatalogue.getMovieBySlug(slug);
-
-    if (!movie || !movie.poster) {
-        return res.status(404).send('Poster not found');
-    }
-
-    const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
-
-    res.download(posterPath, movie.poster, (err) => {
-        if (err) {
-            console.error('Error sending poster:', err);
-            if (!res.headersSent) {
-                res.status(500).send('Error downloading poster');
-            }
+        if (!movie?.poster) {
+            return res.status(404).send('Poster not found');
         }
-    });
 
+        const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
+
+        res.download(posterPath, movie.poster, (err) => {
+            if (err) {
+                console.error('Error sending poster:', err);
+                if (!res.headersSent) {
+                    res.status(500).send('Error downloading poster');
+                }
+            }
+        });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
 });
 
 router.get('/api/search', async (req, res) => {
@@ -84,10 +87,7 @@ router.get('/api/search', async (req, res) => {
         const pagination = calculatePagination(page, totalPages);
 
         res.json({
-            movies: movies.map(m => ({
-                ...m,
-                releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
-            })),
+            movies: addReleaseYearToMovies(movies),
             page,
             totalPages,
             ...pagination,
@@ -108,7 +108,7 @@ router.get('/movie/:slug', async (req, res) => {
         }
 
         const actors = await resolveActorsForMovie(movie);
-        const releaseYear = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
+        const releaseYear = extractYear(movie.releaseDate);
 
         res.render('movie', {
             ...movie,
@@ -121,16 +121,8 @@ router.get('/movie/:slug', async (req, res) => {
             actors
         });
     } catch (error) {
-        console.error('Error loading movie details:', error);
+        res.status(500).send('Server error');
     }
-});
-
-router.get('/movie/:slug/poster', async (req, res) => {
-    const slug = req.params.slug;
-    const movie = await movieCatalogue.getMovieBySlug(slug);
-
-    res.download(path.join(UPLOADS_FOLDER, movie.poster));
-
 });
 
 router.get('/person/:slug', async (req, res) => {
@@ -142,25 +134,15 @@ router.get('/person/:slug', async (req, res) => {
             return res.status(404).send('Actor not found');
         }
 
-        const { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath } = formatActorDateDetails(actor);
-        const alive = dayOfDeathFormatted === null;
-
-        const moviesRaw = await movieCatalogue.getMoviesByActor(actor._id);
-
-        const movies = moviesRaw.map(m => ({
-            ...m,
-            releaseYear: m.releaseDate ? new Date(m.releaseDate).getFullYear() : ''
-        }));
+        const dateDetails = formatActorDateDetails(actor);
+        const movies = await movieCatalogue.getMoviesByActor(actor._id);
 
         res.render('person', {
             ...actor,
             slug: actor.slug,
-            alive,
-            birthdayFormatted,
-            age,
-            dayOfDeathFormatted,
-            ageAtDeath,
-            movies,
+            alive: !dateDetails.dayOfDeathFormatted,
+            ...dateDetails,
+            movies: addReleaseYearToMovies(movies),
             hasMovies: movies.length > 0
         });
     } catch (error) {
@@ -168,39 +150,24 @@ router.get('/person/:slug', async (req, res) => {
     }
 });
 
-
 router.get('/addNewMovie', (req, res) => {
     try {
         res.render('addNewMovie', {});
-
-    } catch (err) {
+    } catch (error) {
         res.status(500).send('Server error');
     }
 });
 
-router.post('/addNewMovie', uploadPoster, (req, res) => {
+router.post('/addNewMovie', uploadPoster, async (req, res) => {
     try {
-        const releaseYear = req.body.releaseDate ? new Date(req.body.releaseDate).getFullYear() : '';
-        let oldName = req.file?.filename;
-        const finName = renameUploadedFile(oldName, req.body.title, releaseYear);
+        const releaseYear = extractYear(req.body.releaseDate);
+        const filename = renameUploadedFile(req.file?.filename, req.body.title, releaseYear);
 
-        const movie = {
-            title: req.body.title,
-            poster: getImagePath(finName),
-            slug: createMovieSlug(req.body.title, releaseYear),
-            description: req.body.description,
-            genre: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
-            releaseDate: req.body.releaseDate,
-            countryOfProduction: Array.isArray(req.body.countryOfProduction) ? req.body.countryOfProduction : [req.body.countryOfProduction],
-            ageRating: Number(req.body.ageRating),
-            actors: null
-            //TODO acutally add actors in array
-        };
+        const movie = createMovieObject(req.body, filename, releaseYear);
 
-        movieCatalogue.addMovie(movie);
+        await movieCatalogue.addMovie(movie);
         res.redirect('/');
-
-    } catch (err) {
+    } catch (error) {
         res.status(500).send('Server error');
     }
 });
@@ -211,47 +178,33 @@ router.delete('/api/movie/:slug', async (req, res) => {
         const movie = await movieCatalogue.getMovieBySlug(slug);
 
         if (!movie) {
-            return res.status(404).json({ success: false, error: 'Movie not found' });
+            return res.status(404).json({
+                success: false,
+                error: 'Movie not found'
+            });
         }
 
         await movieCatalogue.deleteMovie(slug);
+        await deletePosterFile(movie.poster);
 
-        if (movie.poster) {
-            const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
-            try {
-                await fs.unlink(posterPath);
-            } catch (err) {
-                console.error('Could not delete poster file:', err);
-            }
-        }
-
-        res.json({ success: true, message: 'Movie deleted successfully' });
+        res.json({
+            success: true,
+            message: 'Movie deleted successfully'
+        });
     } catch (error) {
-        res.status(500).json({ success: false, error: 'Failed to delete movie' });
+        res.status(500).json({
+            success: false,
+            error: 'Failed to delete movie'
+        });
     }
 });
 
-// - - - HELPER - - -
+// - - - HELPER FUNCTIONS - - -
 
+// Pagination Helpers
 function calculatePagination(currentPage, totalPages) {
     const pages = [];
-    let startPage, endPage;
-
-    if (totalPages <= MAX_PAGINATION_BUTTONS) {
-        startPage = 1;
-        endPage = totalPages;
-    } else {
-        if (currentPage <= 2) {
-            startPage = 1;
-            endPage = MAX_PAGINATION_BUTTONS;
-        } else if (currentPage >= totalPages - 1) {
-            startPage = totalPages - (MAX_PAGINATION_BUTTONS - 1);
-            endPage = totalPages;
-        } else {
-            startPage = currentPage - 1;
-            endPage = currentPage + 1;
-        }
-    }
+    const { startPage, endPage } = getPaginationRange(currentPage, totalPages);
 
     for (let i = startPage; i <= endPage; i++) {
         pages.push({
@@ -269,12 +222,35 @@ function calculatePagination(currentPage, totalPages) {
     };
 }
 
+function getPaginationRange(currentPage, totalPages) {
+    if (totalPages <= MAX_PAGINATION_BUTTONS) {
+        return { startPage: 1, endPage: totalPages };
+    }
+
+    if (currentPage <= 2) {
+        return { startPage: 1, endPage: MAX_PAGINATION_BUTTONS };
+    }
+
+    if (currentPage >= totalPages - 1) {
+        return {
+            startPage: totalPages - (MAX_PAGINATION_BUTTONS - 1),
+            endPage: totalPages
+        };
+    }
+
+    return {
+        startPage: currentPage - 1,
+        endPage: currentPage + 1
+    };
+}
+
 function getPaginationParams(req) {
     const page = parseInt(req.query.page) || 1;
     const skip = (page - 1) * MOVIES_PER_PAGE;
     return { page, skip, limit: MOVIES_PER_PAGE };
 }
 
+// Search & Filter Helpers
 function getSearchParams(req) {
     return {
         searchQuery: req.query.q || '',
@@ -285,6 +261,7 @@ function getSearchParams(req) {
     };
 }
 
+// Actor Helpers
 async function resolveActorsForMovie(movie) {
     if (!Array.isArray(movie.actors)) {
         return [];
@@ -311,40 +288,72 @@ async function resolveActorsForMovie(movie) {
 
 function formatActorDateDetails(actor) {
     const birthdayFormatted = formatDate(actor.dateOfBirth);
-    let age = null; let dayOfDeathFormatted = null; let ageAtDeath = null;
-
-    if (actor.dateOfDeath) {
-        dayOfDeathFormatted = formatDate(actor.dateOfDeath);
-        ageAtDeath = getActorsAgeAtDeath(actor);
-    } else {
-        age = getActorsCurrentAge(actor);
-    }
+    const dayOfDeathFormatted = actor.dateOfDeath ? formatDate(actor.dateOfDeath) : null;
+    const age = actor.dateOfDeath ? null : calculateAge(actor.dateOfBirth);
+    const ageAtDeath = actor.dateOfDeath ? calculateAge(actor.dateOfBirth, actor.dateOfDeath) : null;
 
     return { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath };
 }
 
+// Date Helpers
 function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
+    return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 }
 
-function getActorsCurrentAge(actor) {
-    return calculateYearDifference(actor.dateOfBirth);
+function extractYear(dateString) {
+    return dateString ? new Date(dateString).getFullYear() : '';
 }
 
-function getActorsAgeAtDeath(actor) {
-    if (!actor.dateOfDeath) { return null; }
-    return calculateYearDifference(actor.dateOfBirth, actor.dateOfDeath);
-}
+function calculateAge(birthDate, deathDate = null) {
+    const endDate = deathDate ? new Date(deathDate) : new Date();
+    const startDate = new Date(birthDate);
 
-function calculateYearDifference(startDate, endDate) {
-    const endDateMs = !endDate ? Date.now() : new Date(endDate).getTime();
-    const startDateMs = new Date(startDate).getTime();
+    const ageInMilliseconds = endDate - startDate;
+    const ageDate = new Date(ageInMilliseconds);
 
-    const ageDifMs = endDateMs - startDateMs;
-    const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+// Movie Helpers
+function addReleaseYearToMovies(movies) {
+    return movies.map(movie => ({
+        ...movie,
+        releaseYear: extractYear(movie.releaseDate)
+    }));
+}
+
+function createMovieObject(formData, filename, releaseYear) {
+    return {
+        title: formData.title,
+        poster: getImagePath(filename),
+        slug: createMovieSlug(formData.title, releaseYear),
+        description: formData.description,
+        genre: ensureArray(formData.genre),
+        releaseDate: formData.releaseDate,
+        countryOfProduction: ensureArray(formData.countryOfProduction),
+        ageRating: Number(formData.ageRating),
+        actors: null // TODO: actually add actors in array
+    };
+}
+
+function ensureArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+
+// File Helpers
+async function deletePosterFile(posterFilename) {
+    if (!posterFilename) {
+        return;
+    }
+
+    try {
+        const posterPath = path.join(UPLOADS_FOLDER, posterFilename);
+        await fs.unlink(posterPath);
+    } catch (error) {
+        console.error('Could not delete poster file:', error);
+    }
 }
