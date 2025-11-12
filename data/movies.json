@@ -1,5 +1,16 @@
 [
   {
+    "title": "The Long Walk",
+    "slug": "the-long-walk_2025",
+    "poster": "the-long-walk_2025.jpg",
+    "description": "In a dystopian, alternate-America ruled by a totalitarian regime, 50 teenage boys take part in a deadly annual walking contest, forced to maintain a minimum pace or be executed, until only one survivor remains.",
+    "genre": ["Horror", "Science Fiction", "Thriller"],
+    "releaseDate": "2025-09-12",
+    "countryOfProduction": ["USA"],
+    "ageRating": 16,
+    "actors": null
+  },
+  {
     "title": "One Battle After Another",
     "slug": "one-battle-after-another_2025",
     "poster": "one-battle-after-another_2025.jpg",
@@ -27,17 +38,6 @@
       { "name": "Vera Farmiga", "role": "Lorraine Warren" },
       { "name": "Patrick Wilson", "role": "Ed Warren" }
     ]
-  },
-  {
-    "title": "The Long Walk",
-    "slug": "the-long-walk_2025",
-    "poster": "the-long-walk_2025.jpg",
-    "description": "In a dystopian, alternate-America ruled by a totalitarian regime, 50 teenage boys take part in a deadly annual walking contest, forced to maintain a minimum pace or be executed, until only one survivor remains.",
-    "genre": ["Horror", "Science Fiction", "Thriller"],
-    "releaseDate": "2025-09-12",
-    "countryOfProduction": ["USA"],
-    "ageRating": 16,
-    "actors": null
   },
   {
     "title": "Weapons",

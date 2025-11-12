@@ -142,3 +142,5 @@ function updatePagination(data) {
         });
     });
 }
+
+performSearch();
