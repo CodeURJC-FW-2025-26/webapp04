@@ -27,77 +27,123 @@ export async function getMovies() {
 }
 
 export async function getMoviesPaginated(skip, limit) {
-    return await collection.find().skip(skip).limit(limit).toArray();
+    return await collection
+        .find()
+        .sort({ releaseDate: -1 })
+        .skip(skip)
+        .limit(limit)
+        .toArray();
 }
 
 export async function getMoviesByActor(actorId) {
-    return await collection.find({ actors: { $elemMatch: { actorId: actorId } } }).toArray();
+    return await collection
+        .find({ actors: { $elemMatch: { actorId: actorId } } })
+        .toArray();
 }
 
 export async function getTotalNumberOfMovies() {
     return await collection.countDocuments();
 }
 
-export async function searchMovies(searchQuery, genre, country, sortBy, sortOrder, skip, limit) {
-    const query = {};
+export async function searchMovies(searchQuery, genre, country, ageRating, sortBy, sortOrder, skip, limit) {
+    const query = buildSearchQuery(searchQuery, genre, country, ageRating);
+    const sort = buildSortObject(sortBy, sortOrder);
 
-    if (searchQuery && searchQuery.trim() !== '') {
-        query.title = { $regex: searchQuery, $options: 'i' };
-    }
-
-    if (genre && genre !== 'all') {
-        query.genre = genre;
-    }
-
-    if (country && country !== 'all') {
-        query.countryOfProduction = country;
-    }
-
-    const sort = {};
-    if (sortBy) {
-        sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
-    } else {
-        sort.releaseDate = -1;
-    }
-
-    const movies = await collection
-        .find(query)
-        .sort(sort)
-        .skip(skip)
-        .limit(limit)
-        .toArray();
-
-    const total = await collection.countDocuments(query);
+    const [movies, total] = await Promise.all([
+        collection.find(query).sort(sort).skip(skip).limit(limit).toArray(),
+        collection.countDocuments(query)
+    ]);
 
     return { movies, total };
 }
 
 export async function getAllGenres() {
-    const movies = await collection.find().toArray();
-    const genresSet = new Set();
-
-    movies.forEach(movie => {
-        if (Array.isArray(movie.genre)) {
-            movie.genre.forEach(g => genresSet.add(g));
-        }
-    });
-
-    return Array.from(genresSet).sort();
+    return await getDistinctArrayValues('genre');
 }
 
 export async function getAllCountries() {
-    const movies = await collection.find().toArray();
-    const countrySet = new Set();
+    return await getDistinctArrayValues('countryOfProduction');
+}
 
-    movies.forEach(movie => {
-        if (Array.isArray(movie.countryOfProduction)) {
-            movie.countryOfProduction.forEach(g => countrySet.add(g));
-        }
-    });
+export async function getAllAgeRatings() {
+    const ageRatings = await collection.distinct('ageRating');
 
-    return Array.from(countrySet).sort();
+    return ageRatings
+        .map(normalizeAgeRating)
+        .filter(Boolean)
+        .sort(compareAgeRatings);
 }
 
 export async function deleteMovie(slug) {
-    await collection.deleteOne({slug: slug});
+    const result = await collection.deleteOne({ slug: slug });
+    return result.deletedCount > 0;
+}
+
+// - - - HELPER FUNCTIONS - - -
+
+function buildSearchQuery(searchQuery, genre, country, ageRating) {
+    const query = {};
+
+    if (searchQuery?.trim()) {
+        query.title = { $regex: searchQuery, $options: 'i' };
+    }
+
+    addArrayFilter(query, 'genre', genre);
+    addArrayFilter(query, 'countryOfProduction', country);
+    addArrayFilter(query, 'ageRating', ageRating);
+
+    return query;
+}
+
+function addArrayFilter(query, field, value) {
+    if (!value || value === 'all') {
+        return;
+    }
+
+    if (Array.isArray(value) && value.length > 0) {
+        query[field] = { $in: value };
+    } else if (!Array.isArray(value)) {
+        query[field] = value;
+    }
+}
+
+function buildSortObject(sortBy, sortOrder) {
+    const sort = {};
+    const field = sortBy || 'releaseDate';
+    sort[field] = sortOrder === 'desc' ? -1 : 1;
+    return sort;
+}
+
+async function getDistinctArrayValues(field) {
+    const result = await collection.aggregate([
+        { $unwind: `$${field}` },
+        { $group: { _id: `$${field}` } },
+        { $sort: { _id: 1 } }
+    ]).toArray();
+
+    return result.map(item => item._id);
+}
+
+function normalizeAgeRating(value) {
+    const parsed = parseInt(value, 10);
+
+    if (!isNaN(parsed) && String(parsed) === String(value).trim()) {
+        return parsed;
+    }
+
+    return String(value).trim() || null;
+}
+
+function compareAgeRatings(a, b) {
+    const aIsNum = typeof a === 'number';
+    const bIsNum = typeof b === 'number';
+
+    if (!aIsNum && bIsNum) return -1;
+    if (aIsNum && !bIsNum) return 1;
+
+    if (!aIsNum && !bIsNum) {
+        return a.localeCompare(b);
+    }
+
+    return a - b;
 }

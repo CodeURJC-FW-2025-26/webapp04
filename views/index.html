@@ -13,10 +13,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
     <!--Own stylesheets-->
-    <link rel="stylesheet" href="/css/searchResults.css">
+    <link rel="stylesheet" href="/css/home.css">
 
     <!--Own scripts-->
-    <script src="/js/search.js" defer></script>
+    <script src="/js/home.js" defer></script>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -24,51 +24,80 @@
 
 <main>
     <div class="topRow">
-        <div class="search-container">
+        <div class="searchContainer">
             <input type="text" id="searchInput" class="form-control" placeholder="Search movies ...">
         </div>
 
         <div>
+            <div class="btn" id="sortBtn"><i class="bi bi-arrow-down-up"></i></div>
             <div class="btn" id="filterBtn"><i class="bi bi-filter"></i></div>
-            <div class="btn" id="sortBtn"><i class="bi bi-funnel"></i></div>
             <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
         </div>
     </div>
 
-    <div id="filterOptions" class="filter-options" style="display: none;">
-        <div class="filter-group">
-            <label for="genreFilter">Genre:</label>
-            <select id="genreFilter" class="form-select">
-                <option value="all">All Genres</option>
+    <div class="topRow">
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Genre
+                <i class="bi bi-arrow-down-short"></i>
+            </button>
+            <div class="dropdown-menu">
+                <div class="sortGroup">
+                    <label for="sortBy">Sort by:</label>
+                    <select id="sortBy" class="form-select">
+                        <option value="title">Title</option>
+                        <option value="releaseDate" selected>Release Date</option>
+                    </select>
+                </div>
+                <div class="sortGroup">
+                    <label for="sortOrder">Order:</label>
+                    <select id="sortOrder" class="form-select">
+                        <option value="asc">Ascending</option>
+                        <option value="desc" selected>Descending</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="vr"></div>
+
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Genre
+            </button>
+            <ul class="dropdown-menu" id="genreFilter">
                 {{#genres}}
-                <option value="{{.}}">{{.}}</option>
+                <li>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                </li>
                 {{/genres}}
-            </select>
+            </ul>
+        </div>
 
-            <label for="countryFilter">Country:</label>
-            <select id="countryFilter" class="form-select">
-                <option value="all">All Countries</option>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Country
+            </button>
+            <ul class="dropdown-menu" id="countryFilter">
                 {{#countries}}
-                <option value="{{.}}">{{.}}</option>
+                <li>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                </li>
                 {{/countries}}
-            </select>
+            </ul>
         </div>
-    </div>
 
-    <div id="sortOptions" class="sort-options" style="display: none;">
-        <div class="sort-group">
-            <label for="sortBy">Sort by:</label>
-            <select id="sortBy" class="form-select">
-                <option value="title">Title</option>
-                <option value="releaseDate" selected>Release Date</option>
-            </select>
-        </div>
-        <div class="sort-group">
-            <label for="sortOrder">Order:</label>
-            <select id="sortOrder" class="form-select">
-                <option value="asc">Ascending</option>
-                <option value="desc" selected>Descending</option>
-            </select>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Age Rating
+            </button>
+            <ul class="dropdown-menu" id="ageRatingFilter">
+                {{#ageRatings}}
+                <li>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                </li>
+                {{/ageRatings}}
+            </ul>
         </div>
     </div>
 

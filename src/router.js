@@ -21,11 +21,12 @@ router.get('/', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
 
-        const [totalMovies, movies, genres, countries] = await Promise.all([
+        const [totalMovies, movies, genres, countries, ageRatings] = await Promise.all([
             movieCatalogue.getTotalNumberOfMovies(),
             movieCatalogue.getMoviesPaginated(skip, limit),
             movieCatalogue.getAllGenres(),
-            movieCatalogue.getAllCountries()
+            movieCatalogue.getAllCountries(),
+            movieCatalogue.getAllAgeRatings()
         ]);
 
         const totalPages = Math.ceil(totalMovies / limit);
@@ -37,7 +38,8 @@ router.get('/', async (req, res) => {
             totalPages,
             ...pagination,
             genres,
-            countries
+            countries,
+            ageRatings
         });
     } catch (error) {
         res.status(500).send('Server error');
@@ -77,6 +79,7 @@ router.get('/api/search', async (req, res) => {
             searchParams.searchQuery,
             searchParams.genre,
             searchParams.country,
+            searchParams.ageRating,
             searchParams.sortBy,
             searchParams.sortOrder,
             skip,
@@ -252,10 +255,17 @@ function getPaginationParams(req) {
 
 // Search & Filter Helpers
 function getSearchParams(req) {
+    const normalizeParam = (param) => {
+        if (!param || param === 'all') return 'all';
+        const arr = Array.isArray(param) ? param : [param];
+        return arr.filter(Boolean);
+    };
+
     return {
-        searchQuery: req.query.q || '',
-        genre: req.query.genre || 'all',
-        country: req.query.country || 'all',
+        searchQuery: req.query.q?.trim() || '',
+        genre: normalizeParam(req.query.genre),
+        country: normalizeParam(req.query.country),
+        ageRating: normalizeParam(req.query.ageRating),
         sortBy: req.query.sortBy || 'releaseDate',
         sortOrder: req.query.sortOrder || 'desc'
     };
