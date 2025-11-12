@@ -92,7 +92,7 @@
 
                                 <div class="topRow headerPersons">
                                     <h3>Starring</h3>
-                                    <div class="btn"><i class="bi bi-plus"></i></div>
+                                    <a href="/editPerson"><div class="btn"><i class="bi bi-plus"></i></div></a>
                                 </div>
 
                                 {{#hasActors}}
@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="personOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-                                        <div class="btn"><i class="bi bi-pencil"></i></div>
+                                        <a href="/editPerson/{{slug}}"><div class="btn"><i class="bi bi-pencil"></i></div></a>
                                         <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
                                     </div>
                                 </div>
