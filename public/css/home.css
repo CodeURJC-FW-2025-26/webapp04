@@ -1,0 +1,17 @@
+@import url("general.css");
+@import url("pageLayout.css");
+@import url("moviePoster.css");
+@import url("filtering.css");
+@import url("pagination.css");
+
+.searchContainer {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.searchContainer input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ddd;
+}

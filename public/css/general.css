@@ -56,7 +56,9 @@ a:visited {
     color: var(--color-accent-visited);
 }
 
-.btn, a.btn {
+.btn,
+a.btn,
+.dropdown-toggle {
     padding: 0;
     background-color: var(--color-button);
 
@@ -69,7 +71,8 @@ a:visited {
     cursor: pointer;
 }
 
-.btn i {
+.btn i,
+.dropdown-toggle i{
     background: none;
     font-size: 1.5em;
     line-height: 1;
@@ -78,7 +81,9 @@ a:visited {
     transition: background-color var(--animation);
 }
 
-.btn:hover , a.btn:hover  {
+.btn:hover,
+a.btn:hover
+.dropdown-toggle:hover {
     background-color: var(--color-button-hover);
 }
 
