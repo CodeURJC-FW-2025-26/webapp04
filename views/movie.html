@@ -14,6 +14,9 @@
 
     <!--Own stylesheets-->
     <link rel="stylesheet" href="/css/movie.css">
+
+    <!--Own scripts-->
+    <script src="/js/movie.js" defer></script>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -28,7 +31,9 @@
 
             <div>
                 <div class="btn"><i class="bi bi-pencil"></i></div>
-                <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
+                <div id="deleteMovieButton" class="btn btn-delete" data-slug="{{slug}}">
+                    <i class="bi bi-trash"></i>
+                </div>
             </div>
         </div>
 

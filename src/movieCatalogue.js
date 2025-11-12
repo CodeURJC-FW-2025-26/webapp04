@@ -97,3 +97,7 @@ export async function getAllCountries() {
 
     return Array.from(countrySet).sort();
 }
+
+export async function deleteMovie(slug) {
+    await collection.deleteOne({slug: slug});
+}

@@ -9,6 +9,7 @@ export default router;
 
 const MOVIES_PER_PAGE = 6;
 const MAX_PAGINATION_BUTTONS = 3;
+const UPLOADS_FOLDER = './uploads';
 
 // - - - ROUTES - - -
 
@@ -51,7 +52,7 @@ router.get('/movie/:slug/poster', async (req, res) => {
         return res.status(404).send('Poster not found');
     }
 
-    const posterPath = `./uploads/${movie.poster}`;
+    const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
 
     res.download(posterPath, movie.poster, (err) => {
         if (err) {
@@ -128,7 +129,7 @@ router.get('/movie/:slug/poster', async (req, res) => {
     const slug = req.params.slug;
     const movie = await movieCatalogue.getMovieBySlug(slug);
 
-    res.download('uploads/' + movie.poster);
+    res.download(path.join(UPLOADS_FOLDER, movie.poster));
 
 });
 
@@ -201,6 +202,32 @@ router.post('/addNewMovie', uploadPoster, (req, res) => {
 
     } catch (err) {
         res.status(500).send('Server error');
+    }
+});
+
+router.delete('/api/movie/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            return res.status(404).json({ success: false, error: 'Movie not found' });
+        }
+
+        await movieCatalogue.deleteMovie(slug);
+
+        if (movie.poster) {
+            const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
+            try {
+                await fs.unlink(posterPath);
+            } catch (err) {
+                console.error('Could not delete poster file:', err);
+            }
+        }
+
+        res.json({ success: true, message: 'Movie deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Failed to delete movie' });
     }
 });
 
