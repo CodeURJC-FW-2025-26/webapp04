@@ -1,8 +1,11 @@
 :root {
     --color-bg: #14181c;
-    --color-bg-hover: #262E36;
+    --color-bg-alt-lighter: #2f3942;
+    --color-bg-alt-darker: #262E36;
+    --color-bg-hover: #475058;
 
     --color-text: #f2f2f2;
+    --color-text-hover: #262E36;
     --color-text-muted: #9e9e9e;
 
     --color-accent: #8ebbcc;
@@ -11,8 +14,9 @@
 
     --color-button: #404f5a;
     --color-button-hover: #8ebbcc;
-    --color-button-active:#5faad6;
     --color-button-delete: #cc7b63;
+
+    --active:#5faad6;
 
     --color-footer: #a0a0a0;
 
