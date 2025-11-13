@@ -153,6 +153,41 @@ router.get('/person/:slug', async (req, res) => {
     }
 });
 
+
+
+router.get('/editPerson/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const actor = await actorCatalogue.getActorBySlug(slug);
+
+        if (!actor) {
+            return res.status(404).send('Actor not found');
+        }
+
+        const dateDetails = formatActorDateDetails(actor);
+        const movies = await movieCatalogue.getMoviesByActor(actor._id);
+
+        res.render('editPerson', {
+            ...actor,
+            slug: actor.slug
+        });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+router.get('/editPerson', (req, res) => {
+    try {
+        res.render('editPerson', {
+            placeholderName: 'Name',
+            placeholderBirthPlace: 'Place of Birth',
+            placeholderDescription: 'Description'
+        });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
 router.get('/addNewMovie', (req, res) => {
     try {
         res.render('addNewMovie', {});
@@ -160,6 +195,7 @@ router.get('/addNewMovie', (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 
 router.post('/addNewMovie', uploadPoster, async (req, res) => {
     try {
