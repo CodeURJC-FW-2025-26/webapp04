@@ -14,11 +14,12 @@ deleteMovieButton.addEventListener('click', async (e) => {
         const data = await response.json();
 
         if (data.success) {
-            window.location.href = '/'; // TODO: Instead redirect to intermediate page
-        } else {
-            alert('Failed to delete movie: ' + data.error);
+            window.location.href = data.redirectUrl;
+        } else if (data.redirectUrl) {
+            window.location.href = data.redirectUrl;
         }
     } catch (error) {
         console.error('Error deleting movie:', error);
+        window.location.href = '/error?type=deleteError&entity=movie';
     }
 });
