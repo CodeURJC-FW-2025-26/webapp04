@@ -6,6 +6,8 @@ import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
 import { createMovieSlug } from './utils/slugify.js';
+import { validateMovie } from './utils/movieValidator.js';
+import { createSuccessPage, createErrorPage } from './utils/statusPageHelper.js';
 
 const router = express.Router();
 export default router;
@@ -17,6 +19,7 @@ const UPLOADS_FOLDER = './uploads';
 
 // - - - ROUTES - - -
 
+// Home
 router.get('/', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
@@ -42,34 +45,12 @@ router.get('/', async (req, res) => {
             ageRatings
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading home page:', error);
+        renderErrorPage(res, 'unknown', 'page');
     }
 });
 
-router.get('/movie/:slug/poster', async (req, res) => {
-    try {
-        const slug = req.params.slug;
-        const movie = await movieCatalogue.getMovieBySlug(slug);
-
-        if (!movie?.poster) {
-            return res.status(404).send('Poster not found');
-        }
-
-        const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
-
-        res.download(posterPath, movie.poster, (err) => {
-            if (err) {
-                console.error('Error sending poster:', err);
-                if (!res.headersSent) {
-                    res.status(500).send('Error downloading poster');
-                }
-            }
-        });
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
+// Search API
 router.get('/api/search', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
@@ -97,17 +78,19 @@ router.get('/api/search', async (req, res) => {
             total
         });
     } catch (error) {
+        console.error('Error searching movies:', error);
         res.status(500).json({ error: 'Search failed' });
     }
 });
 
+// Movie Routes
 router.get('/movie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const movie = await movieCatalogue.getMovieBySlug(slug);
 
         if (!movie) {
-            return res.status(404).send('Movie not found');
+            return renderErrorPage(res, 'notFound', 'movie');
         }
 
         const actors = await resolveActorsForMovie(movie);
@@ -124,17 +107,120 @@ router.get('/movie/:slug', async (req, res) => {
             actors
         });
     } catch (error) {
+        console.error('Error loading movie details:', error);
+        renderErrorPage(res, 'unknown', 'movie');
+    }
+});
+
+router.get('/movie/:slug/poster', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie?.poster) {
+            return res.status(404).send('Poster not found');
+        }
+
+        const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
+
+        res.download(posterPath, movie.poster, (err) => {
+            if (err) {
+                console.error('Error sending poster:', err);
+                if (!res.headersSent) {
+                    res.status(500).send('Error downloading poster');
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error loading poster:', error);
         res.status(500).send('Server error');
     }
 });
 
+router.get('/addNewMovie', (req, res) => {
+    try {
+        res.render('addNewMovie', {});
+    } catch (error) {
+        console.error('Error loading add movie page:', error);
+        renderErrorPage(res, 'unknown', 'page');
+    }
+});
+
+router.post('/addNewMovie', uploadPoster, async (req, res) => {
+    try {
+        // Validate
+        const validation = validateMovie(req.body, req.file);
+
+        if (!validation.isValid) {
+            const firstError = validation.errors[0];
+            return renderValidationError(res, firstError.type, 'movie', firstError.details);
+        }
+
+        // Check for duplicate
+        const releaseYear = extractYear(req.body.releaseDate);
+        const slug = createMovieSlug(req.body.title, releaseYear);
+        const existingMovie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (existingMovie) {
+            return renderValidationError(res, 'duplicateTitle', 'movie', {
+                title: req.body.title
+            });
+        }
+
+        // Create movie
+        const filename = renameUploadedFile(req.file.filename, req.body.title, releaseYear);
+        const movie = createMovieObject(req.body, filename, releaseYear);
+
+        await movieCatalogue.addMovie(movie);
+
+        // Redirect to success page
+        res.redirect(`/movie-created?title=${encodeURIComponent(movie.title)}&slug=${slug}`);
+
+    } catch (error) {
+        console.error('Error adding movie:', error);
+        renderErrorPage(res, 'unknown', 'movie');
+    }
+});
+
+router.delete('/api/movie/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            return res.status(404).json({
+                success: false,
+                error: 'Movie not found',
+                redirectUrl: '/error?type=notFound&entity=movie'
+            });
+        }
+
+        await movieCatalogue.deleteMovie(slug);
+        await deletePosterFile(movie.poster);
+
+        res.json({
+            success: true,
+            message: 'Movie deleted successfully',
+            redirectUrl: `/movie-deleted?title=${encodeURIComponent(movie.title)}`
+        });
+    } catch (error) {
+        console.error('Error deleting movie:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to delete movie',
+            redirectUrl: '/error?type=deleteError&entity=movie'
+        });
+    }
+});
+
+// Person/Actor Routes
 router.get('/person/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const actor = await actorCatalogue.getActorBySlug(slug);
 
         if (!actor) {
-            return res.status(404).send('Actor not found');
+            return renderErrorPage(res, 'notFound', 'actor');
         }
 
         const dateDetails = formatActorDateDetails(actor);
@@ -149,11 +235,10 @@ router.get('/person/:slug', async (req, res) => {
             hasMovies: movies.length > 0
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading person details:', error);
+        renderErrorPage(res, 'unknown', 'actor');
     }
 });
-
-
 
 router.get('/editPerson/:slug', async (req, res) => {
     try {
@@ -161,18 +246,16 @@ router.get('/editPerson/:slug', async (req, res) => {
         const actor = await actorCatalogue.getActorBySlug(slug);
 
         if (!actor) {
-            return res.status(404).send('Actor not found');
+            return renderErrorPage(res, 'notFound', 'actor');
         }
-
-        const dateDetails = formatActorDateDetails(actor);
-        const movies = await movieCatalogue.getMoviesByActor(actor._id);
 
         res.render('editPerson', {
             ...actor,
             slug: actor.slug
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading edit person page:', error);
+        renderErrorPage(res, 'unknown', 'actor');
     }
 });
 
@@ -184,61 +267,61 @@ router.get('/editPerson', (req, res) => {
             placeholderDescription: 'Description'
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading edit person page:', error);
+        renderErrorPage(res, 'unknown', 'page');
     }
 });
 
-router.get('/addNewMovie', (req, res) => {
-    try {
-        res.render('addNewMovie', {});
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
+// Status Pages
+router.get('/movie-created', (req, res) => {
+    const movieTitle = req.query.title || 'Unknown Movie';
+    const movieSlug = req.query.slug;
+
+    const pageData = createSuccessPage(
+        'Movie Created Successfully',
+        `"${movieTitle}" has been added.`,
+        `/movie/${movieSlug}`,
+        'bi-eye',
+        'View Movie Details'
+    );
+
+    res.render('partials/statusPage', pageData);
 });
 
+router.get('/movie-deleted', (req, res) => {
+    const movieTitle = req.query.title || 'Unknown Movie';
 
-router.post('/addNewMovie', uploadPoster, async (req, res) => {
-    try {
-        const releaseYear = extractYear(req.body.releaseDate);
-        const filename = renameUploadedFile(req.file?.filename, req.body.title, releaseYear);
+    const pageData = createSuccessPage(
+        'Movie Deleted Successfully',
+        `"${movieTitle}" has been removed.`,
+        '/',
+        'bi-house-fill',
+        'Go to Home'
+    );
 
-        const movie = createMovieObject(req.body, filename, releaseYear);
-
-        await movieCatalogue.addMovie(movie);
-        res.redirect('/');
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
+    res.render('partials/statusPage', pageData);
 });
 
-router.delete('/api/movie/:slug', async (req, res) => {
-    try {
-        const slug = req.params.slug;
-        const movie = await movieCatalogue.getMovieBySlug(slug);
+router.get('/error', (req, res) => {
+    const errorType = req.query.type || 'unknown';
+    const entity = req.query.entity || 'item';
+    const details = req.query.details ? JSON.parse(req.query.details) : {};
 
-        if (!movie) {
-            return res.status(404).json({
-                success: false,
-                error: 'Movie not found'
-            });
-        }
-
-        await movieCatalogue.deleteMovie(slug);
-        await deletePosterFile(movie.poster);
-
-        res.json({
-            success: true,
-            message: 'Movie deleted successfully'
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: 'Failed to delete movie'
-        });
-    }
+    renderErrorPage(res, errorType, entity, details);
 });
 
 // - - - HELPER FUNCTIONS - - -
+
+// Error Rendering
+function renderErrorPage(res, errorType, entity, details = {}) {
+    const pageData = createErrorPage(errorType, entity, details);
+    res.status(pageData.statusCode || 500).render('partials/statusPage', pageData);
+}
+
+function renderValidationError(res, errorType, entity, details = {}) {
+    const pageData = createErrorPage(errorType, entity, details);
+    res.status(400).render('partials/statusPage', pageData);
+}
 
 // Pagination Helpers
 function calculatePagination(currentPage, totalPages) {
@@ -375,14 +458,14 @@ function addReleaseYearToMovies(movies) {
 function createMovieObject(formData, filename, releaseYear) {
     return {
         title: formData.title,
-        poster: getImagePath(filename),
+        poster: filename, // not necessary?
         slug: createMovieSlug(formData.title, releaseYear),
         description: formData.description,
         genre: ensureArray(formData.genre),
         releaseDate: formData.releaseDate,
         countryOfProduction: ensureArray(formData.countryOfProduction),
-        ageRating: Number(formData.ageRating),
-        actors: null // TODO: actually add actors in array
+        ageRating: formData.ageRating, // might also be 'A'
+        actors: null // TODO: actually add actors in array in movies.json and also in actors.json
     };
 }
 
