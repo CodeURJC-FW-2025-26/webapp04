@@ -26,7 +26,7 @@
         <div class="topRow">
             <div>
                 <div class="btn" onclick="history.back()"><i class="bi bi-chevron-left"></i></div>
-                <h2>{{title}}</h2>
+                <h2 id="movieTitle">{{title}}</h2>
             </div>
 
             <div>
@@ -92,7 +92,7 @@
 
                                 <div class="topRow headerPersons">
                                     <h3>Starring</h3>
-                                    <a href="/editPerson"><div class="btn"><i class="bi bi-plus"></i></div></a>
+                                    <a class="btn" href="/editPerson"><i class="bi bi-plus"></i></a>
                                 </div>
 
                                 {{#hasActors}}
