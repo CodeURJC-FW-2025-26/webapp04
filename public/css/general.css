@@ -82,9 +82,15 @@ a.btn,
 }
 
 .btn:hover,
-a.btn:hover
+a.btn:hover,
 .dropdown-toggle:hover {
     background-color: var(--color-button-hover);
+}
+
+.btn:focus, .btn:active,
+a.btn:focus, a.btn:active,
+.dropdown-toggle:focus, .dropdown-toggle:active {
+    background-color: var(--active);
 }
 
 .btn-text {

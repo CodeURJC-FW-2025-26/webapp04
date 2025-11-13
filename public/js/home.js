@@ -12,6 +12,8 @@ const elements = {
     ageRatingFilter: document.getElementById('ageRatingFilter'),
     sortBy: document.getElementById('sortBy'),
     sortOrder: document.getElementById('sortOrder'),
+    sortButtonText: document.getElementById('sortButtonText'),
+    sortButtonIcon: document.getElementById('sortButtonIcon'),
     movieGrid: document.getElementById('movieGrid'),
     paginationNav: document.getElementById('paginationNav')
 };
@@ -24,8 +26,8 @@ function initializeEventListeners() {
     elements.countryFilter.addEventListener('change', handleFilterChange);
     elements.ageRatingFilter.addEventListener('change', handleFilterChange);
 
-    elements.sortBy.addEventListener('change', handleFilterChange);
-    elements.sortOrder.addEventListener('change', handleFilterChange);
+    elements.sortBy.addEventListener('change', handleSortChange);
+    elements.sortOrder.addEventListener('change', handleSortChange);
 }
 
 function handleSearchInput() {
@@ -39,9 +41,29 @@ function handleFilterChange() {
     resetPageAndSearch();
 }
 
+function handleSortChange() {
+    updateSortButton();
+    resetPageAndSearch();
+}
+
 function resetPageAndSearch() {
     state.currentPage = 1;
     performSearch();
+}
+
+// Update Sort Button Display
+function updateSortButton() {
+    const sortBy = elements.sortBy.value;
+    const sortOrder = elements.sortOrder.value;
+
+    const sortLabels = {
+        'title': 'Title',
+        'releaseDate': 'Release Date'
+    };
+    elements.sortButtonText.textContent = sortLabels[sortBy] || 'Sort';
+
+    const iconClass = sortOrder === 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short';
+    elements.sortButtonIcon.className = `bi ${iconClass} ps-2 pe-0`;
 }
 
 // Search Logic
@@ -201,4 +223,5 @@ function showErrorMessage(message) {
 
 // Initialize
 initializeEventListeners();
+updateSortButton();
 performSearch();

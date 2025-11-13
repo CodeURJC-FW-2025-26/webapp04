@@ -24,37 +24,39 @@
 
 <main>
     <div class="topRow">
-        <div class="searchContainer">
+        <div class="searchContainer px-0 mx-0">
             <input type="text" id="searchInput" class="form-control" placeholder="Search movies ...">
         </div>
 
+        <!--
         <div>
-            <div class="btn" id="sortBtn"><i class="bi bi-arrow-down-up"></i></div>
-            <div class="btn" id="filterBtn"><i class="bi bi-filter"></i></div>
+            <div id="sortButton" type="button" class="btn" data-bs-toggle="button"><i class="bi bi-arrow-down-up"></i></div>
+            <div id="filterButton" type="button" class="btn" data-bs-toggle="button"><i class="bi bi-filter"></i></div>
             <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
         </div>
+        -->
     </div>
 
-    <div class="topRow">
+    <div class="topRow sortingFiltering">
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Genre
-                <i class="bi bi-arrow-down-short"></i>
+            <button class="btn dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span id="sortButtonText">Release Year</span>
+                <i id="sortButtonIcon" class="bi bi-arrow-down-short ps-2 pe-0"></i>
             </button>
-            <div class="dropdown-menu">
-                <div class="sortGroup">
-                    <label for="sortBy">Sort by:</label>
-                    <select id="sortBy" class="form-select">
-                        <option value="title">Title</option>
-                        <option value="releaseDate" selected>Release Date</option>
-                    </select>
-                </div>
-                <div class="sortGroup">
-                    <label for="sortOrder">Order:</label>
-                    <select id="sortOrder" class="form-select">
-                        <option value="asc">Ascending</option>
-                        <option value="desc" selected>Descending</option>
-                    </select>
+            <div class="dropdown-menu p-3 m-0">
+                <div class="d-flex gap-2">
+                    <div class="sortGroup">
+                        <select id="sortBy" class="form-select">
+                            <option value="title">Title</option>
+                            <option value="releaseDate" selected>Release Date</option>
+                        </select>
+                    </div>
+                    <div class="sortGroup">
+                        <select id="sortOrder" class="form-select">
+                            <option value="asc">Ascending</option>
+                            <option value="desc" selected>Descending</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,43 +64,51 @@
         <div class="vr"></div>
 
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Genre
+            <button class="btn dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-film ps-0 pe-0 pe-md-2"></i>
+                <span class="d-none d-md-inline">Genre</span>
             </button>
             <ul class="dropdown-menu" id="genreFilter">
                 {{#genres}}
                 <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
                 </li>
                 {{/genres}}
             </ul>
         </div>
 
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Country
+            <button class="btn dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-globe-americas ps-0 pe-0 pe-md-2"></i>
+                <span class="d-none d-md-inline">Country</span>
             </button>
             <ul class="dropdown-menu" id="countryFilter">
                 {{#countries}}
                 <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
                 </li>
                 {{/countries}}
             </ul>
         </div>
 
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Age Rating
+            <button class="btn dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-cake ps-0 pe-0 pe-md-2"></i>
+                <span class="d-none d-md-inline">Age Rating</span>
             </button>
             <ul class="dropdown-menu" id="ageRatingFilter">
                 {{#ageRatings}}
                 <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}">{{.}}</label>
+                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
                 </li>
                 {{/ageRatings}}
             </ul>
         </div>
+
+        <div class="ms-auto">
+            <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
+        </div>
+
     </div>
 
     <div id="resultsContainer">
