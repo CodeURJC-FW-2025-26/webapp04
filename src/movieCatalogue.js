@@ -17,6 +17,9 @@ export async function addMovie(movie) {
 export async function getMovie(movieId) {
     return await collection.findOne({ _id: movieId });
 }
+export async function getMovieByTitle(movieTitle) {
+    return await collection.findOne({ _id: movieTitle });
+}
 
 export async function getMovieBySlug(slug) {
     return await collection.findOne({ slug: slug });

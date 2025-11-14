@@ -6,6 +6,7 @@ import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
 import { createMovieSlug } from './utils/slugify.js';
+import { validateMovie } from "./utils/validator.js";
 
 const router = express.Router();
 export default router;
@@ -165,6 +166,15 @@ router.post('/addNewMovie', uploadPoster, async (req, res) => {
 
         const movie = createMovieObject(req.body, filename, releaseYear);
 
+        const validation = await validateMovie(movie);
+        if (!validation.valid) {
+
+            return res.status(400).json({
+                success: false,
+                errors: validation.errors
+            });
+        }
+        console.log("Validation result:", validation);
         await movieCatalogue.addMovie(movie);
         res.redirect('/');
     } catch (error) {
