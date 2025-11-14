@@ -1,38 +1,16 @@
-<!-- TOC -->
-* [Cinemateca](#cinemateca)
-  * [Members of the Group](#members-of-the-group)
-  * [Links](#links)
-  * [Functionality](#functionality)
-    * [Entities](#entities)
-      * [Movies](#movies)
-      * [Person](#person)
-    * [Search](#search)
-    * [Filtering](#filtering)
-  * [Wireframes](#wireframes)
-    * [Wide Screen Views](#wide-screen-views)
-    * [Mobile Views](#mobile-views)
-* [Práctica 1](#práctica-1)
-  * [Screenshots](#screenshots)
-  * [Participation](#participation)
-    * [Alejandro](#alejandro)
-    * [Farina](#farina)
-    * [Felix](#felix)
-* [Práctica 2](#práctica-2)
-  * [Screenshots](#screenshots-1)
-  * [Participation](#participation-1)
-    * [Alejandro](#alejandro-1)
-    * [Farina](#farina-1)
-    * [Felix](#felix-1)
-* [Práctica 3](#práctica-3)
-  * [Screenshots](#screenshots-2)
-  * [Participation](#participation-2)
-    * [Alejandro](#alejandro-2)
-    * [Farina](#farina-2)
-    * [Felix](#felix-2)
-<!-- TOC -->
-
 # Cinemateca
 Cinemateca is a web application that serves as a comprehensive movie catalog, allowing users to browse and search a vast database of films.
+
+**Table of contents**
+<!-- TOC -->
+* [Members of the Group](#members-of-the-group)
+* [Links](#links)
+* [Functionality](#functionality)
+* [Wireframes](#wireframes)
+* [Práctica 1](#práctica-1)
+* [Práctica 2](#práctica-2)
+* [Práctica 3](#práctica-3)
+<!-- /TOC -->
 
 ## Members of the Group
 * Alejandro Guzmán Sánchez (E-Mail: a.guzmans.2025@urjc.es, GitHub: [AlejandroGS47](https://github.com/AlejandroGS47))
