@@ -22,7 +22,7 @@ textarea {
     margin: 0 0 1rem 0;
     border-radius: var(--border-radius);
     border: none;
-    background-color: var(--color-bg-hover);
+    background-color: var(--color-bg-alt-darker);
 
 }
 
@@ -54,12 +54,16 @@ option {
     padding: 0.5rem;
 }
 
+option:hover {
+    color: white !important;
+    background-color: var(--color-bg-hover) !important;
+}
+
 option:checked,
 option:active,
-option:focus,
-option:hover{
+option:focus {
     color: white !important;
-    background-color: var(--color-accent-visited) !important;
+    background-color: var(--active) !important;
 }
 
 select::-webkit-scrollbar {
@@ -107,7 +111,7 @@ select::-webkit-scrollbar-thumb:hover {
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius);
-    background-color: var(--color-bg-hover);
+    background-color: var(--color-bg-alt-darker);
     cursor: pointer;
     width: 100%;
     aspect-ratio: 2 / 3;
@@ -115,8 +119,7 @@ select::-webkit-scrollbar-thumb:hover {
 }
 
 .upload-box:hover {
-    border-color: var(--color-accent-hover);
-    background-color: var(--color-accent-visited);
+    background-color: var(--color-bg-hover);
 }
 
 .upload-box input[type="file"] {
@@ -144,6 +147,6 @@ select::-webkit-scrollbar-thumb:hover {
 }
 
 .upload-box.drag-over {
-    background-color: var(--color-accent-visited);
+    background-color: var(--color-bg-hover);
     color: white;
 }
