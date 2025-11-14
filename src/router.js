@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
         const totalPages = Math.ceil(totalMovies / limit);
         const pagination = calculatePagination(page, totalPages);
 
-        res.render('index', {
+        res.render('home', {
             movies: addReleaseYearToMovies(movies),
             page,
             totalPages,
