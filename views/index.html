@@ -20,21 +20,13 @@
 </head>
 <body class="d-flex flex-column h-100">
 
-{{>header}}
+{{>partials/header}}
 
 <main>
     <div class="topRow">
         <div class="searchContainer px-0 mx-0">
             <input type="text" id="searchInput" class="form-control" placeholder="Search movies ...">
         </div>
-
-        <!--
-        <div>
-            <div id="sortButton" type="button" class="btn" data-bs-toggle="button"><i class="bi bi-arrow-down-up"></i></div>
-            <div id="filterButton" type="button" class="btn" data-bs-toggle="button"><i class="bi bi-filter"></i></div>
-            <a class="btn" href="/addNewMovie"><i class="bi bi-plus"></i></a>
-        </div>
-        -->
     </div>
 
     <div class="topRow sortingFiltering">
@@ -163,7 +155,7 @@
 
 </main>
 
-{{>footer}}
+{{>partials/footer}}
 
 </body>
 </html>

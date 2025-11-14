@@ -285,7 +285,7 @@ router.get('/movie-created', (req, res) => {
         'View Movie Details'
     );
 
-    res.render('partials/statusPage', pageData);
+    res.render('statusPage', pageData);
 });
 
 router.get('/movie-deleted', (req, res) => {
@@ -299,7 +299,7 @@ router.get('/movie-deleted', (req, res) => {
         'Go to Home'
     );
 
-    res.render('partials/statusPage', pageData);
+    res.render('statusPage', pageData);
 });
 
 router.get('/error', (req, res) => {
@@ -315,12 +315,12 @@ router.get('/error', (req, res) => {
 // Error Rendering
 function renderErrorPage(res, errorType, entity, details = {}) {
     const pageData = createErrorPage(errorType, entity, details);
-    res.status(pageData.statusCode || 500).render('partials/statusPage', pageData);
+    res.status(pageData.statusCode || 500).render('statusPage', pageData);
 }
 
 function renderValidationError(res, errorType, entity, details = {}) {
     const pageData = createErrorPage(errorType, entity, details);
-    res.status(400).render('partials/statusPage', pageData);
+    res.status(400).render('statusPage', pageData);
 }
 
 // Pagination Helpers
