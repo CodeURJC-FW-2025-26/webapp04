@@ -1,0 +1,75 @@
+@import url("general.css");
+@import url("pageLayout.css");
+@import url("moviePoster.css");
+@import url("filtering.css");
+@import url("pagination.css");
+
+.searchContainer {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.searchContainer input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #ddd;
+}
+
+/*
+#sortButton,
+#filterButton {
+    background-color: var(--color-button);
+    border: none;
+    color: var(--color-text);
+}
+
+#sortButton:hover,
+#filterButton:hover {
+    background-color: var(--color-button-hover);
+}
+
+#sortButton.active,
+#filterButton.active {
+    background-color: var(--active);
+}
+ */
+
+.sortingFiltering {
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.sortingFiltering > .dropdown > button {
+    height: 3em;
+    padding: 0 1em;
+}
+
+.dropdown-menu {
+    background-color: var(--color-bg-alt-darker);
+}
+
+.dropdown-menu label {
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+
+.dropdown-menu label:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-alt-lighter);
+}
+
+.dropdown-menu label:active {
+    color: var(--color-text);
+}
+
+.dropdown-menu input {
+    accent-color: var(--active);
+}
+
+.sortGroup > select {
+    width: fit-content;
+    border: none;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-alt-lighter);
+}

@@ -6,7 +6,9 @@ import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
 import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
 import { createMovieSlug } from './utils/slugify.js';
-import { validateMovie } from "./utils/validator.js";
+import { validateMovie } from './utils/movieValidator.js';
+import { createSuccessPage, createErrorPage } from './utils/statusPageHelper.js';
+import { COUNTRIES } from './utils/countries.js';
 
 const router = express.Router();
 export default router;
@@ -18,30 +20,96 @@ const UPLOADS_FOLDER = './uploads';
 
 // - - - ROUTES - - -
 
+// Home
 router.get('/', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
 
-        const [totalMovies, movies, genres, countries] = await Promise.all([
+        const [totalMovies, movies, genres, countries, ageRatings] = await Promise.all([
             movieCatalogue.getTotalNumberOfMovies(),
             movieCatalogue.getMoviesPaginated(skip, limit),
             movieCatalogue.getAllGenres(),
-            movieCatalogue.getAllCountries()
+            movieCatalogue.getAllCountries(),
+            movieCatalogue.getAllAgeRatings()
         ]);
 
         const totalPages = Math.ceil(totalMovies / limit);
         const pagination = calculatePagination(page, totalPages);
 
-        res.render('index', {
+        res.render('home', {
             movies: addReleaseYearToMovies(movies),
             page,
             totalPages,
             ...pagination,
             genres,
-            countries
+            countries,
+            ageRatings
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading home page:', error);
+        renderErrorPage(res, 'unknown', 'page');
+    }
+});
+
+// Search API
+router.get('/api/search', async (req, res) => {
+    try {
+        const { page, skip, limit } = getPaginationParams(req);
+        const searchParams = getSearchParams(req);
+
+        const { movies, total } = await movieCatalogue.searchMovies(
+            searchParams.searchQuery,
+            searchParams.genre,
+            searchParams.country,
+            searchParams.ageRating,
+            searchParams.sortBy,
+            searchParams.sortOrder,
+            skip,
+            limit
+        );
+
+        const totalPages = Math.ceil(total / limit);
+        const pagination = calculatePagination(page, totalPages);
+
+        res.json({
+            movies: addReleaseYearToMovies(movies),
+            page,
+            totalPages,
+            ...pagination,
+            total
+        });
+    } catch (error) {
+        console.error('Error searching movies:', error);
+        res.status(500).json({ error: 'Search failed' });
+    }
+});
+
+// Movie Routes
+router.get('/movie/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            return renderErrorPage(res, 'notFound', 'movie');
+        }
+
+        const actors = await resolveActorsForMovie(movie);
+        const releaseYear = extractYear(movie.releaseDate);
+
+        res.render('movie', {
+            ...movie,
+            releaseYear,
+            id: movie._id.toString(),
+            slug: movie.slug,
+            genresText: movie.genre?.join(', ') || '',
+            countriesText: movie.countryOfProduction?.join(', ') || '',
+            hasActors: actors.length > 0,
+            actors
+        });
+    } catch (error) {
+        console.error('Error loading movie details:', error);
+        renderErrorPage(res, 'unknown', 'movie');
     }
 });
 
@@ -65,74 +133,97 @@ router.get('/movie/:slug/poster', async (req, res) => {
             }
         });
     } catch (error) {
+        console.error('Error loading poster:', error);
         res.status(500).send('Server error');
     }
 });
 
-router.get('/api/search', async (req, res) => {
+router.get('/addNewMovie', (req, res) => {
     try {
-        const { page, skip, limit } = getPaginationParams(req);
-        const searchParams = getSearchParams(req);
-
-        const { movies, total } = await movieCatalogue.searchMovies(
-            searchParams.searchQuery,
-            searchParams.genre,
-            searchParams.country,
-            searchParams.sortBy,
-            searchParams.sortOrder,
-            skip,
-            limit
-        );
-
-        const totalPages = Math.ceil(total / limit);
-        const pagination = calculatePagination(page, totalPages);
-
-        res.json({
-            movies: addReleaseYearToMovies(movies),
-            page,
-            totalPages,
-            ...pagination,
-            total
+        res.render('addNewMovie', {
+            countries: COUNTRIES
         });
     } catch (error) {
-        res.status(500).json({ error: 'Search failed' });
+        console.error('Error loading add movie page:', error);
+        renderErrorPage(res, 'unknown', 'page');
     }
 });
 
-router.get('/movie/:slug', async (req, res) => {
+router.post('/addNewMovie', uploadPoster, async (req, res) => {
+    try {
+        // Validate
+        const validation = validateMovie(req.body, req.file);
+
+        if (!validation.isValid) {
+            const firstError = validation.errors[0];
+            return renderValidationError(res, firstError.type, 'movie', firstError.details);
+        }
+
+        // Check for duplicate
+        const releaseYear = extractYear(req.body.releaseDate);
+        const slug = createMovieSlug(req.body.title, releaseYear);
+        const existingMovie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (existingMovie) {
+            return renderValidationError(res, 'duplicateTitle', 'movie', {
+                title: req.body.title
+            });
+        }
+
+        // Create movie
+        const filename = renameUploadedFile(req.file.filename, req.body.title, releaseYear);
+        const movie = createMovieObject(req.body, filename, releaseYear);
+
+        await movieCatalogue.addMovie(movie);
+
+        // Redirect to success page
+        res.redirect(`/movie-created?title=${encodeURIComponent(movie.title)}&slug=${slug}`);
+
+    } catch (error) {
+        console.error('Error adding movie:', error);
+        renderErrorPage(res, 'unknown', 'movie');
+    }
+});
+
+router.delete('/api/movie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const movie = await movieCatalogue.getMovieBySlug(slug);
 
         if (!movie) {
-            return res.status(404).send('Movie not found');
+            return res.status(404).json({
+                success: false,
+                error: 'Movie not found',
+                redirectUrl: '/error?type=notFound&entity=movie'
+            });
         }
 
-        const actors = await resolveActorsForMovie(movie);
-        const releaseYear = extractYear(movie.releaseDate);
+        await movieCatalogue.deleteMovie(slug);
+        await deletePosterFile(movie.poster);
 
-        res.render('movie', {
-            ...movie,
-            releaseYear,
-            id: movie._id.toString(),
-            slug: movie.slug,
-            genresText: movie.genre?.join(', ') || '',
-            countriesText: movie.countryOfProduction?.join(', ') || '',
-            hasActors: actors.length > 0,
-            actors
+        res.json({
+            success: true,
+            message: 'Movie deleted successfully',
+            redirectUrl: `/movie-deleted?title=${encodeURIComponent(movie.title)}`
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error deleting movie:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to delete movie',
+            redirectUrl: '/error?type=deleteError&entity=movie'
+        });
     }
 });
 
+// Person/Actor Routes
 router.get('/person/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const actor = await actorCatalogue.getActorBySlug(slug);
 
         if (!actor) {
-            return res.status(404).send('Actor not found');
+            return renderErrorPage(res, 'notFound', 'actor');
         }
 
         const dateDetails = formatActorDateDetails(actor);
@@ -147,69 +238,93 @@ router.get('/person/:slug', async (req, res) => {
             hasMovies: movies.length > 0
         });
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error('Error loading person details:', error);
+        renderErrorPage(res, 'unknown', 'actor');
     }
 });
 
-router.get('/addNewMovie', (req, res) => {
-    try {
-        res.render('addNewMovie', {});
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
-router.post('/addNewMovie', uploadPoster, async (req, res) => {
-    try {
-        const releaseYear = extractYear(req.body.releaseDate);
-        const filename = renameUploadedFile(req.file?.filename, req.body.title, releaseYear);
-
-        const movie = createMovieObject(req.body, filename, releaseYear);
-
-        const validation = await validateMovie(movie);
-        if (!validation.valid) {
-
-            return res.status(400).json({
-                success: false,
-                errors: validation.errors
-            });
-        }
-        console.log("Validation result:", validation);
-        await movieCatalogue.addMovie(movie);
-        res.redirect('/');
-    } catch (error) {
-        res.status(500).send('Server error');
-    }
-});
-
-router.delete('/api/movie/:slug', async (req, res) => {
+router.get('/editPerson/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
-        const movie = await movieCatalogue.getMovieBySlug(slug);
+        const actor = await actorCatalogue.getActorBySlug(slug);
 
-        if (!movie) {
-            return res.status(404).json({
-                success: false,
-                error: 'Movie not found'
-            });
+        if (!actor) {
+            return renderErrorPage(res, 'notFound', 'actor');
         }
 
-        await movieCatalogue.deleteMovie(slug);
-        await deletePosterFile(movie.poster);
-
-        res.json({
-            success: true,
-            message: 'Movie deleted successfully'
+        res.render('editPerson', {
+            ...actor,
+            slug: actor.slug
         });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: 'Failed to delete movie'
-        });
+        console.error('Error loading edit person page:', error);
+        renderErrorPage(res, 'unknown', 'actor');
     }
+});
+
+router.get('/editPerson', (req, res) => {
+    try {
+        res.render('editPerson', {
+            placeholderName: 'Name',
+            placeholderBirthPlace: 'Place of Birth',
+            placeholderDescription: 'Description'
+        });
+    } catch (error) {
+        console.error('Error loading edit person page:', error);
+        renderErrorPage(res, 'unknown', 'page');
+    }
+});
+
+// Status Pages
+router.get('/movie-created', (req, res) => {
+    const movieTitle = req.query.title || 'Unknown Movie';
+    const movieSlug = req.query.slug;
+
+    const pageData = createSuccessPage(
+        'Movie Created Successfully',
+        `"${movieTitle}" has been added.`,
+        `/movie/${movieSlug}`,
+        'bi-eye',
+        'View Movie Details'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+router.get('/movie-deleted', (req, res) => {
+    const movieTitle = req.query.title || 'Unknown Movie';
+
+    const pageData = createSuccessPage(
+        'Movie Deleted Successfully',
+        `"${movieTitle}" has been removed.`,
+        '/',
+        'bi-house-fill',
+        'Go to Home'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+router.get('/error', (req, res) => {
+    const errorType = req.query.type || 'unknown';
+    const entity = req.query.entity || 'item';
+    const details = req.query.details ? JSON.parse(req.query.details) : {};
+
+    renderErrorPage(res, errorType, entity, details);
 });
 
 // - - - HELPER FUNCTIONS - - -
+
+// Error Rendering
+function renderErrorPage(res, errorType, entity, details = {}) {
+    const pageData = createErrorPage(errorType, entity, details);
+    res.status(pageData.statusCode || 500).render('statusPage', pageData);
+}
+
+function renderValidationError(res, errorType, entity, details = {}) {
+    const pageData = createErrorPage(errorType, entity, details);
+    res.status(400).render('statusPage', pageData);
+}
 
 // Pagination Helpers
 function calculatePagination(currentPage, totalPages) {
@@ -262,10 +377,17 @@ function getPaginationParams(req) {
 
 // Search & Filter Helpers
 function getSearchParams(req) {
+    const normalizeParam = (param) => {
+        if (!param || param === 'all') return 'all';
+        const arr = Array.isArray(param) ? param : [param];
+        return arr.filter(Boolean);
+    };
+
     return {
-        searchQuery: req.query.q || '',
-        genre: req.query.genre || 'all',
-        country: req.query.country || 'all',
+        searchQuery: req.query.q?.trim() || '',
+        genre: normalizeParam(req.query.genre),
+        country: normalizeParam(req.query.country),
+        ageRating: normalizeParam(req.query.ageRating),
         sortBy: req.query.sortBy || 'releaseDate',
         sortOrder: req.query.sortOrder || 'desc'
     };
@@ -339,14 +461,14 @@ function addReleaseYearToMovies(movies) {
 function createMovieObject(formData, filename, releaseYear) {
     return {
         title: formData.title,
-        poster: getImagePath(filename),
+        poster: filename, // not necessary?
         slug: createMovieSlug(formData.title, releaseYear),
         description: formData.description,
         genre: ensureArray(formData.genre),
         releaseDate: formData.releaseDate,
         countryOfProduction: ensureArray(formData.countryOfProduction),
-        ageRating: Number(formData.ageRating),
-        actors: null // TODO: actually add actors in array
+        ageRating: formData.ageRating, // might also be 'A'
+        actors: null // TODO: actually add actors in array in movies.json and also in actors.json
     };
 }
 

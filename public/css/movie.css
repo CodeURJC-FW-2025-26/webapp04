@@ -19,9 +19,13 @@
     margin: 0;
 }
 
+.headerPersons .btn {
+    height: 2em;
+    width: 2em;
+}
+
 .headerPersons i {
-    font-size: 1.1em;
-    padding: 0.4rem;
+    font-size: 1em;
 }
 
 .person {

@@ -1,3 +1,25 @@
+const descriptionTextarea = document.getElementById('movieDescription');
+const charCountDisplay = document.getElementById('charCount');
+
+if (descriptionTextarea && charCountDisplay) {
+    descriptionTextarea.addEventListener('input', () => {
+        const length = descriptionTextarea.value.length;
+        const max = 1000;
+        const min = 50;
+
+        charCountDisplay.textContent = `${length} / ${max} characters`;
+
+        charCountDisplay.classList.remove('text-muted');
+        if (length >= min && length <= max) {
+            charCountDisplay.classList.remove('text-danger');
+            charCountDisplay.classList.add('text-success');
+        } else {
+            charCountDisplay.classList.remove('text-success');
+            charCountDisplay.classList.add('text-danger');
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('moviePoster');
     const uploadBox = document.getElementById('uploadBox');

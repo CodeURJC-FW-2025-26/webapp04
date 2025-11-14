@@ -56,7 +56,10 @@ a:visited {
     color: var(--color-accent-visited);
 }
 
-.btn, a.btn {
+.btn,
+a.btn,
+.dropdown-toggle {
+    height: 3rem;
     padding: 0;
     background-color: var(--color-button);
 
@@ -69,7 +72,8 @@ a:visited {
     cursor: pointer;
 }
 
-.btn i {
+.btn i,
+.dropdown-toggle i {
     background: none;
     font-size: 1.5em;
     line-height: 1;
@@ -78,8 +82,16 @@ a:visited {
     transition: background-color var(--animation);
 }
 
-.btn:hover , a.btn:hover  {
+.btn:hover,
+a.btn:hover,
+.dropdown-toggle:hover {
     background-color: var(--color-button-hover);
+}
+
+.btn:focus, .btn:active,
+a.btn:focus, a.btn:active,
+.dropdown-toggle:focus, .dropdown-toggle:active {
+    background-color: var(--active);
 }
 
 .btn-text {
@@ -92,7 +104,8 @@ a:visited {
     justify-content: center;
 }
 
-.btn-delete:hover, a.btn-delete:hover {
+.btn-delete:hover,
+a.btn-delete:hover {
     background-color: var(--color-button-delete);
 }
 
@@ -103,6 +116,14 @@ a:visited {
     padding: 1rem 0.5rem 1rem;
 }
 
+h2 {
+    padding: 0;
+    margin: 0;
+    font-size: clamp(1rem, 4vw, 2.5rem);
+    font-weight: 700;
+    text-wrap: balance;
+}
+
 h3 {
     padding: 0;
     margin: 0;
@@ -110,4 +131,16 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 0.15rex;
     font-weight: lighter;
+}
+
+.text-muted {
+    color: var(--color-text-muted) !important;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.text-danger {
+    color: var(--danger) !important;
 }

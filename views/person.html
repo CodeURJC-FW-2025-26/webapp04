@@ -17,7 +17,7 @@
 </head>
 <body class="d-flex flex-column h-100">
 
-    {{>header}}
+    {{>partials/header}}
 
     <main>
         <div class="topRow">
@@ -27,7 +27,7 @@
             </div>
 
             <div>
-                <div class="btn"><i class="bi bi-pencil"></i></div>
+                <a href="/editPerson/{{slug}}"><div class="btn"><i class="bi bi-pencil"></i></div></a>
                 <div class="btn btn-delete"><i class="bi bi-trash"></i></div>
             </div>
         </div>
@@ -128,7 +128,7 @@
         </div>
     </main>
 
-    {{>footer}}
+    {{>partials/footer}}
 
 </body>
 </html>
