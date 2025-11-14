@@ -8,6 +8,7 @@ import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.
 import { createMovieSlug } from './utils/slugify.js';
 import { validateMovie } from './utils/movieValidator.js';
 import { createSuccessPage, createErrorPage } from './utils/statusPageHelper.js';
+import { COUNTRIES } from './utils/countries.js';
 
 const router = express.Router();
 export default router;
@@ -139,7 +140,9 @@ router.get('/movie/:slug/poster', async (req, res) => {
 
 router.get('/addNewMovie', (req, res) => {
     try {
-        res.render('addNewMovie', {});
+        res.render('addNewMovie', {
+            countries: COUNTRIES
+        });
     } catch (error) {
         console.error('Error loading add movie page:', error);
         renderErrorPage(res, 'unknown', 'page');
