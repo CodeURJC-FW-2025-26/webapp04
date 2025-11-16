@@ -86,6 +86,16 @@ router.get('/api/search', async (req, res) => {
         res.status(500).json({ error: 'Search failed' });
     }
 });
+router.get('/api/actors/search', async (req, res) => {
+    try {
+        const query = req.query.q || '';
+        const actors = await actorCatalogue.searchActors(query);
+        res.json(actors);
+    } catch (error) {
+        console.error('Error searching actors:', error);
+        res.status(500).json({ error: 'Search failed' });
+    }
+});
 
 // Movie Routes
 router.get('/movie/:slug', async (req, res) => {
@@ -546,6 +556,21 @@ function formatActorDateDetails(actor) {
 
     return { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath };
 }
+const parseActors = ({ actorId, actorRole }) => {
+    if (!actorId || !actorRole) return null;
+
+    const ids = [].concat(actorId);
+    const roles = [].concat(actorRole);
+
+    const actors = ids
+        .map((id, i) => id && roles[i] && ({
+            actorId: new ObjectId(id),
+            role: roles[i]
+        }))
+        .filter(Boolean);
+
+    return actors.length ? actors : null;
+};
 
 // Date Helpers
 function formatDate(dateString) {
@@ -588,7 +613,7 @@ function createMovieObject(formData, filename, releaseYear) {
         releaseDate: formData.releaseDate,
         countryOfProduction: ensureArray(formData.countryOfProduction),
         ageRating: formData.ageRating, // might also be 'A'
-        actors: null // TODO: actually add actors in array in movies.json and also in actors.json
+        actors: parseActors(formData) // TODO: actually add actors in array in movies.json and also in actors.json
     };
 }
 

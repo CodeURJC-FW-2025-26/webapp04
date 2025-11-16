@@ -1,0 +1,29 @@
+<label for="actor-search">Actors</label>
+
+<!-- Selected Actors Display -->
+<div id="selectedActorsList" class="mb-3">
+    {{#movie.actors}}
+    <div class="actor-item" data-actor-id="{{actorId}}">
+        <span class="actor-name">{{name}}</span>
+        <span class="actor-role">as {{role}}</span>
+        <input type="text" class="actor-role-input" placeholder="Role" value="{{role}}" name="actorRole[]" required>
+        <input type="hidden" name="actorId[]" value="{{actorId}}">
+        <button type="button" class="remove-actor-btn">×</button>
+    </div>
+    {{/movie.actors}}
+</div>
+
+<div class="actor-search-wrapper">
+    <input
+            type="text"
+            id="actor-search"
+            class="form-control"
+            placeholder="Search for an actor..."
+            autocomplete="off">
+
+    <!-- Autocomplete Dropdown -->
+    <div id="actorDropdown" class="actor-dropdown">
+        <!-- Results appear here -->
+    </div>
+</div>
+

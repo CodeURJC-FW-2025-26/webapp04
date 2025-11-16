@@ -24,3 +24,12 @@ export async function getActorBySlug(slug) {
 export async function getActors() {
     return await collection.find().toArray();
 }
+
+export async function searchActors(query) {
+    return await collection
+        .find({
+            name: { $regex: query, $options: 'i' }  // Case-insensitive
+        })
+        .limit(10)
+        .toArray();
+}
