@@ -1,0 +1,41 @@
+<form role="form" method="post" action="/addNewMovie" enctype="multipart/form-data" class="container-fluid p-0">
+    <div class="row g-3">
+
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-start">
+            <div class ="image-upload-container">
+                <label for="moviePoster" id="uploadBox" class="upload-box p-0 m-0">
+                    <i class="bi bi-upload"></i>
+                    <input type="file" id="moviePoster" name="poster" accept=".jpg, .png, .jpeg"/>
+                </label>
+
+                <div id="imagePreview" class="image-preview" style="display: none;">
+                    <img id="previewImg" src="" alt="Preview">
+                    <button type="button" id="removeImage" class="btn btn-full mt-2 align-self-start">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="d-flex flex-column gap-2">
+                <label for="movieTitle">Name</label>
+                <input name="title" id="movieTitle" type="text" placeholder="{{placeholderName}}" value="{{name}}" required>
+
+                <label for="personBirthDate">Birth Date</label>
+                <input name="personBirthDate" id="personBirthDate" type="date" min="1900" max="2026" step="1" value="{{dateOfBirth}}" required>
+
+                <label for="movieTitle">Place of Birth</label>
+                <input name="title" id="personBirthPlace" type="text" placeholder="{{placeholderBirthPlace}}" value="{{placeOfBirth}}" required>
+
+                <label for="movieDescription">Description</label>
+                <textarea name="description" id="movieDescription" rows="3" required>{{description}}</textarea>
+
+                <button type="submit" class="btn btn-full mt-2 align-self-start">
+                    <span>Save</span>
+                    <i class="bi bi-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
