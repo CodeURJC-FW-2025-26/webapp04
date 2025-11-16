@@ -131,7 +131,7 @@ Finally, I verified that all pages were fully responsive and made some last adju
 - [`movieDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
 - [`personDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/personDetails.html)
 - [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/variables.css)
-- [`pageLayout.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/pageLayout.css)
+- [`pageLayout.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/pageLayout.css)
 - all images files used for [movie posters](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/moviePosters) and [actor portraits](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/persons)
 
 # Práctica 2
@@ -166,15 +166,27 @@ Finally, I verified that all pages were fully responsive and made some last adju
 
 ### Felix
 **Description of the Tasks Completed:**
-...
+I prepared the project for Práctica 2 by setting up the folder structure, creating `app.js` and `router.js`, and adding the sample data as JSON files, which are automatically loaded into the database when the program starts. I configured the HTML pages to use Mustache templates, which render the data provided by the backend. I also added shared header and footer partials so that all views follow a consistent layout. In addition, I implemented pagination on the home page.
+
+Furthermore, I configured most of the routes in `router.js` as well as the `movieCatalogue.js` and `actorCatalogue.js` modules, which act as interfaces to the database. I added searching, filtering and sorting functionality on the home page together with the corresponding UI. I also implemented the status page, which serves as an intermediate page after user interactions, and added backend error-handling logic.
+
+Once the main tasks were completed, I made several improvements: for cleaner URLs, I introduced a slug field in the sample data and used it instead of the database-generated IDs. Additionally, even though the relationship between movies and actors remains unidirectional, I expanded the data-loading process so that each actor is now also linked to their respective movies. I made some design adjustments on the movie and actor detail pages for better readability, and added logic to display when an actor is deceased.
+
+Throughout the process, I regularly reviewed the code, removed duplicates, modularized functionality, and reorganized files to improve readability and maintainability.
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [d1993a3](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/d1993a3): Added search, filtering, and sorting functionality on the home page
+- [7a98744](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7a98744): Introduced a status page and implemented backend logic to handle errors and successes and redirect appropriately
+- [fce0d4c](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/fce0d4c): Implemented pagination
+- [c4665d9](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c4665d9) and [3fe8487](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/3fe8487): Added slug fields to both JSON files for cleaner and more readable URLs
+- [b24bb7d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b24bb7d): Replaced duplicated header and footer HTML in the views with Mustache partials
 
 **Five Most Contributed Files**
-- ...
-- ...
+- `router.js`
+- `movieCatalogue.js`
+- `home.js`
+- `statusPage.js`
+- `errorHandler.js`
 
 # Práctica 3
 
