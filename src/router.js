@@ -450,9 +450,9 @@ router.get('/editPerson/:slug', async (req, res) => {
         }
 
         res.render('editPerson', {
-            actor,  // Pasamos los datos del actor para precargar el form
-            name: actor.name,  // Para el título "Edit {name}"
-            action: `/editPerson/${slug}`  // Action para POST con slug
+            actor,  // we need the whole actor object to prefill the form
+            name: actor.name,
+            action: `/editPerson/${slug}`  
         });
     } catch (error) {
         console.error('Error loading edit person page:', error);

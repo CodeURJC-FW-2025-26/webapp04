@@ -1,6 +1,6 @@
 export function validateActor(actorData, file) {
     const errors = [];
-    const DESCRIPTION_MIN = 50;
+    const DESCRIPTION_MIN = 30;
     const DESCRIPTION_MAX = 1000;
     const CURRENT_YEAR = new Date().getFullYear();
     const MIN_YEAR = 1900; // reasonable min for actor birth year
