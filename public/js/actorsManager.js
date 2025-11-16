@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchTimeout;
     const selectedActors = new Set();
 
-    // Load existing actors
+    //load existing actors
     document.querySelectorAll('.actor-item').forEach(item => {
         selectedActors.add(item.dataset.actorId);
     });
@@ -15,38 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
     actorSearch.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         const query = e.target.value.trim();
-
         if (query.length < 2) {
             hideDropdown();
             return;
         }
-
-        // Debounce search
         searchTimeout = setTimeout(() => searchActors(query), 300);
     });
 
     async function searchActors(query) {
         try {
-            const response = await fetch(`/api/actors/search?q=${encodeURIComponent(query)}`);
-            const actors = await response.json();
+            const res = await fetch(`/api/actors/search?q=${encodeURIComponent(query)}`);
+            const actors = await res.json();
             showDropdown(actors);
-        } catch (error) {
-            console.error('Search error:', error);
+        } catch (err) {
+            console.error('Search error:', err);
             showDropdown([]);
         }
     }
 
     function showDropdown(actors) {
         actorDropdown.innerHTML = '';
-
         if (actors.length === 0) {
-            actorDropdown.innerHTML = '<div class="actor-dropdown-empty">No actors found</div>';
+            actorDropdown.innerHTML = '<div class="actor-dropdown-item">No actors found</div>';
             actorDropdown.classList.add('show');
             return;
         }
 
         actors.forEach(actor => {
-            // Skip already selected
             if (selectedActors.has(actor._id.toString())) return;
 
             const item = document.createElement('div');
@@ -82,14 +77,23 @@ document.addEventListener('DOMContentLoaded', () => {
         actorItem.className = 'actor-item';
         actorItem.dataset.actorId = actorId;
         actorItem.innerHTML = `
-            <span class="actor-name">${actor.name}</span>
-            <input type="text" class="actor-role-input" placeholder="Role in this movie" name="actorRole[]" >
-            <input type="hidden" name="actorId[]" value="${actorId}">
-            <button type="button" class="remove-actor-btn">×</button>
+            <div class="actor-header">
+                <a href="/person/${actor.slug || ''}">
+                    <img class="personIconSmall" 
+                         src="${actor.portrait ? '/img/persons/' + actor.portrait : '/img/persons/placeholder.jpg'}" 
+                         alt="${actor.name}">
+                </a>
+                <a href="/person/${actor.slug || ''}" class="actor-name">${actor.name}</a>
+                <button type="button" class="btn actor-remove-btn"><i class="bi bi-trash"></i></button>
+            </div>
+            <div class="actor-role-row">
+                <span class="actor-role-label">as</span>
+                <input type="text" class="actor-role-input" placeholder="Role" name="actorRole[]" required>
+                <input type="hidden" name="actorId[]" value="${actorId}">
+            </div>
         `;
 
-        // Remove handler
-        actorItem.querySelector('.remove-actor-btn').addEventListener('click', () => {
+        actorItem.querySelector('.actor-remove-btn').addEventListener('click', () => {
             selectedActors.delete(actorId);
             actorItem.remove();
         });
@@ -97,15 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedActorsList.appendChild(actorItem);
     }
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!actorSearch.contains(e.target) && !actorDropdown.contains(e.target)) {
             hideDropdown();
         }
     });
 
-    // Handle existing remove buttons
-    document.querySelectorAll('.remove-actor-btn').forEach(btn => {
+    document.querySelectorAll('.actor-item .actor-remove-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const actorItem = e.target.closest('.actor-item');
             selectedActors.delete(actorItem.dataset.actorId);
