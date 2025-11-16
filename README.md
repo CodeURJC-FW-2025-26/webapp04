@@ -182,11 +182,11 @@ Throughout the process, I regularly reviewed the code, removed duplicates, modul
 - [b24bb7d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b24bb7d): Replaced duplicated header and footer HTML in the views with Mustache partials
 
 **Five Most Contributed Files**
-- `router.js`
-- `movieCatalogue.js`
-- `home.js`
-- `statusPage.js`
-- `errorHandler.js`
+- [`router.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/router.js)
+- [`movieCatalogue.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/movieCatalogue.js)
+- [`home.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/js/home.js)
+- [`statusPage.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/statusPage.html)
+- [`errorHandler.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/utils/errorHandler.js)
 
 # Práctica 3
 
