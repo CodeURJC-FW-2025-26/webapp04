@@ -28,10 +28,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const removeBtn = document.getElementById('removeImage');
 
     let selectedFile = null;
+    let hasExistingPoster = false;
+
+    // Check if there's already an existing poster (edit mode)
+    const existingPosterImg = uploadBox.querySelector('img');
+    if (existingPosterImg) {
+        hasExistingPoster = true;
+        // Move existing poster to preview area
+        previewImg.src = existingPosterImg.src;
+        existingPosterImg.remove(); // Remove from uploadBox
+        uploadBox.querySelector('i')?.remove(); // Remove upload icon
+        uploadBox.style.display = 'none';
+        imagePreview.style.display = 'block';
+    }
 
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
-        if (file) { handleFileSelect(file); }
+        if (file) {
+            handleFileSelect(file);
+        }
     });
 
     removeBtn.addEventListener('click', () => {
@@ -59,11 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (files.length > 0) {
             const file = files[0];
 
-            // Check if it's an image
             if (file.type.match('image.*')) {
                 handleFileSelect(file);
 
-                // Update the file input
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
@@ -75,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleFileSelect(file) {
         selectedFile = file;
+        hasExistingPoster = false; // User is uploading new file
 
-        // Create preview
         const reader = new FileReader();
         reader.onload = (e) => {
             previewImg.src = e.target.result;
@@ -88,9 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function clearImage() {
         selectedFile = null;
-        fileInput.value = ''; // Clear the input
+        fileInput.value = '';
         previewImg.src = '';
         imagePreview.style.display = 'none';
         uploadBox.style.display = 'flex';
+
+        // If there was an existing poster, show upload icon again
+        if (hasExistingPoster) {
+            // Re-create upload icon if needed
+            if (!uploadBox.querySelector('i')) {
+                const icon = document.createElement('i');
+                icon.className = 'bi bi-upload';
+                uploadBox.appendChild(icon);
+            }
+            hasExistingPoster = false;
+        }
     }
 });

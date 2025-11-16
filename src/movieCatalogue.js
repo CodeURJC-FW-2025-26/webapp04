@@ -81,6 +81,21 @@ export async function deleteMovie(slug) {
     const result = await collection.deleteOne({ slug: slug });
     return result.deletedCount > 0;
 }
+export async function updateMovie(slug, updatedMovie) {
+    // Regenerate slug if title or releaseYear changed
+    if (updatedMovie.title && updatedMovie.releaseYear) {
+        updatedMovie.slug = createMovieSlug(updatedMovie.title, updatedMovie.releaseYear);
+    }
+
+    const result = await collection.findOneAndUpdate(
+        { slug: slug },
+        { $set: updatedMovie },
+        { returnDocument: 'after' }
+    );
+
+    if (!result) { throw new Error('Movie not found'); }
+    return result;
+}
 
 // - - - HELPER FUNCTIONS - - -
 

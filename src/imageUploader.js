@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
     }
 });
 //rename uploades file properly
-export const renameUploadedFile = (oldFilename, title, releaseYear) => {
+export const renameUploadedFile = (oldFilename, title, releaseYear, existingFilename = null) => {
     const oldPath = path.join(uploadsDir, oldFilename);
     if (!fs.existsSync(oldPath)) return null;
 
@@ -42,6 +42,13 @@ export const renameUploadedFile = (oldFilename, title, releaseYear) => {
 
     try {
         fs.renameSync(oldPath, newPath);
+        if (existingFilename && existingFilename !== newFilename) {
+            const existingPath = path.join(uploadsDir, existingFilename);
+            if (fs.existsSync(existingPath)) {
+                fs.unlinkSync(existingPath);
+            }
+        }
+
         return newFilename;
     } catch (err) {
         console.error('Error renaming file:', err);
