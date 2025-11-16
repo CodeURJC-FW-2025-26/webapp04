@@ -255,9 +255,13 @@ router.get('/editMovie/:slug', async (req, res) => {
             value: c,
             selected: movie.countryOfProduction.includes(c)
         }));
+        const actors = await resolveActorsForMovie(movie);
 
         res.render('editMovie', {
-            movie,
+            movie: {
+                ...movie,
+                actors
+            },
             action: `/editMovie/${slug}`,
             countries,
             ageRating,
@@ -276,6 +280,7 @@ router.post('/editMovie/:slug', uploadPoster, async (req, res) => {
         const existingMovie = await movieCatalogue.getMovieBySlug(movieSlug);
 
         if (!existingMovie) { return renderErrorPage(res, 'notFound', 'movie'); }
+
         const releaseYear = extractYear(req.body.releaseDate);
         let filename;
 
@@ -286,10 +291,8 @@ router.post('/editMovie/:slug', uploadPoster, async (req, res) => {
                 releaseYear,
                 existingMovie.poster
             );
-            console.log('New poster saved:', filename);
         } else {
             filename = existingMovie.poster;
-            console.log('Keeping old poster:', filename);
         }
 
         const updatedMovie = createMovieObject(req.body, filename, releaseYear);
