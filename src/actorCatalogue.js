@@ -36,7 +36,7 @@ export async function searchActors(query) {
 
 export async function updateActor(slug, updatedActor) {
     try {
-        // Regenerar slug si cambió el nombre
+        // Regenerate slug if name is updated
         if (updatedActor.name) {
             updatedActor.slug = createActorSlug(updatedActor.name);
         }
@@ -56,4 +56,9 @@ export async function updateActor(slug, updatedActor) {
         console.error('Error in updateActor:', error);
         throw error;
     }
+}
+
+export async function deleteActor(slug) {
+    const result = await collection.deleteOne({ slug: slug });
+    return result.deletedCount > 0;
 }

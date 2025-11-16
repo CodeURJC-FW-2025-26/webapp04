@@ -408,6 +408,37 @@ router.post('/editPerson', uploadPortrait, async (req, res) => {
     }
 });
 
+router.delete('/api/person/:slug', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const person = await actorCatalogue.getActorBySlug(slug);
+
+        if (!person) {
+            return res.status(404).json({
+                success: false,
+                error: 'Actor not found',
+                redirectUrl: '/error?type=notFound&entity=movie'
+            });
+        }
+
+        await actorCatalogue.deleteActor(slug);
+        await deletePosterFile(person.poster);
+
+        res.json({
+            success: true,
+            message: 'Actor deleted successfully',
+            redirectUrl: `/person-deleted?title=${encodeURIComponent(person.title)}`
+        });
+    } catch (error) {
+        console.error('Error deleting actor:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to delete actor',
+            redirectUrl: '/error?type=deleteError&entity=person'
+        });
+    }
+});
+
 // Edit Existing Actor
 router.get('/editPerson/:slug', async (req, res) => {
     try {
@@ -442,7 +473,7 @@ router.post('/editPerson/:slug', uploadPortrait, async (req, res) => {
             filename = renameUploadedFile(req.file.filename, req.body.name, '', existingActor.portrait, 'img/persons');
         }
 
-        // Si se eliminó la imagen (agrega esto si implementas el campo hidden en JS/form)
+        // If removePortrait is true, delete existing portrait
         if (req.body.removePortrait === 'true' && filename) {
             await deletePortraitFile(filename);
             filename = null;
@@ -494,6 +525,21 @@ router.get('/movie-deleted', (req, res) => {
 
     res.render('statusPage', pageData);
 });
+
+router.get('/person-deleted', (req, res) => {
+    const personName = req.params.name || 'Actor';
+
+    const pageData = createSuccessPage(
+        'Actor Deleted Successfully',
+        `${personName} has been removed.`,
+        '/',
+        'bi-house-fill',
+        'Go to Home'
+    );
+
+    res.render('statusPage', pageData);
+});
+
 router.get('/movie-updated', (req, res) => {
     const movieTitle = req.query.title || 'Unknown Movie';
     const movieSlug = req.query.slug;
