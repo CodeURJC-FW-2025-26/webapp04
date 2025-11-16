@@ -7,6 +7,9 @@ import * as actorCatalogue from './actorCatalogue.js';
 import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
 import { createMovieSlug } from './utils/slugify.js';
 import { validateMovie } from './utils/movieValidator.js';
+import { createActorSlug } from './utils/slugify.js'; 
+import { validateActor } from './utils/actorValidator.js';
+import { uploadPortrait } from './imageUploader.js';
 import { createSuccessPage, createErrorPage } from './utils/statusPageHelper.js';
 import { COUNTRIES } from './utils/countries.js';
 import { GENRES } from './utils/genres.js';
@@ -359,6 +362,53 @@ router.get('/person/:slug', async (req, res) => {
     }
 });
 
+// Add New Actor
+router.get('/editPerson', (req, res) => {
+    try {
+        res.render('editPerson', {
+            action: '/editPerson',
+            placeholderName: 'Name',
+            placeholderBirthPlace: 'Place of Birth',
+            placeholderDescription: 'Description'
+        });
+    } catch (error) {
+        console.error('Error loading add person page:', error);
+        renderErrorPage(res, 'unknown', 'page');
+    }
+});
+
+router.post('/editPerson', uploadPortrait, async (req, res) => {
+    try {
+        const validation = validateActor(req.body, req.file);
+        if (!validation.isValid) {
+            const firstError = validation.errors[0];
+            return renderValidationError(res, firstError.type, 'actor', firstError.details);
+        }
+
+        const slug = createActorSlug(req.body.name);
+        const existingActor = await actorCatalogue.getActorBySlug(slug);
+        if (existingActor) {
+            return renderValidationError(res, 'duplicateName', 'actor', { name: req.body.name });
+        }
+
+        const filename = req.file ? renameUploadedFile(req.file.filename, req.body.name, '', null, 'img/persons') : null;
+
+        console.log('Archivo subido:', req.file);
+        console.log('Archivo renombrado:', filename);
+        console.log('Actor a guardar:', { ...req.body, portrait: filename });
+
+        const actor = createActorObject(req.body, filename);
+
+        await actorCatalogue.addActor(actor);
+
+        res.redirect(`/person-created?name=${encodeURIComponent(actor.name)}&slug=${slug}`);
+    } catch (error) {
+        console.error('Error adding actor:', error);
+        renderErrorPage(res, 'unknown', 'actor');
+    }
+});
+
+// Edit Existing Actor
 router.get('/editPerson/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -369,8 +419,9 @@ router.get('/editPerson/:slug', async (req, res) => {
         }
 
         res.render('editPerson', {
-            ...actor,
-            slug: actor.slug
+            actor,  // Pasamos los datos del actor para precargar el form
+            name: actor.name,  // Para el título "Edit {name}"
+            action: `/editPerson/${slug}`  // Action para POST con slug
         });
     } catch (error) {
         console.error('Error loading edit person page:', error);
@@ -378,16 +429,39 @@ router.get('/editPerson/:slug', async (req, res) => {
     }
 });
 
-router.get('/editPerson', (req, res) => {
+router.post('/editPerson/:slug', uploadPortrait, async (req, res) => {
     try {
-        res.render('editPerson', {
-            placeholderName: 'Name',
-            placeholderBirthPlace: 'Place of Birth',
-            placeholderDescription: 'Description'
-        });
+        const actorSlug = req.params.slug;
+        const existingActor = await actorCatalogue.getActorBySlug(actorSlug);
+        if (!existingActor) {
+            return renderErrorPage(res, 'notFound', 'actor');
+        }
+
+        let filename = existingActor.portrait;
+        if (req.file) {
+            filename = renameUploadedFile(req.file.filename, req.body.name, '', existingActor.portrait, 'img/persons');
+        }
+
+        // Si se eliminó la imagen (agrega esto si implementas el campo hidden en JS/form)
+        if (req.body.removePortrait === 'true' && filename) {
+            await deletePortraitFile(filename);
+            filename = null;
+        }
+
+        const updatedActor = createActorObject(req.body, filename);
+
+        const validation = validateActor(req.body, { filename: filename });
+        if (!validation.isValid) {
+            const firstError = validation.errors[0];
+            return renderValidationError(res, firstError.type, 'actor', firstError.details);
+        }
+
+        await actorCatalogue.updateActor(actorSlug, updatedActor);
+
+        res.redirect(`/person-updated?name=${encodeURIComponent(updatedActor.name)}&slug=${updatedActor.slug}`);
     } catch (error) {
-        console.error('Error loading edit person page:', error);
-        renderErrorPage(res, 'unknown', 'page');
+        console.error('Error updating actor:', error);
+        renderErrorPage(res, 'unknown', 'actor');
     }
 });
 
@@ -430,6 +504,37 @@ router.get('/movie-updated', (req, res) => {
         `/movie/${movieSlug}`,
         'bi-eye',
         'View Movie Details'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+
+router.get('/person-created', (req, res) => {
+    const actorName = req.query.name || 'Unknown Actor';
+    const actorSlug = req.query.slug;
+
+    const pageData = createSuccessPage(
+        'Actor Created Successfully',
+        `"${actorName}" has been added.`,
+        `/person/${actorSlug}`,
+        'bi-eye',
+        'View Actor Details'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+router.get('/person-updated', (req, res) => {
+    const actorName = req.query.name || 'Unknown Actor';
+    const actorSlug = req.query.slug;
+
+    const pageData = createSuccessPage(
+        'Actor Updated Successfully',
+        `"${actorName}" has been updated.`,
+        `/person/${actorSlug}`,
+        'bi-eye',
+        'View Actor Details'
     );
 
     res.render('statusPage', pageData);
@@ -616,6 +721,29 @@ function createMovieObject(formData, filename, releaseYear) {
         actors: parseActors(formData) // TODO: actually add actors in array in movies.json and also in actors.json
     };
 }
+
+
+function createActorObject(formData, filename) {
+    return {
+        name: formData.name,
+        slug: createActorSlug(formData.name),
+        portrait: filename,
+        description: formData.description,
+        dateOfBirth: formData.dateOfBirth,
+        placeOfBirth: formData.placeOfBirth
+    };
+}
+
+async function deletePortraitFile(portraitFilename) {
+    if (!portraitFilename) return;
+    try {
+        const portraitPath = path.join('./img/persons', portraitFilename);
+        await fs.unlink(portraitPath);
+    } catch (error) {
+        console.error('Could not delete portrait file:', error);
+    }
+}
+
 
 function ensureArray(value) {
     return Array.isArray(value) ? value : [value];
