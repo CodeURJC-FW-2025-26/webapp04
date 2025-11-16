@@ -11,7 +11,7 @@ label {
     font-weight: 200;
     text-transform: uppercase;
     letter-spacing: 0.15rex;
-    margin-bottom: 0;
+    margin: 1rem 0 0 0;
 }
 
 input,
@@ -19,7 +19,6 @@ select,
 textarea {
     color: var(--color-text-muted);
     padding: 0.5rem;
-    margin: 0 0 1rem 0;
     border-radius: var(--border-radius);
     border: none;
     background-color: var(--color-bg-alt-darker);
