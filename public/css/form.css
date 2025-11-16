@@ -11,7 +11,9 @@ label {
     font-weight: 200;
     text-transform: uppercase;
     letter-spacing: 0.15rex;
-    margin: 1rem 0 0 0;
+}
+form label:not(:first-of-type) {
+    margin-top: 1rem;
 }
 
 input,
@@ -123,26 +125,6 @@ select::-webkit-scrollbar-thumb:hover {
 
 .upload-box input[type="file"] {
     display: none;
-}
-
-.actors-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-}
-
-.actor-input {
-    flex: 1;
-    padding: 0.5rem;
-    border-radius: var(--border-radius);
-    height: 2.5rem;
-}
-
-.btn.btn-inline {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: 0.9rem ;
 }
 
 .upload-box.drag-over {
