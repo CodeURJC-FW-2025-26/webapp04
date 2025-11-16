@@ -33,3 +33,27 @@ export async function searchActors(query) {
         .limit(10)
         .toArray();
 }
+
+export async function updateActor(slug, updatedActor) {
+    try {
+        // Regenerar slug si cambió el nombre
+        if (updatedActor.name) {
+            updatedActor.slug = createActorSlug(updatedActor.name);
+        }
+
+        const result = await collection.findOneAndUpdate(
+            { slug: slug },
+            { $set: updatedActor },
+            { returnDocument: 'after' }
+        );
+
+        if (!result) {
+            throw new Error('Actor not found for update');
+        }
+
+        return result;
+    } catch (error) {
+        console.error('Error in updateActor:', error);
+        throw error;
+    }
+}
