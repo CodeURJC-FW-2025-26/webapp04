@@ -1,6 +1,7 @@
 import express from 'express';
 import mustacheExpress from 'mustache-express';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 import router from './router.js';
 import './dataLoader.js';
@@ -8,6 +9,7 @@ import './dataLoader.js';
 const app = express();
 
 app.use(express.static('./public'));
+app.use('/img', express.static(path.join(process.cwd(), 'img')));
 
 app.set('view engine', 'html');
 app.engine('html', mustacheExpress(), '.html');

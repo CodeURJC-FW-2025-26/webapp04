@@ -99,11 +99,25 @@ select::-webkit-scrollbar-thumb:hover {
     gap: 1rem;
 }
 
+.image-preview-actor {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .image-preview img {
     width: 100%;
     aspect-ratio: 2 / 3;
     object-fit: cover;
     border-radius: var(--border-radius);
+}
+
+.image-preview-actor img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .upload-box {

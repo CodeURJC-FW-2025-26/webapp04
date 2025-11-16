@@ -3,9 +3,15 @@ import path from 'path';
 import fs from 'fs';
 
 // Ensure uploads directory exists
-const uploadsDir = 'uploads/';
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+const UPLOADS_FOLDER = 'uploads/';
+const PERSONS_FOLDER = 'img/persons/';
+
+// Create directories if they don't exist
+if (!fs.existsSync(UPLOADS_FOLDER)) {
+    fs.mkdirSync(UPLOADS_FOLDER, { recursive: true });
+}
+if (!fs.existsSync(PERSONS_FOLDER)) {
+    fs.mkdirSync(PERSONS_FOLDER, { recursive: true });
 }
 
 export const getImagePath = (filename) => {
@@ -19,31 +25,48 @@ const sanitizeFilename = (text) => {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
 };
-//storage object for multer defines  name with preserved ending and destiation
-const storage = multer.diskStorage({
+
+// Storage for movie posters
+const posterStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadsDir); // MUST specify destination
+        cb(null, UPLOADS_FOLDER);
     },
-    //rename file once to preserve suffix
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         cb(null, `myfile_${Date.now()}${ext}`);
     }
 });
-//rename uploades file properly
-export const renameUploadedFile = (oldFilename, title, releaseYear, existingFilename = null) => {
-    const oldPath = path.join(uploadsDir, oldFilename);
+
+// Storage for actor portraits
+const portraitStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, PERSONS_FOLDER);
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, `myfile_${Date.now()}${ext}`);
+    }
+});
+
+// Multer instances
+export const uploadPoster = multer({ storage: posterStorage }).single('poster');
+export const uploadPortrait = multer({ storage: portraitStorage }).single('portrait');
+
+// Rename uploaded file properly
+export const renameUploadedFile = (oldFilename, title, releaseYear, existingFilename = null, destFolder = UPLOADS_FOLDER) => {
+    const oldPath = path.join(destFolder, oldFilename);
     if (!fs.existsSync(oldPath)) return null;
 
     const ext = path.extname(oldFilename);
     const sanitizedTitle = sanitizeFilename(title);
-    const newFilename = `${sanitizedTitle}_${releaseYear}${ext}`;
-    const newPath = path.join(uploadsDir, newFilename);
+    const suffix = releaseYear ? `_${releaseYear}` : ''; 
+    const newFilename = `${sanitizedTitle}${suffix}${ext}`;
+    const newPath = path.join(destFolder, newFilename);
 
     try {
         fs.renameSync(oldPath, newPath);
         if (existingFilename && existingFilename !== newFilename) {
-            const existingPath = path.join(uploadsDir, existingFilename);
+            const existingPath = path.join(destFolder, existingFilename);
             if (fs.existsSync(existingPath)) {
                 fs.unlinkSync(existingPath);
             }
@@ -55,7 +78,3 @@ export const renameUploadedFile = (oldFilename, title, releaseYear, existingFile
         return oldFilename;
     }
 };
-
-const upload = multer({ storage: storage });
-
-export const uploadPoster = upload.single('poster');
