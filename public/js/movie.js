@@ -1,25 +1,32 @@
-const deleteMovieButton = document.getElementById('deleteMovieButton');
+// Initialize delete button functionality
+window.utils.setupDeleteButton('deleteMovieButton', 'movie');
 
-deleteMovieButton.addEventListener('click', async (e) => {
-    const slug = e.currentTarget.dataset.slug;
-
-    try {
-        const response = await fetch(`/api/movie/${slug}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            window.location.href = data.redirectUrl;
-        } else if (data.redirectUrl) {
-            window.location.href = data.redirectUrl;
+// Setup actor delete buttons (intelligent deletion from movie context)
+const movieSlug = window.location.pathname.split('/')[2];
+document.querySelectorAll('.delete-actor-button').forEach((button) => {
+    button.addEventListener('click', async (e) => {
+        const actorSlug = e.currentTarget.dataset.slug;
+        
+        if (!actorSlug) {
+            console.error('No actor slug found for delete operation');
+            return;
         }
-    } catch (error) {
-        console.error('Error deleting movie:', error);
-        window.location.href = '/error?type=deleteError&entity=movie';
-    }
+
+        try {
+            const response = await fetch(`/api/movie/${movieSlug}/actor/${actorSlug}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            window.location.href = data.redirectUrl || `/movie/${movieSlug}`;
+        } catch (error) {
+            console.error('Delete actor error:', error);
+            window.location.href = `/error?type=deleteError&entity=person`;
+        }
+    });
 });
