@@ -1,12 +1,14 @@
-@import url("general.css");
-@import url("pageLayout.css");
+@import url("base.css");
 @import url("personPortrait.css");
 
-/* Search */
-.actor-search-wrapper { position: relative; }
-#actor-search { width: 100%; }
+.actor-search-wrapper {
+    position: relative;
+}
 
-/* Dropdown */
+#actor-search {
+    width: 100%;
+}
+
 .actor-dropdown {
     position: absolute;
     top: 100%;
@@ -18,18 +20,61 @@
     z-index: 1000;
     display: none;
 }
-.actor-dropdown.show { display: block; }
-.actor-dropdown-item { padding: .5rem .75rem; cursor: pointer; color: var(--color-text-muted); }
-.actor-dropdown-item:hover { background: var(--color-bg-hover); color: var(--color-text); }
 
-/* Actor Item */
-.actor-item { padding: 0.75rem; background: var(--color-bg-alt-darker); border-radius: var(--border-radius); margin-bottom: .5rem;  }
-/*.actor-item:hover { background: var(--color-bg-hover); }*/
+.actor-dropdown.show {
+    display: block;
+}
 
-.actor-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
-.actor-name { flex: 1; font-weight: 500; text-transform: none; letter-spacing: normal; }
+.actor-dropdown-item {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
 
-.actor-role-row { display: flex; align-items: center; gap: 0.5rem; padding-left: 1rem; }
-.actor-role-label { color: var(--color-text-muted);  font-size: 0.9rem; }
-.actor-role-input { flex: 1; min-width: 0; background: rgba(0, 0, 0, 0.2); }
-.actor-role-input:focus { background: rgba(0, 0, 0, 0.3); }
+.actor-dropdown-item:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text);
+}
+
+.actor-item {
+    padding: 0.75rem;
+    background: var(--color-bg-alt-darker);
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+}
+
+.actor-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.actor-name {
+    flex: 1;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.actor-role-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: 1rem;
+}
+
+.actor-role-label {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.actor-role-input {
+    flex: 1;
+    min-width: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.actor-role-input:focus {
+    background: rgba(0, 0, 0, 0.3);
+}

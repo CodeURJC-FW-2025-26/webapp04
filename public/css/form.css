@@ -1,5 +1,4 @@
-@import url("general.css");
-@import url("pageLayout.css");
+@import url("base.css");
 
 form {
     display: flex;

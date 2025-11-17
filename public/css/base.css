@@ -1,0 +1,3 @@
+/* Base CSS file that includes all fundamental styles */
+@import url("general.css");
+@import url("pageLayout.css");

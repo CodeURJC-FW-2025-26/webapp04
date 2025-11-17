@@ -1,5 +1,4 @@
-@import url("general.css");
-@import url("pageLayout.css");
+@import url("base.css");
 @import url("moviePoster.css");
 @import url("filtering.css");
 @import url("pagination.css");
@@ -15,25 +14,6 @@
     border-radius: var(--border-radius);
     border: 1px solid #ddd;
 }
-
-/*
-#sortButton,
-#filterButton {
-    background-color: var(--color-button);
-    border: none;
-    color: var(--color-text);
-}
-
-#sortButton:hover,
-#filterButton:hover {
-    background-color: var(--color-button-hover);
-}
-
-#sortButton.active,
-#filterButton.active {
-    background-color: var(--active);
-}
- */
 
 .sortingFiltering {
     justify-content: space-between;
