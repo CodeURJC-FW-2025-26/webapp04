@@ -155,11 +155,12 @@ router.get('/movie/:slug/poster', async (req, res) => {
     }
 });
 
+//Add New Movie
 router.get('/addNewMovie', (req, res) => {
     try {
-        res.render('addNewMovie', {
+        res.render('editMovie', {
             countries: COUNTRIES,
-            action: `/addNewMovie`,
+            action: `/editMovie`,
             ageRating: AGE_RATING,
             genres: GENRES
 
@@ -170,7 +171,7 @@ router.get('/addNewMovie', (req, res) => {
     }
 });
 
-router.post('/addNewMovie', uploadPoster, async (req, res) => {
+router.post('/editMovie/', uploadPoster, async (req, res) => {
     try {
         // Validate
         const validation = validateMovie(req.body, req.file);
@@ -205,6 +206,7 @@ router.post('/addNewMovie', uploadPoster, async (req, res) => {
     }
 });
 
+//Delete Movie
 router.delete('/api/movie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -235,6 +237,7 @@ router.delete('/api/movie/:slug', async (req, res) => {
         });
     }
 });
+//Edit existing Movie
 router.get('/editMovie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -367,13 +370,18 @@ router.get('/person/:slug', async (req, res) => {
 });
 
 // Add New Actor
-router.get('/editPerson', (req, res) => {
+router.get('/addNewPerson/:slug', (req, res) => {
     try {
+        //Fil mit übergeben
+        const slug = req.params.slug;
+        const movie = movieCatalogue.getMovieBySlug(slug);
         res.render('editPerson', {
+            movie,
             action: '/editPerson',
             placeholderName: 'Name',
             placeholderBirthPlace: 'Place of Birth',
             placeholderDescription: 'Description'
+
         });
     } catch (error) {
         console.error('Error loading add person page:', error);
@@ -381,7 +389,7 @@ router.get('/editPerson', (req, res) => {
     }
 });
 
-router.post('/editPerson', uploadPortrait, async (req, res) => {
+router.post('/editPerson/', uploadPortrait, async (req, res) => {
     try {
         const validation = validateActor(req.body, req.file);
         if (!validation.isValid) {
@@ -401,6 +409,8 @@ router.post('/editPerson', uploadPortrait, async (req, res) => {
         const actor = createActorObject(req.body, filename);
 
         await actorCatalogue.addActor(actor);
+        //add the actor directly  to the movie
+        //await movieCatalogue....
 
         res.redirect(`/person-created?name=${encodeURIComponent(actor.name)}&slug=${slug}`);
     } catch (error) {
@@ -408,9 +418,10 @@ router.post('/editPerson', uploadPortrait, async (req, res) => {
         renderErrorPage(res, 'unknown', 'actor');
     }
 });
-//slug?
-router.get('/persons/:filename', (req, res) => {
-    const personPath = path.join(PERSON_FOLDER, req.params.filename);
+
+
+router.get('/persons/:slug', (req, res) => {
+    const personPath = path.join(PERSON_FOLDER, req.params.slug);
     res.sendFile(path.resolve(personPath), (err) => {
         if (err && !res.headersSent) {
             res.status(404).send('Portrait not found');
@@ -430,7 +441,6 @@ router.delete('/api/person/:slug', async (req, res) => {
                 redirectUrl: '/error?type=notFound&entity=movie'
             });
         }
-
         await actorCatalogue.deleteActor(slug);
         await deletePosterFile(person.poster);
 
@@ -454,6 +464,7 @@ router.get('/editPerson/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const actor = await actorCatalogue.getActorBySlug(slug);
+        //need the movie
 
         if (!actor) {
             return renderErrorPage(res, 'notFound', 'actor');
