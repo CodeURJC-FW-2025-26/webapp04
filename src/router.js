@@ -4,12 +4,11 @@ import fs from 'fs/promises';
 
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
-import { getImagePath, renameUploadedFile, uploadPoster } from './imageUploader.js';
+import { renameUploadedFile, uploadPoster, uploadPortrait } from './imageUploader.js';
 import { createMovieSlug } from './utils/slugify.js';
 import { validateMovie } from './utils/movieValidator.js';
-import { createActorSlug } from './utils/slugify.js'; 
+import { createActorSlug } from './utils/slugify.js';
 import { validateActor } from './utils/actorValidator.js';
-import { uploadPortrait } from './imageUploader.js';
 import { createSuccessPage, createErrorPage } from './utils/statusPageHelper.js';
 import { COUNTRIES } from './utils/countries.js';
 import { GENRES } from './utils/genres.js';
@@ -22,7 +21,9 @@ export default router;
 // Constants
 const MOVIES_PER_PAGE = 6;
 const MAX_PAGINATION_BUTTONS = 3;
-const UPLOADS_FOLDER = './uploads';
+const UPLOADS_BASE = 'uploads/';
+const POSTER_FOLDER = path.join(UPLOADS_BASE, 'posters/');
+const PERSON_FOLDER = path.join(UPLOADS_BASE, 'persons/');
 
 // - - - ROUTES - - -
 
@@ -138,7 +139,7 @@ router.get('/movie/:slug/poster', async (req, res) => {
             return res.status(404).send('Poster not found');
         }
 
-        const posterPath = path.join(UPLOADS_FOLDER, movie.poster);
+        const posterPath = path.join(POSTER_FOLDER, movie.poster);
 
         res.download(posterPath, movie.poster, (err) => {
             if (err) {
@@ -189,9 +190,8 @@ router.post('/addNewMovie', uploadPoster, async (req, res) => {
                 title: req.body.title
             });
         }
-
         // Create movie
-        const filename = renameUploadedFile(req.file.filename, req.body.title, releaseYear);
+        const filename = renameUploadedFile(POSTER_FOLDER, req.file.filename, req.body.title, releaseYear);
         const movie = createMovieObject(req.body, filename, releaseYear);
 
         await movieCatalogue.addMovie(movie);
@@ -289,6 +289,7 @@ router.post('/editMovie/:slug', uploadPoster, async (req, res) => {
 
         if (req.file) {
             filename = renameUploadedFile(
+                POSTER_FOLDER,
                 req.file.filename,
                 req.body.title,
                 releaseYear,
@@ -318,10 +319,10 @@ router.post('/editMovie/:slug', uploadPoster, async (req, res) => {
     }
 });
 
-router.get('/posters/:filename', (req, res) => {
+router.get('/posters/:slug', (req, res) => {
     try {
-        const filename = req.params.filename;
-        const posterPath = path.join(UPLOADS_FOLDER, filename);
+        const slug= req.params.slug;
+        const posterPath = path.join(POSTER_FOLDER, slug);
 
         // Send file to display in browser
         res.sendFile(path.resolve(posterPath), (err) => {
@@ -394,11 +395,8 @@ router.post('/editPerson', uploadPortrait, async (req, res) => {
             return renderValidationError(res, 'duplicateName', 'actor', { name: req.body.name });
         }
 
-        const filename = req.file ? renameUploadedFile(req.file.filename, req.body.name, '', null, 'img/persons') : null;
+        const filename = req.file ? renameUploadedFile(PERSON_FOLDER, req.file.filename, req.body.name) : null;
 
-        console.log('Archivo subido:', req.file);
-        console.log('Archivo renombrado:', filename);
-        console.log('Actor a guardar:', { ...req.body, portrait: filename });
 
         const actor = createActorObject(req.body, filename);
 
@@ -409,6 +407,15 @@ router.post('/editPerson', uploadPortrait, async (req, res) => {
         console.error('Error adding actor:', error);
         renderErrorPage(res, 'unknown', 'actor');
     }
+});
+//slug?
+router.get('/persons/:filename', (req, res) => {
+    const personPath = path.join(PERSON_FOLDER, req.params.filename);
+    res.sendFile(path.resolve(personPath), (err) => {
+        if (err && !res.headersSent) {
+            res.status(404).send('Portrait not found');
+        }
+    });
 });
 
 router.delete('/api/person/:slug', async (req, res) => {
@@ -455,7 +462,7 @@ router.get('/editPerson/:slug', async (req, res) => {
         res.render('editPerson', {
             actor,  // we need the whole actor object to prefill the form
             name: actor.name,
-            action: `/editPerson/${slug}`  
+            action: `/editPerson/${slug}`
         });
     } catch (error) {
         console.error('Error loading edit person page:', error);
@@ -473,7 +480,7 @@ router.post('/editPerson/:slug', uploadPortrait, async (req, res) => {
 
         let filename = existingActor.portrait;
         if (req.file) {
-            filename = renameUploadedFile(req.file.filename, req.body.name, '', existingActor.portrait, 'img/persons');
+            filename = renameUploadedFile(PERSON_FOLDER, req.file.filename, req.body.name, null, existingActor.portrait);
         }
 
         // If removePortrait is true, delete existing portrait
@@ -771,7 +778,6 @@ function createMovieObject(formData, filename, releaseYear) {
     };
 }
 
-
 function createActorObject(formData, filename) {
     return {
         name: formData.name,
@@ -786,13 +792,12 @@ function createActorObject(formData, filename) {
 async function deletePortraitFile(portraitFilename) {
     if (!portraitFilename) return;
     try {
-        const portraitPath = path.join('./img/persons', portraitFilename);
+        const portraitPath = path.join(PERSON_FOLDER, portraitFilename);
         await fs.unlink(portraitPath);
     } catch (error) {
         console.error('Could not delete portrait file:', error);
     }
 }
-
 
 function ensureArray(value) {
     return Array.isArray(value) ? value : [value];
@@ -805,7 +810,7 @@ async function deletePosterFile(posterFilename) {
     }
 
     try {
-        const posterPath = path.join(UPLOADS_FOLDER, posterFilename);
+        const posterPath = path.join(POSTER_FOLDER, posterFilename);
         await fs.unlink(posterPath);
     } catch (error) {
         console.error('Could not delete poster file:', error);

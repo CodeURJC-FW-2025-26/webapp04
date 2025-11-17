@@ -2,23 +2,22 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-// Ensure uploads directory exists
-const UPLOADS_FOLDER = 'uploads/';
-const PERSONS_FOLDER = 'img/persons/';
+// BASE UPLOAD FOLDERS
+const UPLOADS_BASE = 'uploads/';
+const POSTER_FOLDER = path.join(UPLOADS_BASE, 'posters/');
+const PERSON_FOLDER = path.join(UPLOADS_BASE, 'persons/');
 
-// Create directories if they don't exist
-if (!fs.existsSync(UPLOADS_FOLDER)) {
-    fs.mkdirSync(UPLOADS_FOLDER, { recursive: true });
-}
-if (!fs.existsSync(PERSONS_FOLDER)) {
-    fs.mkdirSync(PERSONS_FOLDER, { recursive: true });
-}
+// Ensure directories exist
+[UPLOADS_BASE, POSTER_FOLDER, PERSON_FOLDER].forEach(dir => {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+});
 
+// Normalize the final stored filename path
 export const getImagePath = (filename) => {
     return filename ? `${filename}` : null;
 };
 
-// Helper function to sanitize filename
+// Sanitize title/actor names for filenames
 const sanitizeFilename = (text) => {
     return text
         .toLowerCase()
@@ -26,55 +25,43 @@ const sanitizeFilename = (text) => {
         .replace(/^-+|-+$/g, '');
 };
 
-// Storage for movie posters
-const posterStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, UPLOADS_FOLDER);
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        cb(null, `myfile_${Date.now()}${ext}`);
-    }
-});
+// Multer storage factory
+const createStorage = (folder) =>
+    multer.diskStorage({
+        destination: (req, file, cb) => cb(null, folder),
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            cb(null, `tmp_${Date.now()}${ext}`);
+        }
+    });
 
-// Storage for actor portraits
-const portraitStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, PERSONS_FOLDER);
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        cb(null, `myfile_${Date.now()}${ext}`);
-    }
-});
+// Upload handlers
+export const uploadPoster = multer({ storage: createStorage(POSTER_FOLDER) }).single('poster');
+export const uploadPortrait = multer({ storage: createStorage(PERSON_FOLDER) }).single('portrait');
 
-// Multer instances
-export const uploadPoster = multer({ storage: posterStorage }).single('poster');
-export const uploadPortrait = multer({ storage: portraitStorage }).single('portrait');
-
-// Rename uploaded file properly
-export const renameUploadedFile = (oldFilename, title, releaseYear, existingFilename = null, destFolder = UPLOADS_FOLDER) => {
-    const oldPath = path.join(destFolder, oldFilename);
+// Rename uploaded files consistently
+export const renameUploadedFile = (folder, oldFilename, label, year = null, existingFile = null) => {
+    const oldPath = path.join(folder, oldFilename);
     if (!fs.existsSync(oldPath)) return null;
 
     const ext = path.extname(oldFilename);
-    const sanitizedTitle = sanitizeFilename(title);
-    const suffix = releaseYear ? `_${releaseYear}` : ''; 
-    const newFilename = `${sanitizedTitle}${suffix}${ext}`;
-    const newPath = path.join(destFolder, newFilename);
+    const sanitized = sanitizeFilename(label);
+    const suffix = year ? `_${year}` : '';
+    const newFilename = `${sanitized}${suffix}${ext}`;
+    const newPath = path.join(folder, newFilename);
 
     try {
         fs.renameSync(oldPath, newPath);
-        if (existingFilename && existingFilename !== newFilename) {
-            const existingPath = path.join(destFolder, existingFilename);
-            if (fs.existsSync(existingPath)) {
-                fs.unlinkSync(existingPath);
-            }
+
+        // Delete previously existing file
+        if (existingFile && existingFile !== newFilename) {
+            const existingPath = path.join(folder, existingFile);
+            if (fs.existsSync(existingPath)) fs.unlinkSync(existingPath);
         }
 
         return newFilename;
     } catch (err) {
-        console.error('Error renaming file:', err);
+        console.error('File rename error:', err);
         return oldFilename;
     }
 };
