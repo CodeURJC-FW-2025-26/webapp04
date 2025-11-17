@@ -5,7 +5,7 @@
         <label for="moviePoster" id="uploadBox" class="upload-box p-0 m-0">
           <i class="bi bi-upload"></i>
           {{#movie.poster}}
-          <img src="/posters/{{.}}" alt="Current poster" >
+          <img src="/movie/{{movie.slug}}/poster" alt="Current poster" >
           {{/movie.poster}}
           <input
                   type="file"
