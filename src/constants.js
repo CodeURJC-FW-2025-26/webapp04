@@ -1,3 +1,90 @@
+// SERVER CONFIGURATION
+export const SERVER = {
+    PORT: 3000,
+    HOST: 'localhost'
+};
+
+// DATABASE CONFIGURATION  
+export const DATABASE = {
+    URI: 'mongodb://localhost:27017',
+    NAME: 'cinemateca'
+};
+
+// UPLOAD PATHS
+export const PATHS = {
+    UPLOADS_BASE: 'uploads',
+    MOVIE_POSTERS: 'moviePosters',
+    PERSONS: 'persons',
+    
+    // Computed paths
+    get UPLOADS_BASE_FULL() {
+        return this.UPLOADS_BASE + '/';
+    },
+    get MOVIE_POSTERS_FULL() {
+        return this.UPLOADS_BASE + '/' + this.MOVIE_POSTERS + '/';
+    },
+    get PERSONS_FULL() {
+        return this.UPLOADS_BASE + '/' + this.PERSONS + '/';
+    }
+};
+
+// PAGINATION SETTINGS
+export const PAGINATION = {
+    MOVIES_PER_PAGE: 6,
+    MAX_PAGINATION_BUTTONS: 3
+};
+
+// VALIDATION RULES
+export const VALIDATION = {
+    DESCRIPTION: {
+        MIN_LENGTH: 50,
+        MAX_LENGTH: 1000
+    },
+    DATES: {
+        MIN_YEAR: 1888,          // First ever movie
+        ACTOR_MIN_YEAR: 1900,    // Reasonable birth year for actors
+        get MAX_YEAR() {
+            return new Date().getFullYear() + 5;
+        },
+        get ACTOR_MAX_YEAR() {
+            return new Date().getFullYear() + 1;
+        },
+        get CURRENT_YEAR() {
+            return new Date().getFullYear();
+        }
+    }
+};
+
+// MOVIE DATA CONSTANTS
+export const AGE_RATINGS = ['A', '7', '12', '16', '18'];
+
+export const GENRES = [
+    'Action',
+    'Adventure', 
+    'Animation',
+    'Biography',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'Film Noir',
+    'History',
+    'Horror',
+    'Music',
+    'Musical',
+    'Mystery',
+    'Romance',
+    'Science Fiction',
+    'Short Film',
+    'Sport',
+    'Superhero',
+    'Thriller',
+    'War',
+    'Western'
+];
+
 export const COUNTRIES = [
     'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Argentina', 'Armenia',
     'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados',

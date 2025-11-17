@@ -1,10 +1,11 @@
+import { VALIDATION } from '../constants.js';
+
 export function validateActor(actorData, file) {
     const errors = [];
-    const DESCRIPTION_MIN = 30;
-    const DESCRIPTION_MAX = 1000;
-    const CURRENT_YEAR = new Date().getFullYear();
-    const MIN_YEAR = 1900; // reasonable min for actor birth year
-    const MAX_YEAR = CURRENT_YEAR + 1; // allow up to next year
+    const DESCRIPTION_MIN = VALIDATION.DESCRIPTION.MIN_LENGTH;
+    const DESCRIPTION_MAX = VALIDATION.DESCRIPTION.MAX_LENGTH;
+    const MIN_YEAR = VALIDATION.DATES.ACTOR_MIN_YEAR;
+    const MAX_YEAR = VALIDATION.DATES.ACTOR_MAX_YEAR;
 
     // Required fields - Name
     if (!actorData.name?.trim()) {
@@ -88,10 +89,3 @@ function startsWithCapital(str) {
     if (!str || str.length === 0) return false;
     return /^[A-Z]/.test(str.trim());
 }
-
-export const VALIDATION_CONSTANTS = {
-    DESCRIPTION_MIN: 50,
-    DESCRIPTION_MAX: 1000,
-    MIN_YEAR: 1900,
-    MAX_YEAR: new Date().getFullYear() + 1
-};

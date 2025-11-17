@@ -1,10 +1,12 @@
+import { VALIDATION, AGE_RATINGS } from '../constants.js';
+
 export function validateMovie(movieData, file) {
     const errors = [];
-    const DESCRIPTION_MIN = 50;
-    const DESCRIPTION_MAX = 1000;
-    const VALID_AGE_RATINGS = ['A', '7', '12', '16', '18'];
-    const CURRENT_YEAR = new Date().getFullYear();
-    const MIN_YEAR = 1888; // first ever movie
+    const DESCRIPTION_MIN = VALIDATION.DESCRIPTION.MIN_LENGTH;
+    const DESCRIPTION_MAX = VALIDATION.DESCRIPTION.MAX_LENGTH;
+    const VALID_AGE_RATINGS = AGE_RATINGS;
+    const CURRENT_YEAR = VALIDATION.DATES.CURRENT_YEAR;
+    const MIN_YEAR = VALIDATION.DATES.MIN_YEAR;
 
     // Required fields - Title
     if (!movieData.title?.trim()) {
@@ -117,11 +119,3 @@ function startsWithCapital(str) {
     if (!str || str.length === 0) return false;
     return /^[A-Z]/.test(str.trim());
 }
-
-export const VALIDATION_CONSTANTS = {
-    DESCRIPTION_MIN: 50,
-    DESCRIPTION_MAX: 1000,
-    VALID_AGE_RATINGS: ['A', '7', '12', '16', '18'],
-    MIN_YEAR: 1888,
-    MAX_YEAR: new Date().getFullYear() + 5
-};

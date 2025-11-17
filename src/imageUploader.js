@@ -2,10 +2,12 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
+import { PATHS } from './constants.js';
+
 // BASE UPLOAD FOLDERS
-const UPLOADS_BASE = 'uploads/';
-const POSTER_FOLDER = path.join(UPLOADS_BASE, 'posters/');
-const PERSON_FOLDER = path.join(UPLOADS_BASE, 'persons/');
+const UPLOADS_BASE = PATHS.UPLOADS_BASE_FULL;
+const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
+const PERSON_FOLDER = PATHS.PERSONS_FULL;
 
 // Ensure directories exist
 [UPLOADS_BASE, POSTER_FOLDER, PERSON_FOLDER].forEach(dir => {

@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { PATHS } from './constants.js';
 import { database } from './database.js';
 import * as movieCatalogue from './movieCatalogue.js';
 import * as actorCatalogue from './actorCatalogue.js';
@@ -8,7 +9,7 @@ const UPLOADS_FOLDER = './uploads';
 const dataMovies = 'movies.json';
 const dataActors = 'actors.json';
 
-const CLEAR_DB_ON_START = false;
+const CLEAR_DB_ON_START = true;
 
 if (CLEAR_DB_ON_START) {
     await database.collection('movies').deleteMany({});
@@ -53,8 +54,8 @@ if (moviesCount !== 0 && actorsCount !== 0) {
 
     await fs.rm(UPLOADS_FOLDER, { recursive: true, force: true });
     await fs.mkdir(UPLOADS_FOLDER);
-    await fs.cp(DATA_FOLDER + '/../public/img/moviePosters', UPLOADS_FOLDER + '/posters', { recursive: true });
-    await fs.cp(DATA_FOLDER + '/../public/img/moviePosters', UPLOADS_FOLDER + '/persons', { recursive: true });
+    await fs.cp(DATA_FOLDER + '/../public/img/moviePosters', UPLOADS_FOLDER + '/' + PATHS.MOVIE_POSTERS, { recursive: true });
+    await fs.cp(DATA_FOLDER + '/../public/img/persons', UPLOADS_FOLDER + '/' + PATHS.PERSONS, { recursive: true });
 
     console.log('Demo data loaded');
 }
