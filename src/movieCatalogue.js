@@ -97,6 +97,39 @@ export async function updateMovie(slug, updatedMovie) {
     return result;
 }
 
+export async function removeActorFromMovie(movieSlug, actorSlug) {
+    const actorCollection = database.collection('actors');
+    const actor = await actorCollection.findOne({ slug: actorSlug });
+
+    if (!actor) {
+        throw new Error(`Actor with slug ${actorSlug} not found`);
+    }
+
+    const result = await collection.updateOne(
+        { slug: movieSlug },
+        { $pull: { actors: { actorId: actor._id } } }
+    );
+
+    if (result.matchedCount === 0) {
+        throw new Error(`Movie with slug ${movieSlug} not found`);
+    }
+
+    return result.modifiedCount > 0;
+}
+
+export async function getMoviesWithActor(actorSlug) {
+    const actorCollection = database.collection('actors');
+    const actor = await actorCollection.findOne({ slug: actorSlug });
+
+    if (!actor) {
+        return [];
+    }
+
+    return await collection.find(
+        { "actors.actorId": actor._id }
+    ).toArray();
+}
+
 // - - - HELPER FUNCTIONS - - -
 
 function buildSearchQuery(searchQuery, genre, country, ageRating) {
