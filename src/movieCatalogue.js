@@ -82,7 +82,6 @@ export async function deleteMovie(slug) {
     return result.deletedCount > 0;
 }
 export async function updateMovie(slug, updatedMovie) {
-    // Regenerate slug if title or releaseYear changed
     if (updatedMovie.title && updatedMovie.releaseYear) {
         updatedMovie.slug = createMovieSlug(updatedMovie.title, updatedMovie.releaseYear);
     }
@@ -95,6 +94,24 @@ export async function updateMovie(slug, updatedMovie) {
 
     if (!result) { throw new Error('Movie not found'); }
     return result;
+}
+export async function addActorToMovie(movieSlug, actorId, role) {
+    const movie = await collection.findOne({ slug: movieSlug });
+
+    if (!movie) { throw new Error('Movie not found'); }
+
+    const operation = Array.isArray(movie.actors)
+        ? { $push: { actors: { actorId, role } } }
+        : { $set: { actors: [{ actorId, role }] } };
+
+    return await collection.updateOne({ slug: movieSlug }, operation);
+}
+
+export async function removeActorFromMovie(movieSlug, actorId) {
+    return await collection.updateOne(
+        { slug: movieSlug },
+        { $pull: { actors: { actorId: actorId } } }
+    );
 }
 
 // - - - HELPER FUNCTIONS - - -

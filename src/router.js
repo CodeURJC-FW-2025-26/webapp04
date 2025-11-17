@@ -370,18 +370,22 @@ router.get('/person/:slug', async (req, res) => {
 });
 
 // Add New Actor
-router.get('/addNewPerson/:slug', (req, res) => {
+router.get('/addNewPerson/:slug', async (req, res) => {
     try {
-        //Fil mit übergeben
         const slug = req.params.slug;
-        const movie = movieCatalogue.getMovieBySlug(slug);
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            return renderErrorPage(res, 'notFound', 'movie');
+        }
+
         res.render('editPerson', {
             movie,
+            movieSlug: slug,
             action: '/editPerson',
             placeholderName: 'Name',
             placeholderBirthPlace: 'Place of Birth',
             placeholderDescription: 'Description'
-
         });
     } catch (error) {
         console.error('Error loading add person page:', error);
@@ -391,6 +395,9 @@ router.get('/addNewPerson/:slug', (req, res) => {
 
 router.post('/editPerson/', uploadPortrait, async (req, res) => {
     try {
+        console.log('Form data:', req.body);
+        console.log('File:', req.file);
+
         const validation = validateActor(req.body, req.file);
         if (!validation.isValid) {
             const firstError = validation.errors[0];
@@ -398,23 +405,34 @@ router.post('/editPerson/', uploadPortrait, async (req, res) => {
         }
 
         const slug = createActorSlug(req.body.name);
+        console.log('Actor slug:', slug);
+
         const existingActor = await actorCatalogue.getActorBySlug(slug);
         if (existingActor) {
             return renderValidationError(res, 'duplicateName', 'actor', { name: req.body.name });
         }
 
         const filename = req.file ? renameUploadedFile(PERSON_FOLDER, req.file.filename, req.body.name) : null;
-
-
         const actor = createActorObject(req.body, filename);
 
-        await actorCatalogue.addActor(actor);
-        //add the actor directly  to the movie
-        //await movieCatalogue....
+        const actorId = await actorCatalogue.addActor(actor);
+        console.log('Actor added with ID:', actorId);
+
+        // Füge Actor zum Movie hinzu
+        if (req.body.movieSlug && req.body.role) {
+            console.log('Adding actor to movie:', req.body.movieSlug, actorId, req.body.role);
+            await movieCatalogue.addActorToMovie(
+                req.body.movieSlug,
+                actorId,
+                req.body.role
+            );
+            console.log('Actor added to movie successfully');
+        }
 
         res.redirect(`/person-created?name=${encodeURIComponent(actor.name)}&slug=${slug}`);
     } catch (error) {
         console.error('Error adding actor:', error);
+        console.error('Error stack:', error.stack);
         renderErrorPage(res, 'unknown', 'actor');
     }
 });
@@ -729,7 +747,7 @@ function formatActorDateDetails(actor) {
     return { birthdayFormatted, age, dayOfDeathFormatted, ageAtDeath };
 }
 const parseActors = ({ actorId, actorRole }) => {
-    if (!actorId || !actorRole) return null;
+    if (!actorId || !actorRole) return [];
 
     const ids = [].concat(actorId);
     const roles = [].concat(actorRole);
@@ -741,7 +759,7 @@ const parseActors = ({ actorId, actorRole }) => {
         }))
         .filter(Boolean);
 
-    return actors.length ? actors : null;
+    return actors.length ? actors : [ ];
 };
 
 // Date Helpers
