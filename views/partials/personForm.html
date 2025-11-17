@@ -68,6 +68,16 @@
                         required>{{actor.description}}</textarea>
                 <small class="form-text text-muted" id="charCount">0 / 1000 characters</small>
 
+                {{#movie}}
+                <label for="actorRole">Role *</label>
+                <textarea
+                        name="role"
+                        id="actorRole"
+                        rows="1"
+                        placeholder="Role..."
+                        required>{{actor.role}}</textarea>
+                {{/movie}}
+
                 <button type="submit" class="btn btn-full mt-2 align-self-start">
                     {{#actor}}
                     <span>Update</span>
