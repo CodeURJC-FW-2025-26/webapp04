@@ -48,15 +48,15 @@ router.get('/movie-deleted', (req, res) => {
     res.render('statusPage', pageData);
 });
 
-// Person status pages
-router.get('/person-created', (req, res) => {
+// Actor status pages
+router.get('/actor-created', (req, res) => {
     const actorName = req.query.name || 'Unknown Actor';
     const actorSlug = req.query.slug;
 
     const pageData = createSuccessPage(
         'Actor Created Successfully',
         `"${actorName}" has been added.`,
-        `/person/${actorSlug}`,
+        `/actor/${actorSlug}`,
         'bi-eye',
         'View Actor Details'
     );
@@ -64,14 +64,14 @@ router.get('/person-created', (req, res) => {
     res.render('statusPage', pageData);
 });
 
-router.get('/person-updated', (req, res) => {
+router.get('/actor-updated', (req, res) => {
     const actorName = req.query.name || 'Unknown Actor';
     const actorSlug = req.query.slug;
 
     const pageData = createSuccessPage(
         'Actor Updated Successfully',
         `"${actorName}" has been updated.`,
-        `/person/${actorSlug}`,
+        `/actor/${actorSlug}`,
         'bi-eye',
         'View Actor Details'
     );
@@ -79,15 +79,48 @@ router.get('/person-updated', (req, res) => {
     res.render('statusPage', pageData);
 });
 
-router.get('/person-deleted', (req, res) => {
-    const personName = req.query.name || 'Actor';
+router.get('/actor-deleted', (req, res) => {
+    const actorName = req.query.name || 'Actor';
 
     const pageData = createSuccessPage(
         'Actor Deleted Successfully',
-        `${personName} has been removed.`,
+        `${actorName} has been removed.`,
         '/',
         'bi-house-fill',
         'Go to Home'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+router.get('/actor-removed-from-movie', (req, res) => {
+    const actorName = req.query.actorName || 'Actor';
+    const movieTitle = req.query.movieTitle || 'Movie';
+    const movieSlug = req.query.movieSlug;
+
+    const pageData = createSuccessPage(
+        'Actor Removed from Movie',
+        `"${actorName}" has been removed from "${movieTitle}".`,
+        movieSlug ? `/movie/${movieSlug}` : '/',
+        'bi-eye',
+        movieSlug ? 'Back to Movie' : 'Go to Home'
+    );
+
+    res.render('statusPage', pageData);
+});
+
+router.get('/actor-updated-in-movie', (req, res) => {
+    const actorName = req.query.actorName || 'Actor';
+    const movieTitle = req.query.movieTitle || 'Movie';
+    const movieSlug = req.query.movieSlug;
+    const role = req.query.role || 'Unknown Role';
+
+    const pageData = createSuccessPage(
+        'Actor Updated in Movie',
+        `"${actorName}" has been updated in "${movieTitle}" with role "${role}".`,
+        movieSlug ? `/movie/${movieSlug}` : '/',
+        'bi-eye',
+        movieSlug ? 'Back to Movie' : 'Go to Home'
     );
 
     res.render('statusPage', pageData);
