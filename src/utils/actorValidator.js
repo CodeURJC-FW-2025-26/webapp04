@@ -79,6 +79,14 @@ export function validateActor(actorData, file) {
 
     // Portrait is optional, no error if missing
 
+    // Required fields - Role, only if sent from movie context
+    if (actorData.movieSlug && !actorData.role.trim()) {
+        errors.push({
+            type: 'emptyFields',
+            details: { fields: 'role' }
+        })
+    }
+
     return {
         isValid: errors.length === 0,
         errors
