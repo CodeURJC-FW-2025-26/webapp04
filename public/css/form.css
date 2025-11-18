@@ -11,6 +11,7 @@ label {
     text-transform: uppercase;
     letter-spacing: 0.15rex;
 }
+
 form label:not(:first-of-type) {
     margin-top: 1rem;
 }
@@ -23,7 +24,6 @@ textarea {
     border-radius: var(--border-radius);
     border: none;
     background-color: var(--color-bg-alt-darker);
-
 }
 
 textarea::placeholder,
