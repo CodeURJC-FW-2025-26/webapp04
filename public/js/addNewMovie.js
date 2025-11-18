@@ -1,3 +1,4 @@
+// Character counter with visual feedback (green/red based on min/max constraints)
 const descriptionTextarea = document.getElementById('movieDescription');
 const charCountDisplay = document.getElementById('charCount');
 
@@ -9,6 +10,7 @@ if (descriptionTextarea && charCountDisplay) {
 
         charCountDisplay.textContent = `${length} / ${max} characters`;
 
+        // Apply success/danger styling based on length
         charCountDisplay.classList.remove('text-muted');
         if (length >= min && length <= max) {
             charCountDisplay.classList.remove('text-danger');
@@ -18,30 +20,34 @@ if (descriptionTextarea && charCountDisplay) {
             charCountDisplay.classList.add('text-danger');
         }
     });
+    // Trigger initial count
+    descriptionTextarea.dispatchEvent(new Event('input'));
 }
 
+// Image upload with drag & drop support
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('moviePoster');
     const uploadBox = document.getElementById('uploadBox');
     const imagePreview = document.getElementById('imagePreview');
     const previewImg = document.getElementById('previewImg');
     const removeBtn = document.getElementById('removeImage');
+    const removePosterField = document.getElementById('removePoster');
 
     let selectedFile = null;
     let hasExistingPoster = false;
 
-    // Check if there's already an existing poster (edit mode)
+    // Initialize preview with existing poster if present (edit mode)
     const existingPosterImg = uploadBox.querySelector('img');
     if (existingPosterImg) {
         hasExistingPoster = true;
-        // Move existing poster to preview area
         previewImg.src = existingPosterImg.src;
-        existingPosterImg.remove(); // Remove from uploadBox
+        existingPosterImg.remove();             // Remove from uploadBox
         uploadBox.querySelector('i')?.remove(); // Remove upload icon
         uploadBox.style.display = 'none';
         imagePreview.style.display = 'block';
     }
 
+    // Handle file selection from file picker
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -53,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearImage();
     });
 
+    // Drag & drop: visual feedback and prevent browser default behavior
     uploadBox.addEventListener('dragover', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -77,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file.type.match('image.*')) {
                 handleFileSelect(file);
 
+                // Sync dropped file with file input for form submission
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
@@ -86,9 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Display preview using FileReader (no server upload until form submit)
     function handleFileSelect(file) {
         selectedFile = file;
         hasExistingPoster = false; // User is uploading new file
+        removePosterField.value = 'false'; // Reset removal flag
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -99,12 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsDataURL(file);
     }
 
+    // Clear preview and reset to initial state
     function clearImage() {
         selectedFile = null;
         fileInput.value = '';
         previewImg.src = '';
         imagePreview.style.display = 'none';
         uploadBox.style.display = 'flex';
+
+        // Signal that poster should be removed
+        removePosterField.value = 'true';
 
         // If there was an existing poster, show upload icon again
         if (hasExistingPoster) {

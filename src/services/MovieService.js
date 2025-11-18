@@ -93,6 +93,9 @@ export class MovieService {
         const releaseYear = extractYear(movieData.releaseDate);
         let filename = existingMovie.poster;
 
+        // Check if user explicitly removed the poster
+        const posterRemoved = movieData.removePoster === 'true';
+
         // Handle new file upload
         if (posterFile) {
             filename = renameUploadedFile(
@@ -102,12 +105,16 @@ export class MovieService {
                 releaseYear,
                 existingMovie.poster
             );
+        } else if (posterRemoved) {
+            // User removed poster and didn't upload a new one
+            filename = null;
         }
 
         const updatedMovie = this._createMovieObject(movieData, filename, releaseYear);
 
-        // Validate
-        const validation = validateMovie(movieData, posterFile || { filename: filename });
+        // Validate - if poster was removed and no new file uploaded, validation should fail
+        const fileForValidation = posterFile || (posterRemoved ? null : { filename: filename });
+        const validation = validateMovie(movieData, fileForValidation);
         if (!validation.isValid) {
             const firstError = validation.errors[0];
             throw new ValidationError(firstError.type, firstError.details);
@@ -115,6 +122,11 @@ export class MovieService {
 
         // Update in database
         await movieCatalogue.updateMovie(slug, updatedMovie);
+
+        // Delete old poster file if it was replaced or removed
+        if (posterRemoved && existingMovie.poster) {
+            await deletePosterFile(existingMovie.poster);
+        }
 
         return {
             slug: updatedMovie.slug,

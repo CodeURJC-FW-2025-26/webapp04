@@ -1,3 +1,4 @@
+// Character counter with visual feedback (green/red based on min/max constraints)
 const descriptionTextarea = document.getElementById('actorDescription');
 const charCountDisplay = document.getElementById('charCount');
 
@@ -9,6 +10,7 @@ if (descriptionTextarea && charCountDisplay) {
 
         charCountDisplay.textContent = `${length} / ${max} characters`;
 
+        // Apply success/danger styling based on length
         charCountDisplay.classList.remove('text-muted');
         if (length >= min && length <= max) {
             charCountDisplay.classList.remove('text-danger');
@@ -22,6 +24,7 @@ if (descriptionTextarea && charCountDisplay) {
     descriptionTextarea.dispatchEvent(new Event('input'));
 }
 
+// Image upload with drag & drop support
 document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('actorPortrait');
     const uploadBox = document.getElementById('uploadBox');
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedFile = null;
     let hasExistingPortrait = false;
 
-    // Check if there's already an existing portrait (edit mode)
+    // Initialize preview with existing portrait if present (edit mode)
     const existingPortraitImg = uploadBox.querySelector('img');
     if (existingPortraitImg) {
         hasExistingPortrait = true;
@@ -43,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreview.style.display = 'block';
     }
 
+    // Handle file selection from file picker
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -54,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearImage();
     });
 
+    // Drag & drop: visual feedback and prevent browser default behavior
     uploadBox.addEventListener('dragover', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -76,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = files[0];
             if (file.type.match('image.*')) {
                 handleFileSelect(file);
+                // Sync dropped file with file input for form submission
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
                 fileInput.files = dataTransfer.files;
@@ -85,9 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Display preview using FileReader (no server upload until form submit)
     function handleFileSelect(file) {
         selectedFile = file;
         hasExistingPortrait = false;
+
+        // Reset removePortrait flag when new file is selected
+        const removePortraitField = document.getElementById('removePortrait');
+        if (removePortraitField) {
+            removePortraitField.value = 'false';
+        }
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -98,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsDataURL(file);
     }
 
+    // Clear preview and reset to initial state
     function clearImage() {
         selectedFile = null;
         fileInput.value = '';
@@ -105,6 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
         imagePreview.style.display = 'none';
         uploadBox.style.display = 'flex';
 
+        // Set hidden field to signal portrait removal to backend
+        const removePortraitField = document.getElementById('removePortrait');
+        if (removePortraitField) {
+            removePortraitField.value = 'true';
+        }
+
+        // Restore upload icon if there was an existing portrait
         if (hasExistingPortrait) {
             if (!uploadBox.querySelector('i')) {
                 const icon = document.createElement('i');
