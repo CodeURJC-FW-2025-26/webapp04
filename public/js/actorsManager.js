@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="actor-header">
                 <a href="/person/${actor.slug || ''}">
                     <img class="actorIconSmall" 
-                         src="${actor.portrait ? '/actorPortraits/' + actor.portrait : '/img/actorPortraits/placeholder.jpg'}" 
+                         src="${actor.portrait ? '/actor/portraits/' + actor.portrait : '/img/actorPortraits/placeholder.jpg'}" 
                          alt="${actor.name}">
                 </a>
                 <a href="/person/${actor.slug || ''}" class="actor-name">${actor.name}</a>
