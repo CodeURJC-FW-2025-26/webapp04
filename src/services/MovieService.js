@@ -53,13 +53,13 @@ export class MovieService {
         }
 
         // Check for duplicates
-        const releaseYear = extractYear(movieData.releaseDate);
-        const slug = createMovieSlug(movieData.title, releaseYear);
-        const existingMovie = await movieCatalogue.getMovieBySlug(slug);
+        const existingMovie = await movieCatalogue.getMovieByTitle(movieData.title);
 
         if (existingMovie) {
             throw new DuplicateError('Movie', 'title', movieData.title);
         }
+
+        const releaseYear = extractYear(movieData.releaseDate);
 
         // Handle file upload
         const filename = renameUploadedFile(
@@ -232,7 +232,7 @@ export class MovieService {
     }
 
     _parseActors({ actorId, actorRole }) {
-        if (!actorId || !actorRole) return null;
+        if (!actorId || !actorRole) return [];
 
         const ids = [].concat(actorId);
         const roles = [].concat(actorRole);
@@ -244,6 +244,6 @@ export class MovieService {
             }))
             .filter(Boolean);
 
-        return actors.length ? actors : null;
+        return actors.length ? actors : [];
     }
 }
