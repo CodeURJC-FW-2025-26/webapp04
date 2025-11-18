@@ -124,12 +124,20 @@ select::-webkit-scrollbar-thumb:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--border-radius);
     background-color: var(--color-bg-alt-darker);
     cursor: pointer;
     width: 100%;
-    aspect-ratio: 2 / 3;
     transition: border-color 0.3s, background-color 0.3s;
+}
+
+.upload-box-poster {
+    aspect-ratio: 2 / 3;
+    border-radius: var(--border-radius);
+}
+
+.upload-box-portrait {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
 }
 
 .upload-box:hover {
