@@ -1,153 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
-    {{>partials/baseHead}}
-    <title>Cinemateca</title>
+	{{>partials/baseHead}}
+	<title>Cinemateca</title>
 
-    <!--Own stylesheets-->
-    <link rel="stylesheet" href="/css/home.css">
+	<!--Own stylesheets-->
+	<link rel="stylesheet" href="/css/home.css">
 
-    <!--Own scripts-->
-    <script src="/js/home.js" defer></script>
+	<!--Own scripts-->
+	<script src="/js/home.js" defer></script>
 </head>
+
 <body class="d-flex flex-column h-100">
 
-{{>partials/header}}
+	{{>partials/header}}
 
-<main>
-    <div class="topRow">
-        <div class="searchContainer px-0 mx-0">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search movies ...">
-        </div>
-    </div>
+	<main>
+		<div class="topRow">
+			<div class="searchContainer px-0 mx-0">
+				<input type="text" id="searchInput" class="form-control" placeholder="Search movies ...">
+			</div>
+		</div>
 
-    <div class="topRow sortingFiltering">
-        <div class="dropdown">
-            <button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span id="sortButtonText">Release Year</span>
-                <i id="sortButtonIcon" class="bi bi-arrow-down-short ps-2 pe-0"></i>
-            </button>
-            <div class="dropdown-menu p-3 m-0">
-                <div class="d-flex gap-2">
-                    <div class="sortGroup">
-                        <select id="sortBy" class="form-select">
-                            <option value="title">Title</option>
-                            <option value="releaseDate" selected>Release Date</option>
-                        </select>
-                    </div>
-                    <div class="sortGroup">
-                        <select id="sortOrder" class="form-select">
-                            <option value="asc">Ascending</option>
-                            <option value="desc" selected>Descending</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="topRow sortingFiltering">
+			<div class="dropdown">
+				<button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<span id="sortButtonText">Release Year</span>
+					<i id="sortButtonIcon" class="bi bi-arrow-down-short ps-2 pe-0"></i>
+				</button>
+				<div class="dropdown-menu p-3 m-0">
+					<div class="d-flex gap-2">
+						<div class="sortGroup">
+							<select id="sortBy" class="form-select">
+								<option value="title">Title</option>
+								<option value="releaseDate" selected>Release Date</option>
+							</select>
+						</div>
+						<div class="sortGroup">
+							<select id="sortOrder" class="form-select">
+								<option value="asc">Ascending</option>
+								<option value="desc" selected>Descending</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div class="vr"></div>
+			<div class="vr"></div>
 
-        <div class="dropdown">
-            <button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-film ps-0 pe-0 pe-md-2"></i>
-                <span class="d-none d-md-inline">Genre</span>
-            </button>
-            <ul class="dropdown-menu" id="genreFilter">
-                {{#genres}}
-                <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
-                </li>
-                {{/genres}}
-            </ul>
-        </div>
+			<div class="dropdown">
+				<button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-film ps-0 pe-0 pe-md-2"></i>
+					<span class="d-none d-md-inline">Genre</span>
+				</button>
+				<ul class="dropdown-menu" id="genreFilter">
+					{{#genres}}
+					<li>
+						<label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
+					</li>
+					{{/genres}}
+				</ul>
+			</div>
 
-        <div class="dropdown">
-            <button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-globe-americas ps-0 pe-0 pe-md-2"></i>
-                <span class="d-none d-md-inline">Country</span>
-            </button>
-            <ul class="dropdown-menu" id="countryFilter">
-                {{#countries}}
-                <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
-                </li>
-                {{/countries}}
-            </ul>
-        </div>
+			<div class="dropdown">
+				<button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-globe-americas ps-0 pe-0 pe-md-2"></i>
+					<span class="d-none d-md-inline">Country</span>
+				</button>
+				<ul class="dropdown-menu" id="countryFilter">
+					{{#countries}}
+					<li>
+						<label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
+					</li>
+					{{/countries}}
+				</ul>
+			</div>
 
-        <div class="dropdown">
-            <button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-cake ps-0 pe-0 pe-md-2"></i>
-                <span class="d-none d-md-inline">Age Rating</span>
-            </button>
-            <ul class="dropdown-menu" id="ageRatingFilter">
-                {{#ageRatings}}
-                <li>
-                    <label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
-                </li>
-                {{/ageRatings}}
-            </ul>
-        </div>
+			<div class="dropdown">
+				<button class="btn btn-large dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-cake ps-0 pe-0 pe-md-2"></i>
+					<span class="d-none d-md-inline">Age Rating</span>
+				</button>
+				<ul class="dropdown-menu" id="ageRatingFilter">
+					{{#ageRatings}}
+					<li>
+						<label class="dropdown-item"><input type="checkbox" name="{{.}}"> {{.}}</label>
+					</li>
+					{{/ageRatings}}
+				</ul>
+			</div>
 
-        <div class="ms-auto">
-            <a class="btn" href="/movie/add/new"><i class="bi bi-plus"></i></a>
-        </div>
+			<div class="ms-auto">
+				<a class="btn" href="/movie/add/new"><i class="bi bi-plus"></i></a>
+			</div>
 
-    </div>
+		</div>
 
-    <div id="resultsContainer">
-        <div class="container-fluid p-0">
-            <div class="row g-3" id="movieGrid">
-                {{#movies}}
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="moviePoster">
-                        <a href="/movie/{{slug}}">
-                            <img src="/movie/{{slug}}/poster"  alt="Poster of {{title}} ({{releaseYear}})">
-                            <div class="moviePosterTitle">
-                                <span class="title">{{title}}</span><br>
-                                <span class="year">{{releaseYear}}</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                {{/movies}}
-            </div>
-        </div>
+		<div id="resultsContainer">
+			<div class="container-fluid p-0">
+				<div class="row g-3" id="movieGrid">
+					{{#movies}}
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="moviePoster">
+							<a href="/movie/{{slug}}">
+								<img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
+								<div class="moviePosterTitle">
+									<span class="title">{{title}}</span><br>
+									<span class="year">{{releaseYear}}</span>
+								</div>
+							</a>
+						</div>
+					</div>
+					{{/movies}}
+				</div>
+			</div>
 
-        {{#totalPages}}
-        <nav id="paginationNav">
-            <ul class="pagination justify-content-center">
+			{{#totalPages}}
+			<nav id="paginationNav">
+				<ul class="pagination justify-content-center">
 
-                {{#hasPrev}}
-                <li class="page-item">
-                    <a class="page-link" href="/?page={{prevPage}}" tabindex="-1">
-                        <i class="bi bi-chevron-left"></i>
-                    </a>
-                </li>
-                {{/hasPrev}}
+					{{#hasPrev}}
+					<li class="page-item">
+						<a class="page-link" href="/?page={{prevPage}}" tabindex="-1">
+							<i class="bi bi-chevron-left"></i>
+						</a>
+					</li>
+					{{/hasPrev}}
 
-                {{#pages}}
-                <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
-                    <a class="page-link" href="/?page={{number}}">{{number}}</a>
-                </li>
-                {{/pages}}
+					{{#pages}}
+					<li class="page-item {{#isCurrent}}active{{/isCurrent}}">
+						<a class="page-link" href="/?page={{number}}">{{number}}</a>
+					</li>
+					{{/pages}}
 
-                {{#hasNext}}
-                <li class="page-item">
-                    <a class="page-link" href="/?page={{nextPage}}">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </li>
-                {{/hasNext}}
+					{{#hasNext}}
+					<li class="page-item">
+						<a class="page-link" href="/?page={{nextPage}}">
+							<i class="bi bi-chevron-right"></i>
+						</a>
+					</li>
+					{{/hasNext}}
 
-            </ul>
-        </nav>
-        {{/totalPages}}
-    </div>
+				</ul>
+			</nav>
+			{{/totalPages}}
+		</div>
 
-</main>
+	</main>
 
-{{>partials/footer}}
+	{{>partials/footer}}
 
 </body>
+
 </html>

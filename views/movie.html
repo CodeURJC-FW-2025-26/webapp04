@@ -1,137 +1,145 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
-    {{>partials/baseHead}}
-    <title>{{title}} ({{releaseYear}}) on Cinemateca</title>
+	{{>partials/baseHead}}
+	<title>{{title}} ({{releaseYear}}) on Cinemateca</title>
 
-    <!--Own stylesheets-->
-    <link rel="stylesheet" href="/css/movie.css">
+	<!--Own stylesheets-->
+	<link rel="stylesheet" href="/css/movie.css">
 
-    <!--Own scripts-->
-    <script src="/js/utils.js" defer></script>
-    <script src="/js/movie.js" defer></script>
+	<!--Own scripts-->
+	<script src="/js/utils.js" defer></script>
+	<script src="/js/movie.js" defer></script>
 </head>
+
 <body class="d-flex flex-column h-100">
 
-    {{>partials/header}}
+	{{>partials/header}}
 
-    <main>
-        <div class="topRow">
-            <div>
-                <a class="btn" href="/"><i class="bi bi-chevron-left"></i></a>
-                <h2 id="movieTitle">{{title}}</h2>
-            </div>
+	<main>
+		<div class="topRow">
+			<div>
+				<a class="btn" href="/"><i class="bi bi-chevron-left"></i></a>
+				<h2 id="movieTitle">{{title}}</h2>
+			</div>
 
-            <div>
-                <div>
-                    <a class="btn" href="/movie/{{slug}}/edit"><i class="bi bi-pencil"></i></a>
-                </div>
-                <div id="deleteMovieButton" class="btn btn-delete" data-slug="{{slug}}">
-                    <i class="bi bi-trash"></i>
-                </div>
-            </div>
-        </div>
+			<div>
+				<div>
+					<a class="btn" href="/movie/{{slug}}/edit"><i class="bi bi-pencil"></i></a>
+				</div>
+				<div id="deleteMovieButton" class="btn btn-delete" data-slug="{{slug}}">
+					<i class="bi bi-trash"></i>
+				</div>
+			</div>
+		</div>
 
-        <div class="container-fluid p-0">
-            <div class="row g-3">
-                <div class="col-md-6 col-sm-12">
-                    <div class="moviePoster">
-                        <img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
-                    </div>
-                </div>
+		<div class="container-fluid p-0">
+			<div class="row g-3">
+				<div class="col-md-6 col-sm-12">
+					<div class="moviePoster">
+						<img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
+					</div>
+				</div>
 
-                <div class="col-md-6 col-sm-12">
-                    <div class="details">
-                        <div class="detailsBlock">
-                            <div class="meta p-0 m-0">
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Release Year</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3>{{releaseYear}}</h3>
-                                </div>
+				<div class="col-md-6 col-sm-12">
+					<div class="details">
+						<div class="detailsBlock">
+							<div class="meta p-0 m-0">
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Release Year</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3>{{releaseYear}}</h3>
+								</div>
 
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Genre</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3 class="flex-shrink-1">{{genresText}}</h3>
-                                </div>
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Genre</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3 class="flex-shrink-1">{{genresText}}</h3>
+								</div>
 
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Country</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3>{{countriesText}}</h3>
-                                </div>
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Country</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3>{{countriesText}}</h3>
+								</div>
 
-                                <div class="metaRow d-flex m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Age Rating</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3>{{ageRating}}</h3>
-                                </div>
-                            </div>
-                        </div>
+								<div class="metaRow d-flex m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Age Rating</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3>{{ageRating}}</h3>
+								</div>
+							</div>
+						</div>
 
-                        <div class="detailsBlock">
-                            <p>{{description}}</p>
-                        </div>
+						<div class="detailsBlock">
+							<p>{{description}}</p>
+						</div>
 
-                        <div class="detailsBlock">
-                            <div class="actors d-flex flex-column gap-1">
+						<div class="detailsBlock">
+							<div class="actors d-flex flex-column gap-1">
 
-                                <div class="topRow headerActors">
-                                    <h3>Starring</h3>
-                                    <a class="btn" href="/actor/add/from-movie/{{slug}}"><i class="bi bi-plus"></i></a>
-                                </div>
+								<div class="topRow headerActors">
+									<h3>Starring</h3>
+									<a class="btn" href="/actor/add/from-movie/{{slug}}"><i class="bi bi-plus"></i></a>
+								</div>
 
-                                {{#hasActors}}
-                                {{#actors}}
-                                <div class="actor position-relative">
-                                    <div class="d-flex">
-                                        <a href="/actor/{{slug}}">
-                                            {{#portrait}}
-                                            <img class="actorIconSmall" src="/actor/portraits/{{portrait}}" alt="{{name}}">
-                                            {{/portrait}}
+								{{#hasActors}}
+								{{#actors}}
+								<div class="actor position-relative">
+									<div class="d-flex">
+										<a href="/actor/{{slug}}">
+											{{#portrait}}
+											<img class="actorIconSmall" src="/actor/portraits/{{portrait}}"
+												alt="{{name}}">
+											{{/portrait}}
 
-                                            {{^portrait}}
-                                            <img class="actorIconSmall" src="/img/actorPortraits/placeholder.jpg" alt="{{name}}">
-                                            {{/portrait}}
-                                        </a>
-                                        <div>
-                                            <p><a href="/actor/{{slug}}">{{name}}</a> as</p><br>
-                                            <p class="m-0 p-0">{{role}}</p>
-                                        </div>
-                                    </div>
+											{{^portrait}}
+											<img class="actorIconSmall" src="/img/actorPortraits/placeholder.jpg"
+												alt="{{name}}">
+											{{/portrait}}
+										</a>
+										<div>
+											<p><a href="/actor/{{slug}}">{{name}}</a> as</p><br>
+											<p class="m-0 p-0">{{role}}</p>
+										</div>
+									</div>
 
-                                    <div class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-                                        <a href="/actor/{{slug}}/edit/from-movie/{{movieSlug}}"><div class="btn"><i class="bi bi-pencil"></i></div></a>
-                                        <div class="btn btn-delete delete-actor-button" data-slug="{{slug}}">
-                                            <i class="bi bi-trash"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{/actors}}
-                                {{/hasActors}}
+									<div
+										class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
+										<a href="/actor/{{slug}}/edit/from-movie/{{movieSlug}}">
+											<div class="btn"><i class="bi bi-pencil"></i></div>
+										</a>
+										<div class="btn btn-delete delete-actor-button" data-slug="{{slug}}">
+											<i class="bi bi-trash"></i>
+										</div>
+									</div>
+								</div>
+								{{/actors}}
+								{{/hasActors}}
 
-                                {{^hasActors}}
-                                <p>No actors listed yet.</p>
-                                {{/hasActors}}
-                            </div>
-                        </div>
+								{{^hasActors}}
+								<p>No actors listed yet.</p>
+								{{/hasActors}}
+							</div>
+						</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-    {{>partials/footer}}
+	{{>partials/footer}}
 
 </body>
+
 </html>

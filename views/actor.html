@@ -1,132 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
 <head>
-    {{>partials/baseHead}}
-    <title>{{name}} on Cinemateca</title>
+	{{>partials/baseHead}}
+	<title>{{name}} on Cinemateca</title>
 
-    <!--Own stylesheets-->
-    <link rel="stylesheet" href="/css/actor.css">
+	<!--Own stylesheets-->
+	<link rel="stylesheet" href="/css/actor.css">
 
-    <!--Own scripts-->
-    <script src="/js/utils.js" defer></script>
-    <script src="/js/actor.js" defer></script>
+	<!--Own scripts-->
+	<script src="/js/utils.js" defer></script>
+	<script src="/js/actor.js" defer></script>
 </head>
+
 <body class="d-flex flex-column h-100">
 
-    {{>partials/header}}
+	{{>partials/header}}
 
-    <main>
-        <div class="topRow">
-            <div>
-                <a class="btn" href="/"><i class="bi bi-chevron-left"></i></a>
-                <h2>{{name}}</h2>
-            </div>
+	<main>
+		<div class="topRow">
+			<div>
+				<a class="btn" href="/"><i class="bi bi-chevron-left"></i></a>
+				<h2>{{name}}</h2>
+			</div>
 
-            <div>
-                <a href="/actor/{{slug}}/edit"><div class="btn"><i class="bi bi-pencil"></i></div></a>
-                <div id="deleteActorButton" class="btn btn-delete" data-slug="{{slug}}">
-                    <i class="bi bi-trash"></i>
-                </div>
-            </div>
-        </div>
+			<div>
+				<a href="/actor/{{slug}}/edit">
+					<div class="btn"><i class="bi bi-pencil"></i></div>
+				</a>
+				<div id="deleteActorButton" class="btn btn-delete" data-slug="{{slug}}">
+					<i class="bi bi-trash"></i>
+				</div>
+			</div>
+		</div>
 
-        <div class="container-fluid p-0">
-            <div class="row g-3">
-                <div class="col-md-4 col-sm-12">
-                    <div>
-                        {{#portrait}}
-                        <img class="actorIconLarge" src="/actor/portraits/{{portrait}}" alt="Portrait of {{name}}">
-                        {{/portrait}}
+		<div class="container-fluid p-0">
+			<div class="row g-3">
+				<div class="col-md-4 col-sm-12">
+					<div>
+						{{#portrait}}
+						<img class="actorIconLarge" src="/actor/portraits/{{portrait}}" alt="Portrait of {{name}}">
+						{{/portrait}}
 
-                        {{^portrait}}
-                        <img class="actorIconLarge" src="/img/actorPortraits/placeholder.jpg" alt="No portrait available">
-                        {{/portrait}}
-                    </div>
-                </div>
+						{{^portrait}}
+						<img class="actorIconLarge" src="/img/actorPortraits/placeholder.jpg"
+							alt="No portrait available">
+						{{/portrait}}
+					</div>
+				</div>
 
-                <div class="col-md-8 col-sm-12">
-                    <div class="details">
-                        <div class="detailsBlock">
-                            <div class="meta p-0 m-0">
+				<div class="col-md-8 col-sm-12">
+					<div class="details">
+						<div class="detailsBlock">
+							<div class="meta p-0 m-0">
 
-                                {{#alive}}
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Birthday</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3>{{birthdayFormatted}} ({{age}})</h3>
-                                </div>
+								{{#alive}}
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Birthday</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3>{{birthdayFormatted}} ({{age}})</h3>
+								</div>
 
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Birthplace</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
-                                </div>
-                                {{/alive}}
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Birthplace</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
+								</div>
+								{{/alive}}
 
-                                {{^alive}}
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Birthday</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3>{{birthdayFormatted}}</h3>
-                                </div>
+								{{^alive}}
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Birthday</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3>{{birthdayFormatted}}</h3>
+								</div>
 
-                                <div class="metaRow d-flex pb-1 m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Birthplace</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
-                                </div>
+								<div class="metaRow d-flex pb-1 m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Birthplace</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3 class="flex-shrink-1 text-end">{{placeOfBirth}}</h3>
+								</div>
 
-                                <div class="metaRow d-flex m-0">
-                                    <div class="flex-fill d-flex p-0 m-0">
-                                        <p>Died</p>
-                                        <hr class="flex-grow-1 mx-3">
-                                    </div>
-                                    <h3 class="text-end">{{dayOfDeathFormatted}} (Aged {{ageAtDeath}})</h3>
-                                </div>
-                                {{/alive}}
+								<div class="metaRow d-flex m-0">
+									<div class="flex-fill d-flex p-0 m-0">
+										<p>Died</p>
+										<hr class="flex-grow-1 mx-3">
+									</div>
+									<h3 class="text-end">{{dayOfDeathFormatted}} (Aged {{ageAtDeath}})</h3>
+								</div>
+								{{/alive}}
 
-                            </div>
+							</div>
 
-                        </div>
+						</div>
 
-                        <div class="detailsBlock">
-                            <p id="actorDescription">{{description}}</p>
-                        </div>
+						<div class="detailsBlock">
+							<p id="actorDescription">{{description}}</p>
+						</div>
 
-                        <div class="detailsBlock">
-                            <h3 class="pb-1">Filmography</h3>
+						<div class="detailsBlock">
+							<h3 class="pb-1">Filmography</h3>
 
-                            {{#hasMovies}}
-                            <ul class="list-unstyled d-flex flex-column gap-1">
-                                {{#movies}}
-                                <li>
-                                    <a href="/movie/{{slug}}">
-                                        {{title}} ({{releaseYear}})
-                                    </a>
-                                </li>
-                                {{/movies}}
-                            </ul>
-                            {{/hasMovies}}
+							{{#hasMovies}}
+							<ul class="list-unstyled d-flex flex-column gap-1">
+								{{#movies}}
+								<li>
+									<a href="/movie/{{slug}}">
+										{{title}} ({{releaseYear}})
+									</a>
+								</li>
+								{{/movies}}
+							</ul>
+							{{/hasMovies}}
 
-                            {{^hasMovies}}
-                            <p>No movies listed for this actor.</p>
-                            {{/hasMovies}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+							{{^hasMovies}}
+							<p>No movies listed for this actor.</p>
+							{{/hasMovies}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-    {{>partials/footer}}
+	{{>partials/footer}}
 
 </body>
+
 </html>

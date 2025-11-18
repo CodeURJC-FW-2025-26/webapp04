@@ -1,99 +1,107 @@
+<!-- 
+	Form Attributes:
+	- role="form": Semantic role for accessibility
+	- method="post": HTTP POST method for form submission
+	- action="{{action}}": Dynamic action URL provided by the server (see actorRoutes.js)
+	- enctype="multipart/form-data": Required for file uploads
+-->
 <form role="form" method="post" action="{{action}}" enctype="multipart/form-data" class="container-fluid p-0">
-    {{#movie}}
-    <input type="hidden" name="movieSlug" value="{{slug}}">
-    {{/movie}}
-    <div class="row g-3">
-        <div class="col-12 col-md-6 d-flex justify-content-center align-items-start">
-            <div class="image-upload-container">
-                <label for="actorPortrait" id="uploadBox" class="upload-box upload-box-portrait p-0 m-0">
-                    <i class="bi bi-upload"></i>
-                    {{#actor.portrait}}
-                    <img src="/actor/portraits/{{.}}" alt="Current portrait">
-                    {{/actor.portrait}}
-                    <input
-                            type="file"
-                            id="actorPortrait"
-                            name="portrait"
-                            accept="image/jpeg,image/png,image/jpg"/>
-                </label>
+	{{#movie}}
+	<input type="hidden" name="movieSlug" value="{{slug}}">
+	{{/movie}}
+	<input type="hidden" name="removePortrait" id="removePortrait" value="false">
+	<div class="row g-3">
+		<div class="col-12 col-md-6 d-flex justify-content-center align-items-start">
+			<div class="image-upload-container">
+				<label for="actorPortrait" id="uploadBox" class="upload-box upload-box-portrait p-0 m-0">
+					<i class="bi bi-upload"></i>
+					{{#actor.portrait}}
+					<img src="/actor/portraits/{{.}}" alt="Current portrait">
+					{{/actor.portrait}}
+					<input
+						type="file"
+						id="actorPortrait"
+						name="portrait"
+						accept="image/jpeg,image/png,image/jpg" />
+				</label>
 
-                <div id="imagePreview" class="image-preview-actor" style="display: none;">
-                    <img id="previewImg" src="" alt="Preview">
-                    <button type="button" id="removeImage" class="btn btn-full mt-2 align-self-start">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+				<div id="imagePreview" class="image-preview-actor" style="display: none;">
+					<img id="previewImg" src="" alt="Preview">
+					<button type="button" id="removeImage" class="btn btn-full mt-2 align-self-start">
+						<i class="bi bi-trash"></i>
+					</button>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-12 col-md-6">
-            <div class="d-flex flex-column gap-2">
-                <label for="actorName">Name *</label>
-                <input
-                        name="name"
-                        id="actorName"
-                        type="text"
-                        placeholder="Actor Name"
-                        pattern="^[A-Z].*"
-                        title="Name must start with a capital letter"
-                        minlength="1"
-                        maxlength="200"
-                        value="{{actor.name}}"
-                        required>
+		<div class="col-12 col-md-6">
+			<div class="d-flex flex-column gap-2">
+				<label for="actorName">Name *</label>
+				<input
+					name="name"
+					id="actorName"
+					type="text"
+					placeholder="Actor Name"
+					pattern="^[A-Z].*"
+					title="Name must start with a capital letter"
+					minlength="1"
+					maxlength="200"
+					value="{{actor.name}}"
+					required>
 
-                <label for="actorBirthDate">Birth Date *</label>
-                <input
-                        name="dateOfBirth"
-                        id="actorBirthDate"
-                        type="date"
-                        min="1900-01-01"
-                        max="2026-12-31"
-                        value="{{actor.dateOfBirth}}"
-                        required>
+				<label for="actorBirthDate">Birth Date *</label>
+				<input
+					name="dateOfBirth"
+					id="actorBirthDate"
+					type="date"
+					min="1900-01-01"
+					max="2026-12-31"
+					value="{{actor.dateOfBirth}}"
+					required>
 
-                <label for="actorBirthPlace">Place of Birth *</label>
-                <input
-                        name="placeOfBirth"
-                        id="actorBirthPlace"
-                        type="text"
-                        placeholder="Place of Birth"
-                        minlength="1"
-                        maxlength="200"
-                        value="{{actor.placeOfBirth}}"
-                        required>
+				<label for="actorBirthPlace">Place of Birth *</label>
+				<input
+					name="placeOfBirth"
+					id="actorBirthPlace"
+					type="text"
+					placeholder="Place of Birth"
+					minlength="1"
+					maxlength="200"
+					value="{{actor.placeOfBirth}}"
+					required>
 
-                <label for="actorDescription">Description *</label>
-                <textarea
+				<label for="actorDescription">Description *</label>
+				<textarea
                         name="description"
                         id="actorDescription"
                         rows="3"
                         minlength="50"
                         maxlength="1000"
-                        placeholder="Enter a description (50-1000 characters)"
+					    placeholder="Enter a description (50-1000 characters)"
                         required>{{actor.description}}</textarea>
-                <small class="form-text text-muted" id="charCount">0 / 1000 characters</small>
+				<small class="form-text text-muted" id="charCount">0 / 1000 characters</small>
 
-                {{#movie}}
-                <label for="actorRole">Role *</label>
-                <input
-                        name="role"
-                        id="actorRole"
-                        type="text"
-                        placeholder="Role..."
-                        value="{{actor.role}}"
-                        required>
-                {{/movie}}
+				{{#movie}}
+				<label for="actorRole">Role *</label>
+				<input
+					name="role"
+					id="actorRole"
+					type="text"
+					placeholder="Role..."
+					value="{{actor.role}}"
+					required>
+				{{/movie}}
 
-                <button type="submit" class="btn btn-full mt-2 align-self-start">
-                    {{#actor}}
-                    <span>Update</span>
-                    {{/actor}}
-                    {{^actor}}
-                    <span>Save</span>
-                    {{/actor}}
-                    <i class="bi bi-save"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+				<button type="submit" class="btn btn-full mt-2 align-self-start">
+					{{#actor}}
+					<span>Update</span>
+					{{/actor}}
+					{{^actor}}
+					<span>Save</span>
+					{{/actor}}
+					<i class="bi bi-save"></i>
+				</button>
+			</div>
+		</div>
+	</div>
 </form>

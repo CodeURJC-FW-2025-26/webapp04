@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
-<head>
-    {{>partials/baseHead}}
-    <title>{{pageTitle}} | Cinemateca</title>
 
-    <!--Own stylesheets-->
-    <link rel="stylesheet" href="/css/general.css">
+<head>
+	{{>partials/baseHead}}
+	<title>{{pageTitle}} | Cinemateca</title>
+
+	<!--Own stylesheets-->
+	<link rel="stylesheet" href="/css/general.css">
 </head>
+
 <body class="d-flex flex-column h-100">
 
-{{>partials/header}}
+	{{>partials/header}}
 
-<main class="d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center">
-    <div>
-        <h2>
-            <i class="bi {{iconClass}} {{iconColor}}"></i>
-            {{title}}
-        </h2>
-        <p class="text-muted mt-2">
-            {{message}}
-        </p>
-        <a href="{{redirectUrl}}" class="btn w-50 mt-4 pe-4 mx-auto">
-            <i class="bi {{redirectIcon}}"></i> {{redirectText}}
-        </a>
-    </div>
-</main>
+	<main class="d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center">
+		<div>
+			<h2>
+				<i class="bi {{iconClass}} {{iconColor}}"></i>
+				{{title}}
+			</h2>
+			<p class="text-muted mt-2">
+				{{message}}
+			</p>
+			<a href="{{redirectUrl}}" class="btn w-50 mt-4 pe-4 mx-auto">
+				<i class="bi {{redirectIcon}}"></i> {{redirectText}}
+			</a>
+		</div>
+	</main>
 
-{{>partials/footer}}
+	{{>partials/footer}}
 
 </body>
+
 </html>

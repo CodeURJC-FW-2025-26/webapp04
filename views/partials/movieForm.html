@@ -1,114 +1,121 @@
+<!-- 
+	Form Attributes:
+	- role="form": Semantic role for accessibility
+	- method="post": HTTP POST method for form submission
+	- action="{{action}}": Dynamic action URL provided by the server (see movieRoutes.js)
+	- enctype="multipart/form-data": Required for file uploads
+-->
 <form role="form" method="post" action="{{action}}" enctype="multipart/form-data" class="container-fluid p-0">
-  <div class="row g-3">
-    <div class="col-12 col-md-6 d-flex justify-content-center align-items-start">
-      <div class ="image-upload-container">
-        <label for="moviePoster" id="uploadBox" class="upload-box upload-box-poster p-0 m-0">
-          <i class="bi bi-upload"></i>
-          {{#movie.poster}}
-          <img src="/movie/{{movie.slug}}/poster" alt="Current poster" >
-          {{/movie.poster}}
-          <input
-                  type="file"
-                  id="moviePoster"
-                  name="poster"
-                  accept="image/jpeg,image/png,image/jpg"/>
-        </label>
+	<input type="hidden" name="removePoster" id="removePoster" value="false">
+	<div class="row g-3">
+		<div class="col-12 col-md-6 d-flex justify-content-center align-items-start">
+			<div class="image-upload-container">
+				<label for="moviePoster" id="uploadBox" class="upload-box upload-box-poster p-0 m-0">
+					<i class="bi bi-upload"></i>
+					{{#movie.poster}}
+					<img src="/movie/{{movie.slug}}/poster" alt="Current poster">
+					{{/movie.poster}}
+					<input
+						type="file"
+						id="moviePoster"
+						name="poster"
+						accept="image/jpeg,image/png,image/jpg" />
+				</label>
 
-        <div id="imagePreview" class="image-preview" style="display: none;">
-          <img id="previewImg" src="" alt="Preview">
-          <button type="button" id="removeImage" class="btn btn-full mt-2 align-self-start">
-            <i class="bi bi-trash"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+				<div id="imagePreview" class="image-preview" style="display: none;">
+					<img id="previewImg" src="" alt="Preview">
+					<button type="button" id="removeImage" class="btn btn-full mt-2 align-self-start">
+						<i class="bi bi-trash"></i>
+					</button>
+				</div>
+			</div>
+		</div>
 
-    <div class="col-12 col-md-6">
-      <div class="d-flex flex-column gap-2">
-        <label for="movieTitle">Movie Title *</label>
-        <input
-                name="title"
-                id="movieTitle"
-                type="text"
-                placeholder="Movie Title"
-                pattern="^[A-Z].*"
-                title="Title must start with a capital letter"
-                minlength="1"
-                maxlength="200"
-                value="{{movie.title}}"
-                required>
+		<div class="col-12 col-md-6">
+			<div class="d-flex flex-column gap-2">
+				<label for="movieTitle">Movie Title *</label>
+				<input
+					name="title"
+					id="movieTitle"
+					type="text"
+					placeholder="Movie Title"
+					pattern="^[A-Z].*"
+					title="Title must start with a capital letter"
+					minlength="1"
+					maxlength="200"
+					value="{{movie.title}}"
+					required>
 
-        <label for="movieGenre">Genre *</label>
-        <select name="genre" id="movieGenre" multiple required>
-          {{#genres}}
-          {{#value}}
-          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
-          {{/value}}
-          {{^value}}
-          <option value="{{.}}">{{.}}</option>
-          {{/value}}
-          {{/genres}}
-        </select>
-        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
+				<label for="movieGenre">Genre *</label>
+				<select name="genre" id="movieGenre" multiple required>
+					{{#genres}}
+					{{#value}}
+					<option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+					{{/value}}
+					{{^value}}
+					<option value="{{.}}">{{.}}</option>
+					{{/value}}
+					{{/genres}}
+				</select>
+				<small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
 
-        <label for="movieAgeRating">Age Rating *</label>
-        <select name="ageRating" id="movieAgeRating" required>
-          {{#ageRating}}
-          {{#value}}
-          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
-          {{/value}}
-          {{^value}}
-          <option value="{{.}}">{{.}}</option>
-          {{/value}}
-          {{/ageRating}}
-        </select>
+				<label for="movieAgeRating">Age Rating *</label>
+				<select name="ageRating" id="movieAgeRating" required>
+					{{#ageRating}}
+					{{#value}}
+					<option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+					{{/value}}
+					{{^value}}
+					<option value="{{.}}">{{.}}</option>
+					{{/value}}
+					{{/ageRating}}
+				</select>
 
-        <label for="movieReleaseDate">Release Date *</label>
-        <input
-                name="releaseDate"
-                id="movieReleaseDate"
-                type="date"
-                min="1888-01-01"
-                max="2030-12-31"
-                value="{{movie.releaseDate}}"
-                required>
+				<label for="movieReleaseDate">Release Date *</label>
+				<input
+					name="releaseDate"
+					id="movieReleaseDate"
+					type="date"
+					min="1888-01-01"
+					max="2030-12-31"
+					value="{{movie.releaseDate}}" required>
 
-        <label for="movieCountryOfProduction">Country of Production *</label>
-        <select name="countryOfProduction" id="movieCountryOfProduction" multiple required>
-          {{#countries}}
-          {{#value}}
-          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
-          {{/value}}
-          {{^value}}
-          <option value="{{.}}">{{.}}</option>
-          {{/value}}
-          {{/countries}}
-        </select>
-        <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
+				<label for="movieCountryOfProduction">Country of Production *</label>
+				<select name="countryOfProduction" id="movieCountryOfProduction" multiple required>
+					{{#countries}}
+					{{#value}}
+					<option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+					{{/value}}
+					{{^value}}
+					<option value="{{.}}">{{.}}</option>
+					{{/value}}
+					{{/countries}}
+				</select>
+				<small class="form-text text-muted">Hold Ctrl/Cmd to select multiple</small>
 
-        <label for="movieDescription">Description *</label>
-        <textarea
-                name="description"
-                id="movieDescription"
-                rows="3"
-                minlength="50"
-                maxlength="1000"
-                placeholder="Enter a description (50-1000 characters)"
-                required>{{#movie}}{{description}}{{/movie}}</textarea>
-        <small class="form-text text-muted" id="charCount">0 / 1000 characters</small>
+				<label for="movieDescription">Description *</label>
+				<textarea
+                        name="description"
+                        id="movieDescription"
+                        rows="3"
+                        minlength="50"
+                        maxlength="1000"
+                        placeholder="Enter a description (50-1000 characters)"
+                        required>{{#movie}}{{movie.description}}{{/movie}}</textarea>
+				<small class="form-text text-muted" id="charCount">0 / 1000 characters</small>
 
-        {{>partials/actorSection}}
+				{{>partials/actorSection}}
 
-        <button type="submit" class="btn btn-full mt-2 align-self-start">
-          {{#movie}}
-          <span>Update</span>
-          {{/movie}}
-          {{^movie}}
-          <span>Save</span>
-          {{/movie}}
-          <i class="bi bi-save"></i>
-        </button>
-      </div>
-    </div>
-  </div>
+				<button type="submit" class="btn btn-full mt-2 align-self-start">
+					{{#movie}}
+					<span>Update</span>
+					{{/movie}}
+					{{^movie}}
+					<span>Save</span>
+					{{/movie}}
+					<i class="bi bi-save"></i>
+				</button>
+			</div>
+		</div>
+	</div>
 </form>
