@@ -15,15 +15,15 @@
     {{#movie.actors}}
     <div class="actor-item" data-actor-id="{{id}}">
         <div class="actor-header">
-            <a href="/person/{{slug}}">
+            <a href="/actor/{{slug}}">
                 {{#portrait}}
-                <img class="personIconSmall" src="/person/portraits/{{portrait}}" alt="Portrait of {{name}}">
+                <img class="actorIconSmall" src="/actor/portraits/{{portrait}}" alt="Portrait of {{name}}">
                 {{/portrait}}
                 {{^portrait}}
-                <img class="personIconSmall" src="/img/persons/placeholder.jpg" alt="{{name}}">
+                <img class="actorIconSmall" src="/img/actorPortraits/placeholder.jpg" alt="{{name}}">
                 {{/portrait}}
             </a>
-            <a href="/person/{{slug}}" class="actor-name">{{name}}</a>
+            <a href="/actor/{{slug}}" class="actor-name">{{name}}</a>
             <button type="button" class="btn actor-remove-btn"><i class="bi bi-trash"></i></button>
         </div>
         <div class="actor-role-row">

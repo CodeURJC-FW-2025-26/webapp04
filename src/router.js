@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 
 // Mount route modules
 router.use('/movie', movieRoutes);
-router.use('/person', actorRoutes);
+router.use('/actor', actorRoutes);
 router.use('/api', apiRoutes);
 router.use('/status', statusRoutes);
 

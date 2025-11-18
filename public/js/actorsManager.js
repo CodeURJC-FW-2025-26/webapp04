@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         actorItem.innerHTML = `
             <div class="actor-header">
                 <a href="/person/${actor.slug || ''}">
-                    <img class="personIconSmall" 
-                         src="${actor.portrait ? '/persons/' + actor.portrait : '/img/persons/placeholder.jpg'}" 
+                    <img class="actorIconSmall" 
+                         src="${actor.portrait ? '/actorPortraits/' + actor.portrait : '/img/actorPortraits/placeholder.jpg'}" 
                          alt="${actor.name}">
                 </a>
                 <a href="/person/${actor.slug || ''}" class="actor-name">${actor.name}</a>

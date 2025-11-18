@@ -7,10 +7,10 @@ import { PATHS } from './constants.js';
 // BASE UPLOAD FOLDERS
 const UPLOADS_BASE = PATHS.UPLOADS_BASE_FULL;
 const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
-const PERSON_FOLDER = PATHS.PERSONS_FULL;
+const ACTORS_FOLDER = PATHS.ACTORS_FULL;
 
 // Ensure directories exist
-[UPLOADS_BASE, POSTER_FOLDER, PERSON_FOLDER].forEach(dir => {
+[UPLOADS_BASE, POSTER_FOLDER, ACTORS_FOLDER].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -39,7 +39,7 @@ const createStorage = (folder) =>
 
 // Upload handlers
 export const uploadPoster = multer({ storage: createStorage(POSTER_FOLDER) }).single('poster');
-export const uploadPortrait = multer({ storage: createStorage(PERSON_FOLDER) }).single('portrait');
+export const uploadPortrait = multer({ storage: createStorage(ACTORS_FOLDER) }).single('portrait');
 
 // Rename uploaded files consistently
 export const renameUploadedFile = (folder, oldFilename, label, year = null, existingFile = null) => {

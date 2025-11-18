@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/form.css">
 
     <!--Own scripts-->
-    <script src="/js/addNewPerson.js" defer></script>
+    <script src="/js/addNewActor.js" defer></script>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -22,12 +22,12 @@
                     Edit {{name}}
                 {{/actor}}
                 {{^actor}}
-                    New Actor
+                    Add New Actor
                 {{/actor}}
             </h2>
         </div>
 
-        {{>partials/personForm}}
+        {{>partials/actorForm}}
     </main>
 
     {{>partials/footer}}

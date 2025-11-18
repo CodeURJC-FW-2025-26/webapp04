@@ -26,7 +26,7 @@ document.querySelectorAll('.delete-actor-button').forEach((button) => {
             window.location.href = data.redirectUrl || `/movie/${movieSlug}`;
         } catch (error) {
             console.error('Delete actor error:', error);
-            window.location.href = `/error?type=deleteError&entity=person`;
+            window.location.href = `/error?type=deleteError&entity=actor`;
         }
     });
 });

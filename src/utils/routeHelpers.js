@@ -4,7 +4,7 @@ import { PATHS } from '../constants.js';
 
 // Constants
 const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
-const PERSON_FOLDER = PATHS.PERSONS_FULL;
+const ACTOR_FOLDER = PATHS.ACTORS_FULL;
 
 // Date Helpers
 export function formatDate(dateString) {
@@ -57,7 +57,7 @@ export async function deletePortraitFile(portraitFilename) {
     if (!portraitFilename) return;
     
     try {
-        const portraitPath = path.join(PERSON_FOLDER, portraitFilename);
+        const portraitPath = path.join(ACTOR_FOLDER, portraitFilename);
         await fs.unlink(portraitPath);
     } catch (error) {
         console.error('Could not delete portrait file:', error);

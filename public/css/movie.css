@@ -1,6 +1,6 @@
 @import url("base.css");
 @import url("moviePoster.css");
-@import url("personPortrait.css");
+@import url("actorPortrait.css");
 
 .metaRow > div {
     max-width: 100%;
@@ -13,21 +13,21 @@
     max-width: 50%;
 }
 
-.headerPersons {
+.headerActors {
     height: 2em;
     margin: 0;
 }
 
-.headerPersons .btn {
+.headerActors .btn {
     height: 2em;
     width: 2em;
 }
 
-.headerPersons i {
+.headerActors i {
     font-size: 1em;
 }
 
-.person {
+.actor {
     box-sizing: content-box;
     height: 3em;
     padding: 0.5em;
@@ -35,25 +35,25 @@
     transition: background-color var(--animation);
 }
 
-.person:hover {
+.actor:hover {
     background-color: var(--color-bg-hover);
 }
 
-.person p {
+.actor p {
     display: inline;
     white-space: nowrap;
 }
 
-.person i {
+.actor i {
     font-size: 1.2em;
     padding: 0.6em;
 }
 
-.personOverlay {
+.actorOverlay {
     opacity: 0;
     transition: opacity var(--animation);
 }
 
-.person:hover .personOverlay {
+.actor:hover .actorOverlay {
     opacity: 1;
 }

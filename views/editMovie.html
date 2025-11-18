@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 <head>
     {{>partials/baseHead}}
-    <title>{{#movie}}Edit {{movie.title}}{{/movie}} {{^movie}} Add new Movie {{/movie}} </title>
+    <title>{{#movie}}Edit {{movie.title}}{{/movie}} {{^movie}} Add New Movie {{/movie}} </title>
 
     <!--Own stylesheets-->
     <link rel="stylesheet" href="/css/form.css">
@@ -24,7 +24,7 @@
         {{/movie}}
         {{^movie}}
         <a class="btn btn-delete" href="/"><i class ="bi bi-x"></i></a>
-        <h2>Add a new movie</h2>
+        <h2>Add New Movie</h2>
         {{/movie}}
     </div>
     {{>partials/movieForm}}
