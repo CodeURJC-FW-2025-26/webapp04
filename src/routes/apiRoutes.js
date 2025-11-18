@@ -85,7 +85,7 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
         res.json({
             success: true,
             message: result.message,
-            redirectUrl: `/movie/${movieSlug}`
+            redirectUrl: `/status/actor-removed-from-movie?actorName=${encodeURIComponent(result.actorName)}&movieTitle=${encodeURIComponent(result.movieTitle)}&movieSlug=${movieSlug}`
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
@@ -99,12 +99,12 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
         res.status(500).json({
             success: false,
             error: 'Failed to remove actor from movie',
-            redirectUrl: '/error?type=deleteError&entity=person'
+            redirectUrl: '/error?type=deleteError&entity=actor'
         });
     }
 });
 
-// Delete person API (complete deletion)
+// Delete actor API (complete deletion)
 router.delete('/person/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -127,7 +127,7 @@ router.delete('/person/:slug', async (req, res) => {
         res.status(500).json({
             success: false,
             error: 'Failed to delete actor',
-            redirectUrl: '/error?type=deleteError&entity=person'
+            redirectUrl: '/error?type=deleteError&entity=actor'
         });
     }
 });

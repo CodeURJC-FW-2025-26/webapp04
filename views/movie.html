@@ -10,7 +10,7 @@
     <!--Own scripts-->
     <script src="/js/utils.js" defer></script>
     <script src="/js/movie.js" defer></script>
-    <script src="/js/person.js" defer></script>
+    <script src="/js/actor.js" defer></script>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -84,34 +84,34 @@
                         </div>
 
                         <div class="detailsBlock">
-                            <div class="persons d-flex flex-column gap-1">
+                            <div class="actors d-flex flex-column gap-1">
 
-                                <div class="topRow headerPersons">
+                                <div class="topRow headerActors">
                                     <h3>Starring</h3>
-                                    <a class="btn" href="/person/add/from-movie/{{slug}}"><i class="bi bi-plus"></i></a>
+                                    <a class="btn" href="/actor/add/from-movie/{{slug}}"><i class="bi bi-plus"></i></a>
                                 </div>
 
                                 {{#hasActors}}
                                 {{#actors}}
-                                <div class="person position-relative">
+                                <div class="actor position-relative">
                                     <div class="d-flex">
-                                        <a href="/person/{{slug}}">
+                                        <a href="/actor/{{slug}}">
                                             {{#portrait}}
-                                            <img class="personIconSmall" src="/person/portraits/{{portrait}}" alt="{{name}}">
+                                            <img class="actorIconSmall" src="/actor/portraits/{{portrait}}" alt="{{name}}">
                                             {{/portrait}}
 
                                             {{^portrait}}
-                                            <img class="personIconSmall" src="/img/persons/placeholder.jpg" alt="{{name}}">
+                                            <img class="actorIconSmall" src="/img/actorPortraits/placeholder.jpg" alt="{{name}}">
                                             {{/portrait}}
                                         </a>
                                         <div>
-                                            <p><a href="/person/{{slug}}">{{name}}</a> as</p><br>
+                                            <p><a href="/actor/{{slug}}">{{name}}</a> as</p><br>
                                             <p class="m-0 p-0">{{role}}</p>
                                         </div>
                                     </div>
 
-                                    <div class="personOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-                                        <a href="/person/{{slug}}/edit"><div class="btn"><i class="bi bi-pencil"></i></div></a>
+                                    <div class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
+                                        <a href="/actor/{{slug}}/edit/from-movie/{{movieSlug}}"><div class="btn"><i class="bi bi-pencil"></i></div></a>
                                         <div class="btn btn-delete delete-actor-button" data-slug="{{slug}}">
                                             <i class="bi bi-trash"></i>
                                         </div>

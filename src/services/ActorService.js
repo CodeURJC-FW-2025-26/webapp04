@@ -16,9 +16,9 @@ import {
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
 // Constants
-const PERSON_FOLDER = PATHS.PERSONS_FULL;
+const ACTOR_FOLDER = PATHS.ACTORS_FULL;
 
-// Service class for actor/person-related business logic
+// Service class for actor-related business logic
 export class ActorService {
 
      // Get actor by slug with formatted data for display
@@ -61,7 +61,7 @@ export class ActorService {
 
         // Handle file upload (optional for actors)
         const filename = portraitFile ? 
-            renameUploadedFile(PERSON_FOLDER, portraitFile.filename, actorData.name) : 
+            renameUploadedFile(ACTOR_FOLDER, portraitFile.filename, actorData.name) :
             null;
 
         // Create actor object
@@ -90,7 +90,7 @@ export class ActorService {
         // Handle new file upload
         if (portraitFile) {
             filename = renameUploadedFile(
-                PERSON_FOLDER, 
+                ACTOR_FOLDER,
                 portraitFile.filename, 
                 actorData.name, 
                 null, 
@@ -175,14 +175,18 @@ export class ActorService {
             return {
                 message: `${actor.name} removed from ${movie.title} and deleted completely (was only in this movie)`,
                 actorDeleted: true,
-                name: actor.name
+                name: actor.name,
+                actorName: actor.name,
+                movieTitle: movie.title
             };
         } else {
             // Actor appears in multiple movies, just remove from this movie
             return {
                 message: `${actor.name} removed from ${movie.title} (still appears in ${actorMovies.length - 1} other movies)`,
                 actorDeleted: false,
-                name: actor.name
+                name: actor.name,
+                actorName: actor.name,
+                movieTitle: movie.title
             };
         }
     }
@@ -201,9 +205,67 @@ export class ActorService {
         };
     }
 
+    // Get actor data with movie context for editing (including current role)
+    async getActorForEditWithMovieContext(actorSlug, movieSlug) {
+        const actor = await actorCatalogue.getActorBySlug(actorSlug);
+        
+        if (!actor) {
+            throw new NotFoundError('Actor', actorSlug);
+        }
+
+        const movie = await movieCatalogue.getMovieBySlug(movieSlug);
+        if (!movie) {
+            throw new NotFoundError('Movie', movieSlug);
+        }
+
+        // Find the actor's current role in this movie
+        const actorInMovie = movie.actors?.find(a => a.actorId.toString() === actor._id.toString());
+        const currentRole = actorInMovie ? actorInMovie.role : '';
+
+        return {
+            actor: {
+                ...actor,
+                role: currentRole
+            },
+            movie: {
+                slug: movie.slug,
+                title: movie.title
+            },
+            name: actor.name
+        };
+    }
+
+    // Update actor in movie context (including role update)
+    async updateActorInMovieContext(actorSlug, movieSlug, formData, file) {
+        const actor = await actorCatalogue.getActorBySlug(actorSlug);
+        
+        if (!actor) {
+            throw new NotFoundError('Actor', actorSlug);
+        }
+
+        const movie = await movieCatalogue.getMovieBySlug(movieSlug);
+        if (!movie) {
+            throw new NotFoundError('Movie', movieSlug);
+        }
+
+        // Update actor data
+        const result = await this.updateActor(actorSlug, formData, file);
+
+        // Update role in movie if provided
+        if (formData.role) {
+            await movieCatalogue.updateActorRoleInMovie(movieSlug, actor._id, formData.role);
+        }
+
+        return {
+            actorName: result.name,
+            movieTitle: movie.title,
+            role: formData.role || 'Unknown Role'
+        };
+    }
+
     // Get portrait file path for serving
     async getPortraitPath(filename) {
-        const portraitPath = path.join(PERSON_FOLDER, filename);
+        const portraitPath = path.join(ACTOR_FOLDER, filename);
         
         return {
             portraitPath: path.resolve(portraitPath),

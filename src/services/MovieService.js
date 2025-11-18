@@ -209,7 +209,8 @@ export class MovieService {
                     name: actor.name,
                     portrait: actor.portrait,
                     description: actor.description,
-                    role: ref.role
+                    role: ref.role,
+                    movieSlug: movie.slug // Add movie slug to each actor for context
                 });
             }
         }

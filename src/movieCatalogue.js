@@ -107,14 +107,12 @@ export async function addActorToMovie(movieSlug, actorId, role) {
     return await collection.updateOne({ slug: movieSlug }, operation);
 }
 
-/*
-export async function removeActorFromMovie(movieSlug, actorId) {
+export async function updateActorRoleInMovie(movieSlug, actorId, newRole) {
     return await collection.updateOne(
-        { slug: movieSlug },
-        { $pull: { actors: { actorId: actorId } } }
+        { slug: movieSlug, 'actors.actorId': actorId },
+        { $set: { 'actors.$.role': newRole } }
     );
 }
-*/
 
 export async function removeActorFromMovie(movieSlug, actorSlug) {
     const actorCollection = database.collection('actors');

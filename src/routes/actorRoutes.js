@@ -8,31 +8,31 @@ import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.
 const router = express.Router();
 const actorService = new ActorService();
 
-// Person detail page
+// Actor detail page
 router.get('/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const actorData = await actorService.getActorForDisplay(slug);
         
-        res.render('person', actorData);
+        res.render('actor', actorData);
     } catch (error) {
         if (error instanceof NotFoundError) {
             return renderErrorPage(res, 'notFound', 'actor');
         }
-        console.error('Error loading person details:', error);
+        console.error('Error loading actor details:', error);
         renderErrorPage(res, 'unknown', 'actor');
     }
 });
 
-// Add new person form (from movie context)
+// Add new actor form (from movie context)
 router.get('/add/from-movie/:movieSlug', async (req, res) => {
     try {
         const movieSlug = req.params.movieSlug;
         const movie = await actorService.getMovieContext(movieSlug);
         
-        res.render('editPerson', {
+        res.render('editActor', {
             movie,
-            action: '/person/create',
+            action: '/actor/create',
             placeholderName: 'Name',
             placeholderBirthPlace: 'Place of Birth',
             placeholderDescription: 'Description'
@@ -41,27 +41,27 @@ router.get('/add/from-movie/:movieSlug', async (req, res) => {
         if (error instanceof NotFoundError) {
             return renderErrorPage(res, 'notFound', 'movie');
         }
-        console.error('Error loading add person page:', error);
+        console.error('Error loading add actor page:', error);
         renderErrorPage(res, 'unknown', 'page');
     }
 });
 
-// Add new person form (standalone)
+// Add new actor form (standalone)
 router.get('/add/new', (req, res) => {
     try {
-        res.render('editPerson', {
-            action: '/person/create',
+        res.render('editActor', {
+            action: '/actor/create',
             placeholderName: 'Name',
             placeholderBirthPlace: 'Place of Birth',
             placeholderDescription: 'Description'
         });
     } catch (error) {
-        console.error('Error loading add person page:', error);
+        console.error('Error loading add actor page:', error);
         renderErrorPage(res, 'unknown', 'page');
     }
 });
 
-// Create new person
+// Create new actor
 router.post('/create', uploadPortrait, async (req, res) => {
     try {
         const result = await actorService.createActor(req.body, req.file);
@@ -71,7 +71,7 @@ router.post('/create', uploadPortrait, async (req, res) => {
             await actorService.addActorToMovie(req.body.movieSlug, result.id, req.body.role);
         }
         
-        res.redirect(`/status/person-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
+        res.redirect(`/status/actor-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
     } catch (error) {
         if (error instanceof ValidationError) {
             return renderValidationError(res, error.type, 'actor', error.details);
@@ -84,32 +84,70 @@ router.post('/create', uploadPortrait, async (req, res) => {
     }
 });
 
-// Edit person form
-router.get('/:slug/edit', async (req, res) => {
+// Edit actor form (from movie context)
+router.get('/:slug/edit/from-movie/:movieSlug', async (req, res) => {
     try {
-        const slug = req.params.slug;
-        const editData = await actorService.getActorForEdit(slug);
+        const { slug, movieSlug } = req.params;
+        const editData = await actorService.getActorForEditWithMovieContext(slug, movieSlug);
         
-        res.render('editPerson', {
+        res.render('editActor', {
             ...editData,
-            action: `/person/${slug}/update`
+            action: `/actor/${slug}/update/from-movie/${movieSlug}`
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
             return renderErrorPage(res, 'notFound', 'actor');
         }
-        console.error('Error loading edit person page:', error);
+        console.error('Error loading edit actor from movie page:', error);
         renderErrorPage(res, 'unknown', 'actor');
     }
 });
 
-// Update person
+// Edit actor form (standalone)
+router.get('/:slug/edit', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const editData = await actorService.getActorForEdit(slug);
+        
+        res.render('editActor', {
+            ...editData,
+            action: `/actor/${slug}/update`
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return renderErrorPage(res, 'notFound', 'actor');
+        }
+        console.error('Error loading edit actor page:', error);
+        renderErrorPage(res, 'unknown', 'actor');
+    }
+});
+
+// Update actor (from movie context)
+router.post('/:slug/update/from-movie/:movieSlug', uploadPortrait, async (req, res) => {
+    try {
+        const { slug: actorSlug, movieSlug } = req.params;
+        const result = await actorService.updateActorInMovieContext(actorSlug, movieSlug, req.body, req.file);
+        
+        res.redirect(`/status/actor-updated-in-movie?actorName=${encodeURIComponent(result.actorName)}&movieTitle=${encodeURIComponent(result.movieTitle)}&movieSlug=${movieSlug}&role=${encodeURIComponent(result.role)}`);
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return renderErrorPage(res, 'notFound', 'actor');
+        }
+        if (error instanceof ValidationError) {
+            return renderValidationError(res, error.type, 'actor', error.details);
+        }
+        console.error('Error updating actor in movie context:', error);
+        renderErrorPage(res, 'unknown', 'actor');
+    }
+});
+
+// Update actor (standalone)
 router.post('/:slug/update', uploadPortrait, async (req, res) => {
     try {
         const actorSlug = req.params.slug;
         const result = await actorService.updateActor(actorSlug, req.body, req.file);
         
-        res.redirect(`/status/person-updated?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
+        res.redirect(`/status/actor-updated?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
     } catch (error) {
         if (error instanceof NotFoundError) {
             return renderErrorPage(res, 'notFound', 'actor');
@@ -122,7 +160,7 @@ router.post('/:slug/update', uploadPortrait, async (req, res) => {
     }
 });
 
-// Serve person portraits
+// Serve actor portraits
 router.get('/portraits/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
