@@ -4,7 +4,7 @@ import fs from 'fs';
 
 import { PATHS } from './constants.js';
 
-// BASE UPLOAD FOLDERS
+// Base upload directories
 const UPLOADS_BASE = PATHS.UPLOADS_BASE_FULL;
 const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
 const ACTORS_FOLDER = PATHS.ACTORS_FULL;

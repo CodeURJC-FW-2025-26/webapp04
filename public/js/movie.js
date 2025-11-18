@@ -1,7 +1,7 @@
 // Initialize delete button functionality
 window.utils.setupDeleteButton('deleteMovieButton', 'movie');
 
-// Setup actor delete buttons (intelligent deletion from movie context)
+// Setup actor delete buttons (deletion from movie context)
 const movieSlug = window.location.pathname.split('/')[2];
 document.querySelectorAll('.delete-actor-button').forEach((button) => {
     button.addEventListener('click', async (e) => {

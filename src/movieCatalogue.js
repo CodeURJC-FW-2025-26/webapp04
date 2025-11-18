@@ -41,6 +41,7 @@ export async function getTotalNumberOfMovies() {
     return await collection.countDocuments();
 }
 
+// Search movies with keyword, filters, sorting and pagination
 export async function searchMovies(searchQuery, genre, country, ageRating, sortBy, sortOrder, skip, limit) {
     const query = buildSearchQuery(searchQuery, genre, country, ageRating);
     const sort = buildSortObject(sortBy, sortOrder);
@@ -74,6 +75,7 @@ export async function deleteMovie(slug) {
     const result = await collection.deleteOne({ slug: slug });
     return result.deletedCount > 0;
 }
+
 export async function updateMovie(slug, updatedMovie) {
     if (updatedMovie.title && updatedMovie.releaseYear) {
         updatedMovie.slug = createMovieSlug(updatedMovie.title, updatedMovie.releaseYear);
@@ -88,6 +90,7 @@ export async function updateMovie(slug, updatedMovie) {
     if (!result) { throw new Error('Movie not found'); }
     return result;
 }
+
 export async function addActorToMovie(movieSlug, actorId, role) {
     const movie = await collection.findOne({ slug: movieSlug });
 

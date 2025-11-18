@@ -1,6 +1,8 @@
 // State Management
 const state = {
+    // currentPage is used for pagination; kept in state so different UI actions can reset or advance it.
     currentPage: 1,
+    // searchTimeout is the debounce timer id for the search input to avoid frequent network calls.
     searchTimeout: null
 };
 
@@ -31,6 +33,8 @@ function initializeEventListeners() {
 }
 
 function handleSearchInput() {
+    // Clear previous timer and set a new one so the search is triggered
+    // only after the user stops typing for 300ms.
     clearTimeout(state.searchTimeout);
     state.searchTimeout = setTimeout(() => {
         resetPageAndSearch();
@@ -38,10 +42,12 @@ function handleSearchInput() {
 }
 
 function handleFilterChange() {
+    // Any filter change resets to first page and performs a new search.
     resetPageAndSearch();
 }
 
 function handleSortChange() {
+    // Update visible sort button label/icon and re-run the search.
     updateSortButton();
     resetPageAndSearch();
 }
@@ -62,12 +68,14 @@ function updateSortButton() {
     };
     elements.sortButtonText.textContent = sortLabels[sortBy] || 'Sort';
 
+    // Change icon depending on ascending/descending order.
     const iconClass = sortOrder === 'asc' ? 'bi-arrow-up-short' : 'bi-arrow-down-short';
     elements.sortButtonIcon.className = `bi ${iconClass} ps-2 pe-0`;
 }
 
 // Search Logic
 async function performSearch(page = 1) {
+    // Build URLSearchParams to create a query string safely (handles encoding).
     const searchParams = buildSearchParams(page);
 
     try {
@@ -92,6 +100,8 @@ function buildSearchParams(page) {
     params.append('sortOrder', elements.sortOrder.value);
     params.append('page', page);
 
+    // For filter checkboxes we append the same key multiple times.
+    // The server can read these as an array (req.query.genre).
     appendCheckedValues(params, 'genre', elements.genreFilter);
     appendCheckedValues(params, 'country', elements.countryFilter);
     appendCheckedValues(params, 'ageRating', elements.ageRatingFilter);
@@ -100,6 +110,7 @@ function buildSearchParams(page) {
 }
 
 function appendCheckedValues(params, key, container) {
+    // Collect all checked checkboxes inside the given container and append their names.
     const checkedBoxes = container.querySelectorAll('input[type="checkbox"]:checked');
     checkedBoxes.forEach(checkbox => params.append(key, checkbox.name));
 }
@@ -124,6 +135,7 @@ function showNoResults() {
 }
 
 function renderMovies(movies) {
+    // Map each movie to its HTML card and join them.
     elements.movieGrid.innerHTML = movies.map(createMovieCard).join('');
 }
 
@@ -146,6 +158,7 @@ function createMovieCard(movie) {
 }
 
 function updatePagination(data) {
+    // If only one page, hide pagination entirely.
     if (data.totalPages <= 1) {
         elements.paginationNav.innerHTML = '';
         return;
@@ -153,10 +166,12 @@ function updatePagination(data) {
 
     const paginationHTML = buildPaginationHTML(data);
     elements.paginationNav.innerHTML = paginationHTML;
+    // After replacing innerHTML we need to re-attach listeners to the new DOM nodes.
     attachPaginationListeners();
 }
 
 function buildPaginationHTML(data) {
+    // Expecting data to include { hasPrev, prevPage, hasNext, nextPage, pages: [{number, isCurrent}, ...] }
     const parts = [];
 
     parts.push('<ul class="pagination justify-content-center">');
@@ -184,6 +199,7 @@ function buildPaginationHTML(data) {
 }
 
 function createPaginationButton(page, content) {
+    // Small helper to keep markup consistent for prev/next buttons.
     return `
         <li class="page-item">
             <a class="page-link" href="#" data-page="${page}">${content}</a>
@@ -192,6 +208,7 @@ function createPaginationButton(page, content) {
 }
 
 function attachPaginationListeners() {
+    // Attach click handlers to newly created pagination links.
     elements.paginationNav.querySelectorAll('.page-link').forEach(link => {
         link.addEventListener('click', handlePaginationClick);
     });
@@ -200,6 +217,7 @@ function attachPaginationListeners() {
 function handlePaginationClick(e) {
     e.preventDefault();
     const page = parseInt(e.currentTarget.dataset.page);
+    // Update state and run the search for the selected page.
     state.currentPage = page;
     performSearch(page);
 }

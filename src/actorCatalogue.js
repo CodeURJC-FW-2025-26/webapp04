@@ -44,7 +44,7 @@ export async function updateActor(slug, updatedActor) {
         const result = await collection.findOneAndUpdate(
             { slug: slug },
             { $set: updatedActor },
-            { returnDocument: 'after' }
+            { returnDocument: 'after' } // returns the updated document and not the original
         );
 
         if (!result) {

@@ -9,7 +9,7 @@ const UPLOADS_FOLDER = './uploads';
 const dataMovies = 'movies.json';
 const dataActors = 'actors.json';
 
-const CLEAR_DB_ON_START = true;
+const CLEAR_DB_ON_START = true; // set to true to clear existing data on each start
 
 if (CLEAR_DB_ON_START) {
     await database.collection('movies').deleteMany({});

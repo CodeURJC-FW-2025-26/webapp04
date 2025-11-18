@@ -1,16 +1,16 @@
-// SERVER CONFIGURATION
+// Server configuration
 export const SERVER = {
     PORT: 3000,
     HOST: 'localhost'
 };
 
-// DATABASE CONFIGURATION  
+// Database configuration  
 export const DATABASE = {
     URI: 'mongodb://localhost:27017',
     NAME: 'cinemateca'
 };
 
-// UPLOAD PATHS
+// Upload paths
 export const PATHS = {
     UPLOADS_BASE: 'uploads',
     MOVIE_POSTERS: 'moviePosters',
@@ -28,13 +28,13 @@ export const PATHS = {
     }
 };
 
-// PAGINATION SETTINGS
+// Pagination settings
 export const PAGINATION = {
     MOVIES_PER_PAGE: 6,
     MAX_PAGINATION_BUTTONS: 3
 };
 
-// VALIDATION RULES
+// Validation rules
 export const VALIDATION = {
     DESCRIPTION: {
         MIN_LENGTH: 50,
@@ -55,7 +55,7 @@ export const VALIDATION = {
     }
 };
 
-// MOVIE DATA CONSTANTS
+// Movie data constants
 export const AGE_RATINGS = ['A', '7', '12', '16', '18'];
 
 export const GENRES = [
