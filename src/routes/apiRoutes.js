@@ -105,7 +105,7 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
 });
 
 // Delete actor API (complete deletion)
-router.delete('/person/:slug', async (req, res) => {
+router.delete('/actor/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
         const result = await actorService.deleteActor(slug);
@@ -113,7 +113,7 @@ router.delete('/person/:slug', async (req, res) => {
         res.json({
             success: true,
             message: 'Actor deleted successfully',
-            redirectUrl: `/status/person-deleted?name=${encodeURIComponent(result.name)}`
+            redirectUrl: `/status/actor-deleted?name=${encodeURIComponent(result.name)}`
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
