@@ -18,7 +18,7 @@ export async function getMovie(movieId) {
     return await collection.findOne({ _id: movieId });
 }
 export async function getMovieByTitle(movieTitle) {
-    return await collection.findOne({ _id: movieTitle });
+    return await collection.findOne({ title: movieTitle });
 }
 
 export async function getMovieBySlug(slug) {
@@ -107,12 +107,14 @@ export async function addActorToMovie(movieSlug, actorId, role) {
     return await collection.updateOne({ slug: movieSlug }, operation);
 }
 
+/*
 export async function removeActorFromMovie(movieSlug, actorId) {
     return await collection.updateOne(
         { slug: movieSlug },
         { $pull: { actors: { actorId: actorId } } }
     );
 }
+*/
 
 export async function removeActorFromMovie(movieSlug, actorSlug) {
     const actorCollection = database.collection('actors');
