@@ -52,7 +52,22 @@ router.get('/movie-deleted', (req, res) => {
 router.get('/actor-created', (req, res) => {
     const actorName = req.query.name || 'Unknown Actor';
     const actorSlug = req.query.slug;
+    const movieSlug = req.query.movieSlug;
+    const movieTitle = req.query.movieTitle;
 
+    // If created from movie context, redirect back to movie
+    if (movieSlug && movieTitle) {
+        const pageData = createSuccessPage(
+            'Actor Added to Movie',
+            `"${actorName}" has been added to "${movieTitle}".`,
+            `/movie/${movieSlug}`,
+            'bi-eye',
+            'Back to Movie'
+        );
+        return res.render('statusPage', pageData);
+    }
+
+    // Standard actor creation (standalone)
     const pageData = createSuccessPage(
         'Actor Created Successfully',
         `"${actorName}" has been added.`,

@@ -68,7 +68,9 @@ router.post('/create', uploadPortrait, async (req, res) => {
         
         // If creating from movie context, add actor to movie
         if (req.body.movieSlug && req.body.role) {
-            await actorService.addActorToMovie(req.body.movieSlug, result.id, req.body.role);
+            const movieResult = await actorService.addActorToMovie(req.body.movieSlug, result.id, req.body.role);
+            // Redirect to movie when created from movie context
+            return res.redirect(`/status/actor-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}&movieSlug=${encodeURIComponent(req.body.movieSlug)}&movieTitle=${encodeURIComponent(movieResult.movieTitle)}`);
         }
         
         res.redirect(`/status/actor-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
