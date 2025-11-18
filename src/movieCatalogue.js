@@ -14,19 +14,12 @@ export async function addMovie(movie) {
     return result.insertedId;
 }
 
-export async function getMovie(movieId) {
-    return await collection.findOne({ _id: movieId });
-}
 export async function getMovieByTitle(movieTitle) {
     return await collection.findOne({ title: movieTitle });
 }
 
 export async function getMovieBySlug(slug) {
     return await collection.findOne({ slug: slug });
-}
-
-export async function getMovies() {
-    return await collection.find().toArray();
 }
 
 export async function getMoviesPaginated(skip, limit) {
