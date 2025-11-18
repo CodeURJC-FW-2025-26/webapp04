@@ -1,2 +1,2 @@
 // Initialize delete button functionality
-window.utils.setupDeleteButton('deletePersonButton', 'actor');
+window.utils.setupDeleteButton('deleteActorButton', 'actor');
