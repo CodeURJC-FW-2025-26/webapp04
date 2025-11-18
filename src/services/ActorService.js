@@ -52,8 +52,7 @@ export class ActorService {
         }
 
         // Check for duplicates
-        const slug = createActorSlug(actorData.name);
-        const existingActor = await actorCatalogue.getActorBySlug(slug);
+        const existingActor = await actorCatalogue.getActorByName(actorData.name);
 
         if (existingActor) {
             throw new DuplicateError('Actor', 'name', actorData.name);

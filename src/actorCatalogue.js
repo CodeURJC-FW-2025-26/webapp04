@@ -17,12 +17,12 @@ export async function getActor(actorId) {
     return await collection.findOne({ _id: actorId });
 }
 
-export async function getActorBySlug(slug) {
-    return await collection.findOne({ slug: slug });
+export async function getActorByName(name) {
+    return await collection.findOne({ name: name });
 }
 
-export async function getActors() {
-    return await collection.find().toArray();
+export async function getActorBySlug(slug) {
+    return await collection.findOne({ slug: slug });
 }
 
 export async function searchActors(query) {
