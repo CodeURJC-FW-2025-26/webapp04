@@ -142,15 +142,22 @@ Finally, I verified that all pages were fully responsive and made some last adju
 
 ### Alejandro
 **Description of the Tasks Completed:**
+My main focus throughout this second period was actors and actresses' management, I developed the corresponding functionality for the web app to be able to add new actors using a specific form that allows the user to upload the actor's portrait, introduce their name, date of birth, place of birth, description and role in the movie they are asigned to, with all of those fields being validated making sure they satisfy certain criteria, like using capital letters for the name, a valid birth date, etc. For the existing actors' editing and deleting functionalities, the specific person gets accessed via a slug that the system creates for each actor with our "slugify" file, giving access to their specific info, which allows the user to change any field in the actor's info or updating their portrait, being subjected to the same validation process when clicking "Update" in case there are any mistakes in the new data. Lastly, using the same slug mechanism, actors can now be deleted when clicking on the trash button either from a movie page, or the actor's view page, removing all information, including their portrait from the database.
 ...
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [048dc8d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/048dc8df625aacb2d409825bf30964977e80d09f): Full functionality developed to edit an existing actor.
+- [a90b078](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/a90b078c7db3e944886b459b2e80d15ed1943b06): Full functionality developed to add a new actor.
+- [e9fd89c](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e9fd89c5955da88bc7a29ae18f434221fde4fd69): Full functionality developed to remove an existing actor.
+- [0ce2306](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0ce23066d22613afb18ce695ba051eaaa86fc41a): Adding and editing an actor form developed.
+- [9d717f8](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/9d717f847d91b8f85635598d47028dfdff001307): Changed portrait format to a circular image.
 
 **Five Most Contributed Files**
-- ...
-- ...
+- [`actorForm.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/partials/actorForm.html)
+- [`actorCatalogue.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/actorCatalogue.js)
+- [`actorValidator.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/utils/actorValidator.js)
+- [`editActor.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/editActor.html)
+- [`actorsManager.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/js/actorsManager.js)
 
 ### Farina
 **Description of the Tasks Completed:**
