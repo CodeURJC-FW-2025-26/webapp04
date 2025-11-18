@@ -227,6 +227,26 @@ export class ActorService {
         return movie;
     }
 
+    // Add actor to movie
+    async addActorToMovie(movieSlug, actorId, role) {
+        const movie = await movieCatalogue.getMovieBySlug(movieSlug);
+        if (!movie) {
+            throw new NotFoundError('Movie', movieSlug);
+        }
+
+        const actor = await actorCatalogue.getActor(actorId);
+        if (!actor) {
+            throw new NotFoundError('Actor', actorId);
+        }
+
+        await movieCatalogue.addActorToMovie(movieSlug, actorId, role);
+        
+        return {
+            movieTitle: movie.title,
+            actorName: actor.name
+        };
+    }
+
     // Private helper methods
     _formatActorDateDetails(actor) {
         const birthdayFormatted = formatDate(actor.dateOfBirth);

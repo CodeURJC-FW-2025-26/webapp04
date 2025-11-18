@@ -66,6 +66,11 @@ router.post('/create', uploadPortrait, async (req, res) => {
     try {
         const result = await actorService.createActor(req.body, req.file);
         
+        // If creating from movie context, add actor to movie
+        if (req.body.movieSlug && req.body.role) {
+            await actorService.addActorToMovie(req.body.movieSlug, result.id, req.body.role);
+        }
+        
         res.redirect(`/status/person-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
     } catch (error) {
         if (error instanceof ValidationError) {
