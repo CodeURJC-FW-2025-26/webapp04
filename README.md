@@ -612,8 +612,11 @@ To maintain data integrity, input validation was added to prevent duplicate entr
 Functionality was also introduced to search for existing actors and assign them to a movie along with their specific role. Additionally, the actor-creation workflow was improved so that any actor created directly from a movie’s page is immediately associated with that movie.
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [1c09ff6](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/1c09ff689dbb1d07159f160f57bc3dddc4daddc3): Edited movieForm and made it reusable 
+- [9d717f8](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0aae77b94697ac31ee0e4d05128f2eadd12e9d77): Added ImageUploader
+- [7c52b98](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7c52b986c0fa5d8808242425331e1d6cbdf17352): updated form and added script for dynamic image preview
+- [bd0b6b1](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/bd0b6b14bfa7a5234e56c746225444558e515794): serversided form validation
+- [c2bda2d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c2bda2dd0c343e19073a095319b318b84ccbb22a): seperate folders for poster and portrait img-uploads
 
 **Five Most Contributed Files**
 - [`imageUploader.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/imageUploader.js)
