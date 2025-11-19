@@ -586,8 +586,7 @@ Actor selection section for movie forms:
 
 ### Alejandro
 **Description of the Tasks Completed:**
-My main focus throughout this second period was actors and actresses' management, I developed the corresponding functionality for the web app to be able to add new actors using a specific form that allows the user to upload the actor's portrait, introduce their name, date of birth, place of birth, description and role in the movie they are asigned to, with all of those fields being validated making sure they satisfy certain criteria, like using capital letters for the name, a valid birth date, etc. For the existing actors' editing and deleting functionalities, the specific person gets accessed via a slug that the system creates for each actor with our "slugify" file, giving access to their specific info, which allows the user to change any field in the actor's info or updating their portrait, being subjected to the same validation process when clicking "Update" in case there are any mistakes in the new data. Lastly, using the same slug mechanism, actors can now be deleted when clicking on the trash button either from a movie page, or the actor's view page, removing all information, including their portrait from the database.
-...
+My main focus throughout this second period was actors and actresses' management, I developed the corresponding functionality for the web app to be able to add new actors using a specific form that allows the user to upload the actor's portrait, introduce their name, date of birth, place of birth, description and role in the movie they are assigned to, with all of those fields being validated making sure they satisfy certain criteria, like using capital letters for the name, a valid birth date, etc. For the existing actors' editing and deleting functionalities, the specific person gets accessed via a slug that the system creates for each actor with our `slugify` file, giving access to their specific info, which allows the user to change any field in the actor's info or updating their portrait, being subjected to the same validation process when clicking "Update" in case there are any mistakes in the new data. Lastly, using the same slug mechanism, actors can now be deleted when clicking on the trash button either from a movie page, or the actor's view page, removing all information, including their portrait from the database.
 
 **Five Most Significant Commits**
 - [048dc8d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/048dc8df625aacb2d409825bf30964977e80d09f): Full functionality developed to edit an existing actor.
@@ -612,11 +611,11 @@ To maintain data integrity, input validation was added to prevent duplicate entr
 Functionality was also introduced to search for existing actors and assign them to a movie along with their specific role. Additionally, the actor-creation workflow was improved so that any actor created directly from a movie’s page is immediately associated with that movie.
 
 **Five Most Significant Commits**
-- [1c09ff6](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/1c09ff689dbb1d07159f160f57bc3dddc4daddc3): Edited movieForm and made it reusable 
-- [9d717f8](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0aae77b94697ac31ee0e4d05128f2eadd12e9d77): Added ImageUploader
-- [7c52b98](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7c52b986c0fa5d8808242425331e1d6cbdf17352): updated form and added script for dynamic image preview
-- [bd0b6b1](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/bd0b6b14bfa7a5234e56c746225444558e515794): serversided form validation
-- [c2bda2d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c2bda2dd0c343e19073a095319b318b84ccbb22a): seperate folders for poster and portrait img-uploads
+- [1c09ff6](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/1c09ff689dbb1d07159f160f57bc3dddc4daddc3): Edited `movieForm.html` and made it reusable 
+- [9d717f8](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0aae77b94697ac31ee0e4d05128f2eadd12e9d77): Added `imageUploader.js`
+- [7c52b98](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7c52b986c0fa5d8808242425331e1d6cbdf17352): Updated form and added script for dynamic image preview
+- [bd0b6b1](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/bd0b6b14bfa7a5234e56c746225444558e515794): Implemented server-side form validation
+- [c2bda2d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c2bda2dd0c343e19073a095319b318b84ccbb22a): Created separate folders for poster and portrait image uploads
 
 **Five Most Contributed Files**
 - [`imageUploader.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/imageUploader.js)
@@ -629,7 +628,7 @@ Functionality was also introduced to search for existing actors and assign them 
 **Description of the Tasks Completed:**
 I prepared the project for Práctica 2 by setting up the folder structure, creating `app.js` and `router.js`, and adding the sample data as JSON files, which are automatically loaded into the database when the program starts. I configured the HTML pages to use Mustache templates, which render the data provided by the backend. I also added shared header and footer partials so that all views follow a consistent layout. In addition, I implemented pagination on the home page.
 
-Furthermore, I configured most of the routes in `router.js` as well as the `movieCatalogue.js` and `actorCatalogue.js` modules, which act as interfaces to the database. I added searching, filtering and sorting functionality on the home page together with the corresponding UI. I also implemented the status page, which serves as an intermediate page after user interactions, and added backend error-handling logic.
+Furthermore, I configured most of the routes in `router.js` as well as the `movieCatalogue.js` and `actorCatalogue.js` modules, which act as interfaces to the database. I added searching, filtering, and sorting functionality on the home page together with the corresponding UI. I also implemented the status page, which serves as an intermediate page after user interactions, and added backend error-handling logic.
 
 Once the main tasks were completed, I made several improvements: for cleaner URLs, I introduced a slug field in the sample data and used it instead of the database-generated IDs. Additionally, even though the relationship between movies and actors remains unidirectional, I expanded the data-loading process so that each actor is now also linked to their respective movies. I made some design adjustments on the movie and actor detail pages for better readability, and added logic to display when an actor is deceased.
 
@@ -643,7 +642,7 @@ Throughout the process, I regularly reviewed the code, removed duplicates, modul
 - [b24bb7d](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b24bb7d): Replaced duplicated header and footer HTML in the views with Mustache partials
 
 **Five Most Contributed Files**
-- [`router.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/router.js)
+- [`router.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/router.js) (later split into multiple separate files for separation of concerns)
 - [`movieCatalogue.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/movieCatalogue.js)
 - [`home.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/js/home.js)
 - [`statusPage.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/statusPage.html)
