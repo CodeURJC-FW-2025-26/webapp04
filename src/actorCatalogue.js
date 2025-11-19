@@ -28,7 +28,7 @@ export async function getActorBySlug(slug) {
 export async function searchActors(query) {
     return await collection
         .find({
-            name: { $regex: query, $options: 'i' }  // Case-insensitive
+            name: { $regex: query, $options: 'i' }  // case-insensitive
         })
         .limit(10)
         .toArray();
