@@ -59,7 +59,7 @@ Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser t
 
 ## Links
 - [Link to Trello](https://trello.com/invite/b/68d0f24f8deb98189ef954eb/ATTI17034f224bc8ee2a098984e95cb7a264E5C95465/cinemateca)
-- [Link to the Screen Recording after Práctica 2]() // TODO
+- [Link to the Screen Recording after Práctica 2](https://www.youtube.com/watch?v=Tq_RHJaIpYg)
 
 ## Functionality
 ### Entities
@@ -83,7 +83,7 @@ A `Movie` has:
 The secondary entity in the application is `Actor`. An `Actor` is someone who acts in a `Movie`. Every `Actor` must be linked to at least one `Movie`.
 
 An `Actor` has:
-* name
+* name,
 * unique ID (slug),
 * portrait (image file),
 * date of birth,
@@ -184,7 +184,7 @@ Finally, I verified that all pages were fully responsive and made some last adju
 
 # Práctica 2
 
-- [Link to the Screen Recording after Práctica 2]() // TODO
+- [Link to the Screen Recording after Práctica 2](https://www.youtube.com/watch?v=Tq_RHJaIpYg)
 
 ## Description of the Created Files
 
