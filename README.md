@@ -3,14 +3,54 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 
 **Table of contents**
 <!-- TOC -->
+* [▶️ How to Install and Run Cinemateca](#how-to-install-and-run-cinemateca)
+  * [System Requirements](#system-requirements)
 * [Members of the Group](#members-of-the-group)
 * [Links](#links)
 * [Functionality](#functionality)
 * [Wireframes](#wireframes)
 * [Práctica 1](#práctica-1)
+  * [Screenshots](#screenshots)
+  * [Participation](#participation)
 * [Práctica 2](#práctica-2)
+  * [Description of the Created Files](#description-of-the-created-files)
+  * [Screenshots](#screenshots-1)
+  * [Participation](#participation-1)
 * [Práctica 3](#práctica-3)
 <!-- /TOC -->
+
+## How to Install and Run Cinemateca
+
+Clone the repository:
+```bash
+git clone https://github.com/CodeURJC-FW-2025-26/webapp04.git
+cd webapp04
+```
+
+Install dependencies:
+```bash
+npm install
+```
+
+**Note:** Ensure MongoDB is running on `localhost:27017` before starting the application.
+
+Start the application:
+```bash
+npm start
+```
+
+Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to view the application.
+
+### System Requirements
+
+- **Node.js**: version 22.15.1 or higher
+- **MongoDB**: version 8.2.1 or higher
+  - MongoDB should be running on `localhost:27017` (default)
+- **npm Dependencies**
+  - `express` (5.1.0 or higher) - Web framework
+  - `mongodb` (7.0.0 or higher) - MongoDB driver
+  - `mustache-express` (1.3.2 or higher) - Mustache templating engine
+  - `multer` (2.0.2 or higher) - File upload handling
 
 ## Members of the Group
 * Alejandro Guzmán Sánchez (E-Mail: a.guzmans.2025@urjc.es, GitHub: [AlejandroGS47](https://github.com/AlejandroGS47))
@@ -18,42 +58,50 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
 * Felix Schwabe (E-Mail: f.schwabe.2025@alumnos.urjc.es, GitHub: [7dns](https://github.com/7dns))
 
 ## Links
-[Link to Trello](https://trello.com/invite/b/68d0f24f8deb98189ef954eb/ATTI17034f224bc8ee2a098984e95cb7a264E5C95465/cinemateca)
+- [Link to Trello](https://trello.com/invite/b/68d0f24f8deb98189ef954eb/ATTI17034f224bc8ee2a098984e95cb7a264E5C95465/cinemateca)
+- [Link to the Screen Recording after Práctica 2]() // TODO
 
 ## Functionality
 ### Entities
-![image](documentation/uml/uml_entities_v02.png "UML diagram")
+![image](documentation/uml/uml_entities_v03.png "UML diagram")
 
 #### Movies
-`Movie` is the primary entity of the web application. Each `Movie` contains essential information and is linked to its actors. Each `Movie` has at least one actor.
+`Movie` is the primary entity of the web application. Each `Movie` contains essential information and is linked to its `Actor`s. `Movies` may have `0` or `n` `Actor`s. 
 
 A `Movie` has:
-* unique ID,
 * title,
+* unique ID (slug),
 * poster (image file),
-* short description,
+* description,
 * genre,
-* release year,
+* release date,
 * country of production,
 * age rating,
-* one or more actors
+* `0` or `n` `Actor`s
 
-#### Person
-The secondary entity in the application is `Person`. A `Person` is someone who acts in a `Movie`. *(Optional: A `Person` may also represent any individual involved in at least one `Movie`, such as an actor, director or writer. Every `Person` must be linked to at least one movie.)*
+#### Actor
+The secondary entity in the application is `Actor`. An `Actor` is someone who acts in a `Movie`. Every `Actor` must be linked to at least one `Movie`.
 
-A `Person` has:
-* unique ID,
+An `Actor` has:
 * name
+* unique ID (slug),
 * portrait (image file),
 * date of birth,
 * place of birth,
-* short description
+* description
 
 ### Search
-The application will include a search function that allows users to find movies by their title. *(Optional: Users may also enter the name of a person (e.g. actor, director or writer) involved in the movie.)*
+Users can search for movies by title using the real-time search function on the home page.
 
-### Filtering
-The application will include a function to filter search results (e.g. by genre, release year or country of production).
+### Filtering and Sorting
+Movies can be filtered by:
+- **Genre** - Multiple genres can be selected simultaneously
+- **Country of Production** - Multiple countries can be selected simultaneously
+- **Age Rating** - Filter by specific age restrictions (A, 7, 12, 16, 18)
+
+Results can be sorted by:
+- **Title** - Alphabetically (A-Z or Z-A)
+- **Release Year** - Chronologically (oldest first or newest first)
 
 ## Wireframes
 The following wireframes show the planned layout of Cinemateca, giving a visual overview of the application’s structure and functionality.
@@ -61,18 +109,18 @@ The following wireframes show the planned layout of Cinemateca, giving a visual 
 ### Wide Screen Views
 ![image](documentation/wireframes/screenWide_startView.png "Start View")
 ![image](documentation/wireframes/screenWide_movieView.png "Detail View of a selected Movie")
-![image](documentation/wireframes/screenWide_personView.png "Detail View of a selected Person")
+![image](documentation/wireframes/screenWide_personView.png "Detail View of a selected Actor")
 
 ### Mobile Views
-![image](documentation/wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Person in Mobile View")
+![image](documentation/wireframes/mobile_allViews.png "Start View and Detail View of a selected Movie and Actor in Mobile View")
 
 # Práctica 1
 
 ## Screenshots
-![image](documentation/screenshot/practica-1_screenshot-1.png)
-![image](documentation/screenshot/practica-1_screenshot-2.png)
-![image](documentation/screenshot/practica-1_screenshot-3.png)
-![image](documentation/screenshot/practica-1_screenshot-4.png)
+![image](documentation/screenshots/practica-1_screenshot-1.png)
+![image](documentation/screenshots/practica-1_screenshot-2.png)
+![image](documentation/screenshots/practica-1_screenshot-3.png)
+![image](documentation/screenshots/practica-1_screenshot-4.png)
 
 ## Participation
 
@@ -88,11 +136,11 @@ By the time I joined the team, the initial idea of the project had already been 
 - [b9cf5ce](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b9cf5ceb852b3bfa1d7a86837246620ef96ae9fd): Added the favicon to all HTML pages through the website. 
 
 **Five Most Contributed Files**
-- [`index.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/index.html)
-- [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/general.css)
-- [`movieDetails.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/movieDetails.css)
-- [`movieDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
-- [`addNewMovie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/addNewMovie.html)
+- [`home.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/home.html)
+- [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/general.css)
+- [`movie.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/movie.css)
+- [`movie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/movie.html)
+- [`editMovie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/editMovie.html)
 
 ### Farina
 **Description of the Tasks Completed:**
@@ -106,9 +154,9 @@ At the beginning of the project, I worked together with Felix to develop the ini
 - [1869d91](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/1869d91ccf7b724d6b6e58754b5bee4b272e0880): Improved hover behavior and interaction logic between icons and buttons in `general.css` to ensure consistent visual feedback.
 
 **Five Most Contributed Files**
-- [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/general.css)
-- [`addNewMovie.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/addNewMovie.css)
-- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/variables.css)
+- [`general.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/general.css)
+- [`form.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/form.css)
+- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/variables.css)
 - [`README.md`](https://github.com/CodeURJC-FW-2025-26/webapp04/README.md) documented project ideas together with Felix
 - Felix and I worked together on the wireframes while developing the project idea
 
@@ -128,15 +176,411 @@ Finally, I verified that all pages were fully responsive and made some last adju
 - [9a4f26f](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/9a4f26f1b65f8a8b885e1db86843ddfd50a25a27): Improved the responsiveness of `movieDetails.html`, particularly the hover effect in the actors list, and `personDetails.html`.
 
 **Five Most Contributed Files**
-- [`movieDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/movieDetails.html)
-- [`personDetails.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/pages/personDetails.html)
-- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/variables.css)
-- [`pageLayout.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/styles/pageLayout.css)
-- all images files used for [movie posters](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/moviePosters) and [actor portraits](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/images/persons)
+- [`movie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/movie.html)
+- [`actor.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/actor.html)
+- [`variables.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/variables.css)
+- [`pageLayout.css`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/css/pageLayout.css)
+- all image files used for [movie posters](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/public/img/moviePosters) and [actor portraits](https://github.com/CodeURJC-FW-2025-26/webapp04/tree/main/public/img/actorPortraits)
 
 # Práctica 2
 
+- [Link to the Screen Recording after Práctica 2]() // TODO
+
+## Description of the Created Files
+
+### public/js/ (Client-Side JavaScript)
+
+#### **utils.js**
+Provides reusable utilities for delete operations across the application. Exports a `setupDeleteButton` function that handles delete requests with error handling and automatic redirection. Used by both movie and actor detail pages.
+
+#### **home.js**
+Main script for the home page implementing:
+- Real-time movie search
+- Multi-select filters (genre, country, age rating)
+- Sorting by title/release date (ascending/descending)
+- Client-side pagination
+- Fetches data from `/api/search`
+- Updates movie grid and pagination
+
+#### **movie.js**
+Handles movie detail page interactions:
+- Initializes movie delete button using `utils.js`
+- Sets up delete buttons for removing actors from the movie
+- Makes API calls to `/api/movie/{movieSlug}/actor/{actorSlug}` for actor removal
+
+#### **actor.js**
+Simple script that initializes the actor delete button using `utils.setupDeleteButton`.
+
+#### **addNewMovie.js**
+Handles movie form interactions:
+- Character counter for description (50-1000 chars) with color feedback
+- Image upload with drag-and-drop support
+- Image preview before submission
+- Remove image functionality (old image is kept if no new one is uploaded)
+- File validation (JPEG, PNG, JPG only)
+
+#### **addNewActor.js**
+Similar to `addNewMovie.js` but for actor forms:
+- Character counter for description
+- Portrait image upload with drag-and-drop
+- Image preview and removal (old portrait is kept if no new one is uploaded)
+
+#### **actorsManager.js**
+Manages actor selection in movie forms:
+- Autocomplete search for actors
+- Prevents duplicate actor selection using a Set
+- Dynamically adds/removes actor items with role input fields
+- Fetches actor data from `/api/actors/search`
+- Handles preloaded actors when editing movies
+
+---
+
+### src/ (Server-Side Code)
+
+#### **app.js**
+Application entry point:
+- Initializes Express server
+- Configures Mustache templating engine
+- Sets up static file serving from `/public`
+- Mounts router
+- Starts server on port 3000
+- Imports `dataLoader.js` to initialize demo data
+
+#### **constants.js**
+Centralized configuration and constants:
+- Server settings (host, port)
+- Database configuration (URI, name)
+- File paths for uploads (posters, portraits)
+- Pagination settings
+- Validation rules (description length, date ranges)
+- Predefined lists (age ratings, genres, countries)
+
+#### **database.js**
+Database connection module:
+- Connects to MongoDB using MongoClient
+- Exports database instance for use across the app
+- Auto-connects on import
+
+#### **dataLoader.js**
+Initializes demo data on server start:
+- Clears existing data if `CLEAR_DB_ON_START = true`
+- Loads actors and movies from JSON files in `/data`
+- Creates actor entries first (to get IDs)
+- Creates movie entries with actor references
+- Copies demo images to upload folders
+- Only runs if collections are empty
+
+#### **router.js**
+Main router configuration:
+- Defines home page route with pagination
+- Fetches movies and filter options using `SearchService`
+- Mounts sub-routers: `/movie`, `/actor`, `/api`, `/status`
+- Handles errors with `renderErrorPage`
+
+#### **imageUploader.js**
+Multer configuration for file uploads:
+- Creates storage for movie posters and actor portraits
+- `renameUploadedFile` function sanitizes and renames files after validation
+- Deletes old files when replacing images with new ones
+- Ensures upload directories exist
+
+#### **movieCatalogue.js**
+Database operations for movies:
+- CRUD operations (add, get, update, delete)
+- Search with filters (genre, country, age rating, query string)
+- Sorting (title, release date)
+- Actor-related queries (add/remove actors, update roles)
+- Pagination support
+- Creates unique index on `slug` field
+
+#### **actorCatalogue.js**
+Database operations for actors:
+- CRUD operations (add, get, update, delete)
+- Search by name (regex, case-insensitive)
+- Slug generation for URLs
+- Creates unique index on `slug` field
+
+---
+
+#### routes/
+
+##### **movieRoutes.js**
+Express router for movie-related endpoints:
+- `GET /:slug` - Movie detail page
+- `GET /:slug/poster` - Download poster file
+- `GET /add/new` - Add movie form
+- `POST /create` - Create new movie (with file upload)
+- `GET /:slug/edit` - Edit movie form
+- `POST /:slug/update` - Update movie (with file upload)
+- `GET /moviePosters/:filename` - Serve poster images
+- Uses `MovieService` for business logic
+- Handles errors with custom error classes
+
+##### **actorRoutes.js**
+Express router for actor-related endpoints:
+- `GET /:slug` - Actor detail page
+- `GET /add/from-movie/:movieSlug` - Add actor form (movie context)
+- `GET /add/new` - Add actor form (standalone)
+- `POST /create` - Create new actor (with file upload)
+- `GET /:slug/edit` - Edit actor form
+- `GET /:slug/edit/from-movie/:movieSlug` - Edit actor form (movie context)
+- `POST /:slug/update` - Update actor
+- `POST /:slug/update/from-movie/:movieSlug` - Update actor in movie context
+- `GET /portraits/:filename` - Serve portrait images
+- Uses `ActorService` for business logic
+
+##### **apiRoutes.js**
+RESTful API endpoints (JSON responses):
+- `GET /search` - Search movies with filters and pagination
+- `GET /actors/search` - Search actors by name
+- `DELETE /movie/:slug` - Delete movie
+- `DELETE /movie/:movieSlug/actor/:actorSlug` - Remove actor from movie
+- `DELETE /actor/:slug` - Delete actor completely
+- Returns JSON with success/error and redirect URLs
+
+##### **statusRoutes.js**
+Status and confirmation pages:
+- Movie operations: created, updated, deleted
+- Actor operations: created, updated, deleted, removed from movie, updated in movie
+- Generic error page
+- Uses `statusPageHelper` to generate page data
+- Renders `statusPage.html` template
+
+---
+
+#### services/
+
+##### **MovieService.js**
+Business logic for movie operations:
+- `getMovieForDisplay(slug)` - Formats movie data for display page
+- `createMovie(data, file)` - Validates, creates movie, handles file upload
+- `updateMovie(slug, data, file)` - Updates movie, handles poster removal/replacement
+- `deleteMovie(slug)` - Deletes movie and associated files
+- `getMovieForEdit(slug)` - Prepares data for edit form
+- `getPosterPath(slug)` - Returns file path for serving posters
+- When updating, keeps existing poster if no new one is uploaded
+- Resolves actor references to full actor objects
+- Uses `validateMovie`, `movieCatalogue`, and `actorCatalogue`
+
+##### **ActorService.js**
+Business logic for actor operations:
+- `getActorForDisplay(slug)` - Formats actor data with age, movies
+- `createActor(data, file)` - Validates, creates actor (portrait optional)
+- `updateActor(slug, data, file)` - Updates actor, keeps existing portrait if no new one is uploaded
+- `deleteActor(slug)` - Deletes actor and portrait file
+- `removeActorFromMovie(movieSlug, actorSlug)` - Removes actor from specific movie, deletes actor completely if only in one movie
+- `getActorForEdit(slug)` - Prepares data for edit form
+- `getActorForEditWithMovieContext(actorSlug, movieSlug)` - Includes current role
+- `updateActorInMovieContext(actorSlug, movieSlug, data, file)` - Updates actor and role in movie
+- `addActorToMovie(movieSlug, actorId, role)` - Adds existing actor to movie
+- `searchActors(query)` - Searches actors by name
+- Date formatting and age calculation helpers
+
+##### **SearchService.js**
+Search and filtering operations:
+- `searchMovies(params, skip, limit)` - Searches with filters, sorting, pagination
+- `searchActors(query)` - Searches actors by name
+- `getMovieFilterOptions()` - Returns available genres, countries, age ratings
+- `getMoviesForHomePage(skip, limit)` - Gets paginated movies
+- `getHomePageData(skip, limit)` - Combines movies and filter options for home page
+- Adds release year to movies for display
+
+---
+
+#### middleware/
+
+##### **errorHandler.js**
+Error rendering middleware:
+- `renderErrorPage(res, errorType, entity, details)` - Renders error status page
+- `renderValidationError(res, errorType, entity, details)` - Renders validation error
+- Uses `createErrorPage` from `statusPageHelper`
+
+##### **pagination.js**
+Pagination utilities:
+- `getPaginationParams(req)` - Extracts page, skip, limit from request
+- `calculatePagination(currentPage, totalPages)` - Calculates page numbers to display
+- `getPaginationRange(currentPage, totalPages)` - Determines start/end pages
+- Configurable max buttons (3 by default)
+- Returns prev/next flags and page array
+
+---
+
+#### utils/
+
+##### **movieValidator.js**
+Movie validation logic:
+- Validates required fields (title, description, release date, age rating, genre, country, poster)
+- Title must start with capital letter
+- Description length (50-1000 characters)
+- Release date range (1888 to current year + 5)
+- Valid age rating from predefined list
+- Poster file required (checked via `!file`)
+- Returns `{ isValid, errors }` with detailed error information
+
+##### **actorValidator.js**
+Actor validation logic:
+- Validates required fields (name, description, date of birth, place of birth)
+- Name must start with capital letter
+- Description length (50-1000 characters)
+- Birthdate range (1900 to current year + 1)
+- Role required if creating from movie context
+- Portrait is optional
+- Returns `{ isValid, errors }`
+
+##### **errors.js**
+Custom error classes:
+- `ValidationError` - Validation failures with type and details
+- `NotFoundError` - Resource not found (entity, identifier)
+- `DuplicateError` - Duplicate entry (entity, field, value)
+- Used throughout services for consistent error handling
+
+##### **errorHandler.js** (utils)
+Error detail generation:
+- `getErrorDetails(errorType, entity, details)` - Returns error title, message, redirect URL
+- Handles: duplicate, capitalization, empty fields, invalid date/age rating, description length, missing poster/portrait, not found, delete error, network error, unknown
+- Context-aware redirects (back to form, home, etc.)
+
+##### **routeHelpers.js**
+Utility functions:
+- Date helpers: `formatDate`, `extractYear`, `calculateAge`
+- Movie helpers: `addReleaseYearToMovies`, `ensureArray`
+- File helpers: `deletePosterFile`, `deletePortraitFile`
+- Search helpers: `getSearchParams` - Normalizes filter parameters from request
+
+##### **slugify.js**
+URL slug generation:
+- `createMovieSlug(title, year)` - Creates `title_year` slug
+- `createActorSlug(name)` - Creates lowercase hyphenated name slug
+- `parseMovieSlug(slug)` - Parses slug back into title and year
+- Removes special characters, replaces spaces with hyphens
+
+##### **statusPageHelper.js**
+Status page data generation:
+- `createSuccessPage(title, message, redirectUrl, icon, text)` - Success page data
+- `createErrorPage(errorType, entity, details)` - Error page data
+- `getStatusCode(errorType)` - Maps error types to HTTP status codes
+- Uses `getErrorDetails` from `errorHandler.js`
+
+---
+
+### views/ (Mustache Templates)
+
+#### **home.html**
+Homepage template:
+- Search input with real-time filtering
+- Sorting dropdown (title/release date, asc/desc)
+- Filter dropdowns (genre, country, age rating)
+- Movie grid with posters (3 columns on large screens)
+- Pagination controls
+- Add movie button
+- Includes: `baseHead`, `header`, `footer`
+- Scripts: `home.js`
+
+#### **movie.html**
+Movie detail page template:
+- Movie poster and metadata (year, genre, country, age rating)
+- Description
+- Actor list with portraits and roles
+- Edit/delete movie buttons
+- Add actor button
+- Edit/delete buttons for each actor
+- Includes: `baseHead`, `header`, `footer`
+- Scripts: `utils.js`, `movie.js`
+
+#### **actor.html**
+Actor detail page template:
+- Actor portrait
+- Birthday/birthplace (or death date if applicable)
+- Age calculation (alive or age at death)
+- Description
+- Filmography list with release years
+- Edit/delete actor buttons
+- Includes: `baseHead`, `header`, `footer`
+- Scripts: `utils.js`, `actor.js`
+
+#### **editMovie.html**
+Movie add/edit form page:
+- Title changes based on edit/add mode
+- Cancel button (back navigation)
+- Includes `movieForm` partial
+- Includes: `baseHead`, `header`, `footer`, `movieForm`, `actorSection`
+- Scripts: `addNewMovie.js`, `actorsManager.js`
+
+#### **editActor.html**
+Actor add/edit form page:
+- Title changes based on edit/add mode
+- Back button
+- Includes `actorForm` partial
+- Includes: `baseHead`, `header`, `footer`, `actorForm`
+- Scripts: `addNewActor.js`
+
+#### **statusPage.html**
+Generic status/error page template:
+- Icon (success/error with color)
+- Title and message
+- Redirect button
+- Dynamic content via Mustache variables
+- Includes: `baseHead`, `header`, `footer`
+
+---
+
+#### partials/
+
+##### **baseHead.html**
+Common HTML head section:
+- Character encoding
+- Favicon (SVG)
+- Bootstrap CSS and JS
+- Bootstrap Icons
+- Included in all page templates
+
+##### **header.html**
+Site header:
+- "Cinemateca" title
+- Links to home page
+- Consistent across all pages
+
+##### **footer.html**
+Site footer:
+- Copyright notice
+- Sticky footer
+
+##### **movieForm.html**
+Movie form partial:
+- Image upload with drag-and-drop (poster)
+- Form fields: title, genre (multi-select), age rating, release date, country (multi-select), description
+- Client-side validation (pattern, required, min/max length/date)
+- Character counter for description
+- Includes `actorSection` partial
+- Submit button text changes (Save/Update)
+
+##### **actorForm.html**
+Actor form partial:
+- Hidden field for movie context (`movieSlug`)
+- Image upload with drag-and-drop (portrait)
+- Form fields: name, birthdate, place of birth, description, role (if movie context)
+- Client-side validation
+- Character counter for description
+- Submit button text changes (Save/Update)
+
+##### **actorSection.html**
+Actor selection section for movie forms:
+- Search input with autocomplete dropdown
+- Selected actors list with portraits
+- Role input for each actor
+- Remove actor buttons
+- Hidden fields for actor IDs and roles (arrays)
+- Pre-loads existing actors when editing
+
 ## Screenshots
+
+![image](documentation/screenshots/practica-2_screenshot-1.png)
+![image](documentation/screenshots/practica-2_screenshot-2.png)
+![image](documentation/screenshots/practica-2_screenshot-3.png)
+![image](documentation/screenshots/practica-2_screenshot-4.png)
+![image](documentation/screenshots/practica-2_screenshot-5.png)
+![image](documentation/screenshots/practica-2_screenshot-7.png)
+![image](documentation/screenshots/practica-2_screenshot-6.png)
 
 ## Participation
 
