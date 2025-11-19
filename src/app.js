@@ -1,6 +1,5 @@
 import express from 'express';
 import mustacheExpress from 'mustache-express';
-import bodyParser from 'body-parser';
 
 import { SERVER } from './constants.js';
 import router from './router.js';
@@ -14,7 +13,7 @@ app.set('view engine', 'html');
 app.engine('html', mustacheExpress(), '.html');
 app.set('views', './views');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));    // for parsing form data
 
 app.use('/', router);
 
