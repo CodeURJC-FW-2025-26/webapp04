@@ -604,16 +604,23 @@ My main focus throughout this second period was actors and actresses' management
 - [`actorsManager.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/js/actorsManager.js)
 
 ### Farina
-**Description of the Tasks Completed:**
-...
+**Description of the Tasks Completed:** 
+A fully functional and reusable form was developed for both creating and editing movies (the primary entity). This included implementing image uploads to the uploads folder and ensuring that demo data is automatically copied there. The same approach was later extended to support actor portraits (the secondary entity).
+
+To maintain data integrity, input validation was added to prevent duplicate entries in the database. When a movie is edited, all existing data is now reliably preloaded into the form.
+
+Functionality was also introduced to search for existing actors and assign them to a movie along with their specific role. Additionally, the actor-creation workflow was improved so that any actor created directly from a movie’s page is immediately associated with that movie.
 
 **Five Most Significant Commits**
 - ...
 - ...
 
 **Five Most Contributed Files**
-- ...
-- ...
+- [`imageUploader.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/imageUploader.js)
+- [`actorsManager.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/public/js/actorsManager.js)
+- [`editMovie.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/editMovie.html)
+- [`movieForm.html`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/views/partials/movieForm.html)
+- [`router.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/router.js)
 
 ### Felix
 **Description of the Tasks Completed:**
