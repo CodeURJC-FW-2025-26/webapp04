@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagePreview = document.getElementById('imagePreview');
     const previewImg = document.getElementById('previewImg');
     const removeBtn = document.getElementById('removeImage');
-    const removePosterField = document.getElementById('removePoster');
 
     let selectedFile = null;
     let hasExistingPoster = false;
@@ -98,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleFileSelect(file) {
         selectedFile = file;
         hasExistingPoster = false; // User is uploading new file
-        removePosterField.value = 'false'; // Reset removal flag
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -116,9 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         previewImg.src = '';
         imagePreview.style.display = 'none';
         uploadBox.style.display = 'flex';
-
-        // Signal that poster should be removed
-        removePosterField.value = 'true';
 
         // If there was an existing poster, show upload icon again
         if (hasExistingPoster) {

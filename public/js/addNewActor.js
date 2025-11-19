@@ -96,12 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedFile = file;
         hasExistingPortrait = false;
 
-        // Reset removePortrait flag when new file is selected
-        const removePortraitField = document.getElementById('removePortrait');
-        if (removePortraitField) {
-            removePortraitField.value = 'false';
-        }
-
         const reader = new FileReader();
         reader.onload = (e) => {
             previewImg.src = e.target.result;
@@ -118,12 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         previewImg.src = '';
         imagePreview.style.display = 'none';
         uploadBox.style.display = 'flex';
-
-        // Set hidden field to signal portrait removal to backend
-        const removePortraitField = document.getElementById('removePortrait');
-        if (removePortraitField) {
-            removePortraitField.value = 'true';
-        }
 
         // Restore upload icon if there was an existing portrait
         if (hasExistingPortrait) {

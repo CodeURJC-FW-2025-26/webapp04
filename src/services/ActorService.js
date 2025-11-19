@@ -96,12 +96,7 @@ export class ActorService {
                 existingActor.portrait
             );
         }
-
-        // Handle portrait removal
-        if (actorData.removePortrait === 'true' && filename) {
-            await deletePortraitFile(filename);
-            filename = null;
-        }
+        // If no new file uploaded, keep existing portrait (even if user clicked remove)
 
         const updatedActor = this._createActorObject(actorData, filename);
 
