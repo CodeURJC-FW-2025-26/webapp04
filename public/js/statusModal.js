@@ -1,18 +1,18 @@
-function showModal(type, title, message, redirectUrl = null) {
-    const modalElement = document.getElementById('staticBackdrop');
+function showStatusModal(type, title, message, redirectUrl = null) {
+    const modalElement = document.getElementById('statusModal');
 
     if (!modalElement) {
         console.error('Modal element not found');
         return;
     }
 
-    const modalTitle = modalElement.querySelector('.modal-title-text');
-    const modalIcon = modalElement.querySelector('.modal-title-icon');
-    const modalMessage = modalElement.querySelector('.modal-message');
-    const modalRedirectButton = modalElement.querySelector('.modal-redirect-btn');
+    const modalIcon = modalElement.querySelector('#modal-title-icon');
+    const modalTitle = modalElement.querySelector('#modal-title-text');
+    const modalMessage = modalElement.querySelector('#modal-message');
     const modalCloseButton = modalElement.querySelector('.modal-close-btn');
-    const modalRedirectText = modalElement.querySelector('.modal-redirect-text');
-    const modalRedirectIcon = modalElement.querySelector('.modal-redirect-icon');
+    const modalRedirectButton = modalElement.querySelector('.modal-redirect-btn');
+    const modalRedirectIcon = modalElement.querySelector('#modal-redirect-icon');
+    const modalRedirectText = modalElement.querySelector('#modal-redirect-text');
 
     // Set title and message text
     modalTitle.textContent = title;
@@ -26,7 +26,9 @@ function showModal(type, title, message, redirectUrl = null) {
     }
 
     if (redirectUrl) {
-        modalRedirectButton.href = redirectUrl;
+        modalRedirectButton.addEventListener('click', () => {
+            window.location.href = redirectUrl
+        }, { once: true });
         modalRedirectButton.style.display = 'block';
         modalCloseButton.style.display = 'none';
     } else {
