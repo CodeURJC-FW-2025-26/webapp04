@@ -53,22 +53,19 @@ router.delete('/movie/:slug', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Movie deleted successfully',
-            redirectUrl: `/status/movie-deleted?title=${encodeURIComponent(result.title)}`
+            message: 'Movie deleted successfully'
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
             return res.status(404).json({
                 success: false,
-                error: 'Movie not found',
-                redirectUrl: '/error?type=notFound&entity=movie'
+                error: 'Movie not found'
             });
         }
         console.error('Error deleting movie:', error);
         res.status(500).json({
             success: false,
-            error: 'Failed to delete movie',
-            redirectUrl: '/error?type=deleteError&entity=movie'
+            error: 'Failed to delete movie'
         });
     }
 });
@@ -81,22 +78,19 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
 
         res.json({
             success: true,
-            message: result.message,
-            redirectUrl: `/status/actor-removed-from-movie?actorName=${encodeURIComponent(result.actorName)}&movieTitle=${encodeURIComponent(result.movieTitle)}&movieSlug=${movieSlug}`
+            message: result.message
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
             return res.status(404).json({
                 success: false,
-                error: error.message,
-                redirectUrl: '/error?type=notFound&entity=actor'
+                error: error.message
             });
         }
         console.error('Error removing actor from movie:', error);
         res.status(500).json({
             success: false,
-            error: 'Failed to remove actor from movie',
-            redirectUrl: '/error?type=deleteError&entity=actor'
+            error: 'Failed to remove actor from movie'
         });
     }
 });
@@ -109,22 +103,19 @@ router.delete('/actor/:slug', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Actor deleted successfully',
-            redirectUrl: `/status/actor-deleted?name=${encodeURIComponent(result.name)}`
+            message: 'Actor deleted successfully'
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
             return res.status(404).json({
                 success: false,
-                error: 'Actor not found',
-                redirectUrl: '/error?type=notFound&entity=actor'
+                error: 'Actor not found'
             });
         }
         console.error('Error deleting actor:', error);
         res.status(500).json({
             success: false,
-            error: 'Failed to delete actor',
-            redirectUrl: '/error?type=deleteError&entity=actor'
+            error: 'Failed to delete actor'
         });
     }
 });
