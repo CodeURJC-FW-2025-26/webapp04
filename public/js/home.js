@@ -208,13 +208,19 @@ function appendMovies(movies) {
 }
 
 function createMovieCard(movie) {
+    const posterImg = movie.poster 
+        ? `<img src="/movie/${movie.slug}/poster" 
+               alt="Poster of ${escapeHtml(movie.title)} (${movie.releaseYear})"
+               loading="lazy">`
+        : `<img src="/img/moviePosters/placeholder.jpg" 
+               alt="No poster available"
+               loading="lazy">`;
+    
     return `
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="moviePoster">
                 <a href="/movie/${movie.slug}">
-                    <img src="/movie/${movie.slug}/poster" 
-                         alt="Poster of ${escapeHtml(movie.title)} (${movie.releaseYear})"
-                         loading="lazy">
+                    ${posterImg}
                     <div class="moviePosterTitle">
                         <span class="title">${escapeHtml(movie.title)}</span><br>
                         <span class="year">${movie.releaseYear}</span>
