@@ -38,7 +38,13 @@
 			<div class="row g-3">
 				<div class="col-md-6 col-sm-12">
 					<div class="moviePoster">
+                        {{#poster}}
 						<img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
+                        {{/poster}}
+
+                        {{^poster}}
+                        <img src="/img/moviePosters/placeholder.jpg" alt="No poster available">
+                        {{/poster}}
 					</div>
 				</div>
 
@@ -92,43 +98,10 @@
 									<a class="btn" href="/actor/add/from-movie/{{slug}}"><i class="bi bi-plus"></i></a>
 								</div>
 
-								{{#hasActors}}
-								{{#actors}}
-								<div class="actor position-relative">
-									<div class="d-flex">
-										<a href="/actor/{{slug}}">
-											{{#portrait}}
-											<img class="actorIconSmall" src="/actor/portraits/{{portrait}}"
-												alt="{{name}}">
-											{{/portrait}}
-
-											{{^portrait}}
-											<img class="actorIconSmall" src="/img/actorPortraits/placeholder.jpg"
-												alt="{{name}}">
-											{{/portrait}}
-										</a>
-										<div>
-											<p><a href="/actor/{{slug}}">{{name}}</a> as</p><br>
-											<p class="m-0 p-0">{{role}}</p>
-										</div>
-									</div>
-
-									<div
-										class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-										<a href="/actor/{{slug}}/edit/from-movie/{{movieSlug}}">
-											<div class="btn"><i class="bi bi-pencil"></i></div>
-										</a>
-										<div class="btn btn-delete delete-actor-button" data-slug="{{slug}}">
-											<i class="bi bi-trash"></i>
-										</div>
-									</div>
+                                <div id="actorSection">
+									{{>partials/actorSection}}										
 								</div>
-								{{/actors}}
-								{{/hasActors}}
 
-								{{^hasActors}}
-								<p>No actors listed yet.</p>
-								{{/hasActors}}
 							</div>
 						</div>
 
