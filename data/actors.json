@@ -2,7 +2,7 @@
   {
     "name": "Leonardo DiCaprio",
     "slug": "leonardo-dicaprio",
-    "portrait": "leonardo-dicaprio.png",
+    "portrait": "leonardo-dicaprio.jpg",
     "description": "Leonardo Wilhelm DiCaprio is an American actor and film producer. Known for his critically acclaimed performances in films such as Titanic, Inception, The Wolf of Wall Street, and The Revenant, he is one of the most recognized actors of his generation.",
     "dateOfBirth": "1974-11-11",
     "placeOfBirth": "Los Angeles, California, USA"
@@ -10,7 +10,7 @@
   {
     "name": "Sean Penn",
     "slug": "sean-penn",
-    "portrait": "sean_penn.png",
+    "portrait": "sean_penn.jpg",
     "description": "Sean Justin Penn is an American actor, filmmaker, and activist. He has received multiple awards, including two Academy Awards for his roles in Mystic River and Milk.",
     "dateOfBirth": "1960-08-17",
     "placeOfBirth": "Santa Monica, California, USA"
@@ -18,7 +18,7 @@
   {
     "name": "Chase Infiniti",
     "slug": "chase-infiniti",
-    "portrait": "chase-infiniti.png",
+    "portrait": "chase-infiniti.jpg",
     "description": "Chase Infiniti is an American actress known primarily for independent film roles and emerging performances in dramatic and socially engaged cinema.",
     "dateOfBirth": "2000-05-05",
     "placeOfBirth": "Indianapolis, Indiana, USA"
@@ -26,7 +26,7 @@
   {
     "name": "Vera Farmiga",
     "slug": "vera-farmiga",
-    "portrait": "vera-farmiga.png",
+    "portrait": "vera-farmiga.jpg",
     "description": "Vera Ann Farmiga is an American actress, producer, and director. She is known for her roles in The Departed, Up in the Air, and The Conjuring film series, in which she portrays paranormal investigator Lorraine Warren.",
     "dateOfBirth": "1973-08-06",
     "placeOfBirth": "Clifton, New Jersey, USA"
@@ -34,7 +34,7 @@
   {
     "name": "Patrick Wilson",
     "slug": "patrick-wilson",
-    "portrait": "patrick-wilson.png",
+    "portrait": "patrick-wilson.jpg",
     "description": "Patrick Joseph Wilson is an American actor and singer known for his work in film, television, and musical theater. He is widely recognized for his roles in the Insidious and The Conjuring franchises.",
     "dateOfBirth": "1973-07-03",
     "placeOfBirth": "Norfolk, Virginia, USA"
@@ -66,7 +66,7 @@
   {
     "name": "Robert Pattinson",
     "slug": "robert-pattinson",
-    "portrait": null,
+    "portrait": "robert-pattinson.jpg",
     "description": "Robert Douglas Thomas Pattinson is an English actor. Known for starring in both major studio productions and independent films, he often portrays eccentric characters across a diverse range of genres. Pattinson has been ranked among the world's highest-paid actors and his works have grossed over $4.7 billion worldwide. In 2010, Time included him in its list of the 100 most influential people in the world, and he was also featured in the Forbes Celebrity 100.",
     "dateOfBirth": "1986-05-13",
     "placeOfBirth": "Barnes, London, England"
@@ -122,7 +122,7 @@
   {
     "name": "Zendaya",
     "slug": "zendaya",
-    "portrait": "zendaya.png",
+    "portrait": "zendaya.jpg",
     "description": "Zendaya Maree Stoermer Coleman is an American actress and singer. She began her career as a child model and backup dancer. She rose to mainstream prominence for her role as Rocky Blue on the Disney Channel sitcom Shake It Up (2010–2013).",
     "dateOfBirth": "1996-09-01",
     "placeOfBirth": "Oakland, California, USA"
@@ -130,7 +130,7 @@
   {
     "name": "Mike Faist",
     "slug": "mike-faist",
-    "portrait": "mike-faist.png",
+    "portrait": "mike-faist.jpg",
     "description": "Michael David Faist is an American actor, dancer, and singer. He is known for starring in the original Broadway productions of Newsies and Dear Evan Hansen, and in movies such as West Side Story (2021), Pinball: The Man Who Saved the Game (2022), and Challengers (2024).",
     "dateOfBirth": "1992-01-05",
     "placeOfBirth": "Gahanna, Ohio, USA"
@@ -138,7 +138,7 @@
   {
     "name": "Josh O'Connor",
     "slug": "josh-oconnor",
-    "portrait": "josh-oconnor.png",
+    "portrait": "josh-oconnor.jpg",
     "description": "Joshua O'Connor is a British actor. After training at the Bristol Old Vic Theatre School, he had supporting roles in television series such as Doctor Who in 2013 and Peaky Blinders in 2014. He had his breakthrough playing the lead role of a sheep farmer in Francis Lee's romantic drama God's Own Country (2017), for which he won a British Independent Film Award.",
     "dateOfBirth": "1990-05-20",
     "placeOfBirth": "Southampton, England"
