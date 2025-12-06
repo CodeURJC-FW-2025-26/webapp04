@@ -1,0 +1,15 @@
+@import url('variables.css');
+
+.modal-content {
+    background-color: var(--color-bg);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-footer {
+    border: none;
+}
