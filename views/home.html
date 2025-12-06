@@ -105,7 +105,13 @@
 					<div class="col-lg-4 col-md-6 col-sm-12">
 						<div class="moviePoster">
 							<a href="/movie/{{slug}}">
-								<img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
+                                {{#poster}}
+                                <img src="/movie/{{slug}}/poster" alt="Poster of {{title}} ({{releaseYear}})">
+                                {{/poster}}
+
+                                {{^poster}}
+                                <img src="/img/moviePosters/placeholder.jpg" alt="No poster available">
+                                {{/poster}}
 								<div class="moviePosterTitle">
 									<span class="title">{{title}}</span><br>
 									<span class="year">{{releaseYear}}</span>
