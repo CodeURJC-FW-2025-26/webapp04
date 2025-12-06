@@ -1,7 +1,6 @@
 import express from 'express';
-import path from 'path';
 
-import { PATHS, COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
+import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
 import { uploadPoster } from '../imageUploader.js';
 import { renderErrorPage, renderValidationError } from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
@@ -26,18 +25,27 @@ router.get('/:slug', async (req, res) => {
     }
 });
 
+router.get('/:slug/actors', async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const movieActors = await movieService.getMovieActorsForDisplay(slug);
+
+        res.render('partials/actorSection', movieActors);
+    } catch (error) {
+        console.error('Error loading actors:', error);
+        res.status(500).send('<p>Failed to load actors</p>');
+    }
+});
+
 // Movie poster download
 router.get('/:slug/poster', async (req, res) => {
     try {
         const slug = req.params.slug;
-        const { posterPath, filename } = await movieService.getPosterPath(slug);
+        const { posterPath } = await movieService.getPosterPathBySlug(slug);
 
-        res.download(posterPath, filename, (err) => {
-            if (err) {
-                console.error('Error sending poster:', err);
-                if (!res.headersSent) {
-                    res.status(500).send('Error downloading poster');
-                }
+        res.download(posterPath, (err) => {
+            if (err && !res.headersSent) {
+                res.status(500).send('Error downloading poster');
             }
         });
     } catch (error) {
@@ -121,17 +129,14 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
 });
 
 // Serve poster images
-router.get('/moviePosters/:filename', (req, res) => {
+router.get('/moviePosters/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const posterPath = path.join(PATHS.UPLOADS_BASE, PATHS.MOVIE_POSTERS, filename);
+        const { posterPath } = await movieService.getPosterPathByFilename(filename);
 
-        res.sendFile(path.resolve(posterPath), (err) => {
-            if (err) {
-                console.error('Error sending poster:', err);
-                if (!res.headersSent) {
-                    res.status(404).send('Poster not found');
-                }
+        res.sendFile(posterPath, (err) => {
+            if (err && !res.headersSent) {
+                res.status(404).send('Poster not found');
             }
         });
     } catch (error) {

@@ -7,15 +7,15 @@ import * as actorCatalogue from '../actorCatalogue.js';
 import { renameUploadedFile } from '../imageUploader.js';
 import { createMovieSlug } from '../utils/slugify.js';
 import { validateMovie } from '../utils/movieValidator.js';
-import { 
-    extractYear, 
+import {
+    extractYear,
     ensureArray,
     deletePosterFile
 } from '../utils/routeHelpers.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
 // Constants
-const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
+const POSTERS_FOLDER = PATHS.MOVIE_POSTERS_FULL;
 
 // Service class for movie-related business logic
 export class MovieService {
@@ -43,6 +43,22 @@ export class MovieService {
         };
     }
 
+    async getMovieActorsForDisplay(slug) {
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+
+        if (!movie) {
+            throw new NotFoundError('Movie', slug);
+        }
+
+        const actors = await this._resolveActorsForMovie(movie);
+
+        return {
+            movieSlug: slug,
+            hasActors: actors.length > 0,
+            actors
+        };
+    }
+
     // Create a new movie with validation and file handling
     async createMovie(movieData, posterFile) {
         // Validate input
@@ -63,9 +79,9 @@ export class MovieService {
 
         // Handle file upload
         const filename = renameUploadedFile(
-            POSTER_FOLDER, 
-            posterFile.filename, 
-            movieData.title, 
+            POSTERS_FOLDER,
+            posterFile.filename,
+            movieData.title,
             releaseYear
         );
 
@@ -96,7 +112,7 @@ export class MovieService {
         // Handle new file upload
         if (posterFile) {
             filename = renameUploadedFile(
-                POSTER_FOLDER,
+                POSTERS_FOLDER,
                 posterFile.filename,
                 movieData.title,
                 releaseYear,
@@ -183,17 +199,20 @@ export class MovieService {
     }
 
     // Get poster file path for serving
-    async getPosterPath(slug) {
-        const movie = await movieCatalogue.getMovieBySlug(slug);
-        
-        if (!movie?.poster) {
-            throw new NotFoundError('Poster', slug);
-        }
+    async getPosterPathByFilename(filename) {
+        const posterPath = path.join(POSTERS_FOLDER, filename);
 
         return {
-            posterPath: path.join(POSTER_FOLDER, movie.poster),
-            filename: movie.poster
+            posterPath: path.resolve(posterPath),
+            filename
         };
+    }
+
+    async getPosterPathBySlug(slug) {
+        const movie = await movieCatalogue.getMovieBySlug(slug);
+        const filename = movie.poster;
+
+        return filename != null ? await this.getPosterPathByFilename(filename) : null;
     }
 
     // Private helper methods
