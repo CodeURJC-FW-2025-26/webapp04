@@ -14,6 +14,7 @@ app.engine('html', mustacheExpress(), '.html');
 app.set('views', './views');
 
 app.use(express.urlencoded({ extended: true }));    // for parsing form data
+app.use(express.json());
 
 app.use('/', router);
 
