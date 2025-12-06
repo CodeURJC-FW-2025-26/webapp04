@@ -22,6 +22,7 @@
     --color-button: #404f5a;
     --color-button-hover: var(--accent);
     --color-button-delete: var(--danger);
+    --color-button-confirm: var(--success);
 
     --color-footer: #a0a0a0;
 

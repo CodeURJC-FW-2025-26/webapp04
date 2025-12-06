@@ -116,6 +116,11 @@ a.btn:focus, a.btn:active,
     padding: 1rem 0.5rem 1rem;
 }
 
+.btn-confirm:hover,
+a.btn-confirm:hover {
+    background-color: var(--color-button-confirm);
+}
+
 .btn-delete:hover,
 a.btn-delete:hover {
     background-color: var(--color-button-delete);
