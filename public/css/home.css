@@ -1,6 +1,5 @@
 @import url("base.css");
 @import url("moviePoster.css");
-@import url("pagination.css");
 
 .searchContainer {
     flex: 1;

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPaginationParams, calculatePagination } from './middleware/pagination.js';
+import { getPaginationParams } from './middleware/pagination.js';
 import { renderErrorPage } from './middleware/errorHandler.js';
 import { SearchService } from './services/SearchService.js';
 
@@ -16,17 +16,11 @@ const searchService = new SearchService();
 // Home page route
 router.get('/', async (req, res) => {
     try {
-        const { page, skip, limit } = getPaginationParams(req);
-        const homeData = await searchService.getHomePageData(skip, limit);
-
-        const totalPages = Math.ceil(homeData.totalMovies / limit);
-        const pagination = calculatePagination(page, totalPages);
+        const { limit } = getPaginationParams(req);
+        const homeData = await searchService.getHomePageData(0, limit);
 
         res.render('home', {
-            ...homeData,
-            page,
-            totalPages,
-            ...pagination
+            ...homeData
         });
     } catch (error) {
         console.error('Error loading home page:', error);

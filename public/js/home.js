@@ -1,10 +1,72 @@
 // State Management
 const state = {
-    // currentPage is used for pagination; kept in state so different UI actions can reset or advance it.
+    // currentPage is used for infinite scroll; increments as more movies are loaded.
     currentPage: 1,
     // searchTimeout is the debounce timer id for the search input to avoid frequent network calls.
-    searchTimeout: null
+    searchTimeout: null,
+    // isLoading prevents multiple simultaneous requests
+    isLoading: false,
+    // hasMoreMovies tracks if there are more movies to load
+    hasMoreMovies: true
 };
+
+// Infinite Scroll Handler
+let scrollTimeout = null;
+document.addEventListener('scroll', () => {
+    // Throttle scroll events to improve performance
+    if (scrollTimeout) { return; }
+    
+    scrollTimeout = setTimeout(() => {
+        scrollTimeout = null;
+        checkScrollPosition();
+    }, 100);
+});
+
+function checkScrollPosition() {
+    // Don't load if already loading or no more movies available
+    if (state.isLoading || !state.hasMoreMovies) { return; }
+
+    const documentHeight = document.body.scrollHeight;
+    const currentScroll = window.scrollY + window.innerHeight;
+    const threshold = 100; // Load when 100px from bottom
+
+    if (currentScroll + threshold > documentHeight) {
+        loadMoreMovies();
+    }
+}
+
+async function loadMoreMovies() {
+    state.isLoading = true;
+    showLoadingIndicator();
+    
+    state.currentPage++;
+    
+    try {
+        const searchParams = buildSearchParams(state.currentPage);
+        const response = await fetch(`/api/search?${searchParams.toString()}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.movies.length === 0) {
+            state.hasMoreMovies = false;
+            hideLoadingIndicator();
+        } else {
+            appendMovies(data.movies);
+            state.hasMoreMovies = data.page < data.totalPages;
+            hideLoadingIndicator();
+        }
+    } catch (error) {
+        console.error('Error loading more movies:', error);
+        state.currentPage--; // Revert page increment on error
+        hideLoadingIndicator();
+    } finally {
+        state.isLoading = false;
+    }
+}
 
 // DOM Elements
 const elements = {
@@ -16,8 +78,7 @@ const elements = {
     sortOrder: document.getElementById('sortOrder'),
     sortButtonText: document.getElementById('sortButtonText'),
     sortButtonIcon: document.getElementById('sortButtonIcon'),
-    movieGrid: document.getElementById('movieGrid'),
-    paginationNav: document.getElementById('paginationNav')
+    movieGrid: document.getElementById('movieGrid')
 };
 
 // Event Listeners
@@ -54,6 +115,7 @@ function handleSortChange() {
 
 function resetPageAndSearch() {
     state.currentPage = 1;
+    state.hasMoreMovies = true;
     performSearch();
 }
 
@@ -119,11 +181,11 @@ function appendCheckedValues(params, key, container) {
 function updateResults(data) {
     if (data.movies.length === 0) {
         showNoResults();
+        state.hasMoreMovies = false;
     } else {
         renderMovies(data.movies);
+        state.hasMoreMovies = data.page < data.totalPages;
     }
-
-    updatePagination(data);
 }
 
 function showNoResults() {
@@ -135,8 +197,14 @@ function showNoResults() {
 }
 
 function renderMovies(movies) {
-    // Map each movie to its HTML card and join them.
+    // Map each movie to its HTML card and join them (replaces existing movies).
     elements.movieGrid.innerHTML = movies.map(createMovieCard).join('');
+}
+
+function appendMovies(movies) {
+    // Append new movies to the existing grid (for infinite scroll).
+    const moviesHTML = movies.map(createMovieCard).join('');
+    elements.movieGrid.insertAdjacentHTML('beforeend', moviesHTML);
 }
 
 function createMovieCard(movie) {
@@ -157,69 +225,24 @@ function createMovieCard(movie) {
     `;
 }
 
-function updatePagination(data) {
-    // If only one page, hide pagination entirely.
-    if (data.totalPages <= 1) {
-        elements.paginationNav.innerHTML = '';
-        return;
+// Loading Indicator
+function showLoadingIndicator() {
+    // Check if loading indicator already exists
+    if (!document.getElementById('loadingIndicator')) {
+        const loadingHTML = `
+            <div id="loadingIndicator" class="col-12 text-center py-4">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        `;
+        elements.movieGrid.insertAdjacentHTML('beforeend', loadingHTML);
     }
-
-    const paginationHTML = buildPaginationHTML(data);
-    elements.paginationNav.innerHTML = paginationHTML;
-    // After replacing innerHTML we need to re-attach listeners to the new DOM nodes.
-    attachPaginationListeners();
 }
 
-function buildPaginationHTML(data) {
-    // Expecting data to include { hasPrev, prevPage, hasNext, nextPage, pages: [{number, isCurrent}, ...] }
-    const parts = [];
-
-    parts.push('<ul class="pagination justify-content-center">');
-
-    if (data.hasPrev) {
-        parts.push(createPaginationButton(data.prevPage, '<i class="bi bi-chevron-left"></i>'));
+function hideLoadingIndicator() {
+    const indicator = document.getElementById('loadingIndicator');
+    if (indicator) {
+        indicator.remove();
     }
-
-    data.pages.forEach(page => {
-        const activeClass = page.isCurrent ? 'active' : '';
-        parts.push(`
-            <li class="page-item ${activeClass}">
-                <a class="page-link" href="#" data-page="${page.number}">${page.number}</a>
-            </li>
-        `);
-    });
-
-    if (data.hasNext) {
-        parts.push(createPaginationButton(data.nextPage, '<i class="bi bi-chevron-right"></i>'));
-    }
-
-    parts.push('</ul>');
-
-    return parts.join('');
-}
-
-function createPaginationButton(page, content) {
-    // Small helper to keep markup consistent for prev/next buttons.
-    return `
-        <li class="page-item">
-            <a class="page-link" href="#" data-page="${page}">${content}</a>
-        </li>
-    `;
-}
-
-function attachPaginationListeners() {
-    // Attach click handlers to newly created pagination links.
-    elements.paginationNav.querySelectorAll('.page-link').forEach(link => {
-        link.addEventListener('click', handlePaginationClick);
-    });
-}
-
-function handlePaginationClick(e) {
-    e.preventDefault();
-    const page = parseInt(e.currentTarget.dataset.page);
-    // Update state and run the search for the selected page.
-    state.currentPage = page;
-    performSearch(page);
 }
 
 // Utility Functions

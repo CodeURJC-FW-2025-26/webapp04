@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPaginationParams, calculatePagination } from '../middleware/pagination.js';
+import { getPaginationParams } from '../middleware/pagination.js';
 import { getSearchParams } from '../utils/routeHelpers.js';
 import { SearchService } from '../services/SearchService.js';
 import { MovieService } from '../services/MovieService.js';
@@ -21,14 +21,11 @@ router.get('/search', async (req, res) => {
         const { movies, total } = await searchService.searchMovies(searchParams, skip, limit);
 
         const totalPages = Math.ceil(total / limit);
-        const pagination = calculatePagination(page, totalPages);
 
         res.json({
             movies,
             page,
-            totalPages,
-            ...pagination,
-            total
+            totalPages
         });
     } catch (error) {
         console.error('Error searching movies:', error);

@@ -28,10 +28,9 @@ export const PATHS = {
     }
 };
 
-// Pagination settings
+// Infinite scroll settings
 export const PAGINATION = {
-    MOVIES_PER_PAGE: 6,
-    MAX_PAGINATION_BUTTONS: 3
+    MOVIES_PER_PAGE: 9
 };
 
 // Validation rules
