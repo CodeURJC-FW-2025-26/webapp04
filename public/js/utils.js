@@ -23,36 +23,29 @@
 
     // Setup delete button functionality
     function setupDeleteButton(buttonId, entityType) {
-        const deleteButton = document.getElementById(buttonId);
+    const deleteButton = document.getElementById(buttonId);
+    
+    if (!deleteButton) return;
+
+    deleteButton.addEventListener('click', async (e) => {
+        const slug = e.currentTarget.dataset.slug;
         
-        if (!deleteButton) {
-            console.warn(`Delete button with ID '${buttonId}' not found`);
-            return;
-        }
+        if (!slug) return;
 
-        deleteButton.addEventListener('click', async (e) => {
-            const slug = e.currentTarget.dataset.slug;
-            
-            if (!slug) {
-                console.error('No slug found for delete operation');
-                return;
-            }
-
-            const endpoint = `/api/${entityType}/${slug}`;
-            
-            try {
+        showConfirmationModal(
+            'Are you sure?',
+            `You are about to delete this ${entityType}. This action cannot be undone.`,
+            async () => {
+                const endpoint = `/api/${entityType}/${slug}`;
                 const data = await performDelete(endpoint, entityType);
-
-                if (data.redirectUrl) {
-                    window.location.href = data.redirectUrl;
-                } else {
-                    window.location.href = '/';
+                
+                if (data.success) {
+                    showStatusModal('success', data.title, data.message, '/');
                 }
-            } catch (error) {
-                console.error('Delete operation failed:', error);
             }
-        });
-    }
+        );
+    });
+}
 
     window.utils = {
         setupDeleteButton: setupDeleteButton
