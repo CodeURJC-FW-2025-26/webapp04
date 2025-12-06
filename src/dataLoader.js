@@ -55,7 +55,7 @@ if (moviesCount !== 0 && actorsCount !== 0) {
     await fs.rm(UPLOADS_FOLDER, { recursive: true, force: true });
     await fs.mkdir(UPLOADS_FOLDER);
     await fs.cp(DATA_FOLDER + '/../public/img/moviePosters', UPLOADS_FOLDER + '/' + PATHS.MOVIE_POSTERS, { recursive: true });
-    await fs.cp(DATA_FOLDER + '/../public/img/actorPortraits', UPLOADS_FOLDER + '/' + PATHS.ACTORS, { recursive: true });
+    await fs.cp(DATA_FOLDER + '/../public/img/actorPortraits', UPLOADS_FOLDER + '/' + PATHS.ACTOR_PORTRAITS, { recursive: true });
 
     console.log('Demo data loaded');
 }

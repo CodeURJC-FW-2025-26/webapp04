@@ -166,7 +166,7 @@ router.post('/:slug/update', uploadPortrait, async (req, res) => {
 router.get('/portraits/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
-        const { portraitPath } = await actorService.getPortraitPath(filename);
+        const { portraitPath } = await actorService.getPortraitPathByFilename(filename);
         
         res.sendFile(portraitPath, (err) => {
             if (err && !res.headersSent) {

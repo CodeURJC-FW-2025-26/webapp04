@@ -14,7 +14,7 @@ export const DATABASE = {
 export const PATHS = {
     UPLOADS_BASE: 'uploads',
     MOVIE_POSTERS: 'moviePosters',
-    ACTORS: 'actorPortraits',
+    ACTOR_PORTRAITS: 'actorPortraits',
     
     // Computed paths
     get UPLOADS_BASE_FULL() {
@@ -24,7 +24,7 @@ export const PATHS = {
         return this.UPLOADS_BASE + '/' + this.MOVIE_POSTERS + '/';
     },
     get ACTORS_FULL() {
-        return this.UPLOADS_BASE + '/' + this.ACTORS + '/';
+        return this.UPLOADS_BASE + '/' + this.ACTOR_PORTRAITS + '/';
     }
 };
 

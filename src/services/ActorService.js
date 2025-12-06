@@ -16,7 +16,7 @@ import {
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
 // Constants
-const ACTOR_FOLDER = PATHS.ACTORS_FULL;
+const PORTRAITS_FOLDER = PATHS.ACTORS_FULL;
 
 // Service class for actor-related business logic
 export class ActorService {
@@ -60,7 +60,7 @@ export class ActorService {
 
         // Handle file upload (optional for actors)
         const filename = portraitFile ? 
-            renameUploadedFile(ACTOR_FOLDER, portraitFile.filename, actorData.name) :
+            renameUploadedFile(PORTRAITS_FOLDER, portraitFile.filename, actorData.name) :
             null;
 
         // Create actor object
@@ -89,7 +89,7 @@ export class ActorService {
         // Handle new file upload
         if (portraitFile) {
             filename = renameUploadedFile(
-                ACTOR_FOLDER,
+                PORTRAITS_FOLDER,
                 portraitFile.filename, 
                 actorData.name, 
                 null, 
@@ -258,8 +258,8 @@ export class ActorService {
     }
 
     // Get portrait file path for serving
-    async getPortraitPath(filename) {
-        const portraitPath = path.join(ACTOR_FOLDER, filename);
+    async getPortraitPathByFilename(filename) {
+        const portraitPath = path.join(PORTRAITS_FOLDER, filename);
         
         return {
             portraitPath: path.resolve(portraitPath),
