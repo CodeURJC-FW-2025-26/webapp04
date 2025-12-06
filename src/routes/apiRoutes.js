@@ -53,7 +53,8 @@ router.delete('/movie/:slug', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Movie deleted successfully'
+            title: 'Movie deleted!',
+            message: `${result.title} has been removed successfully!`
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
@@ -78,6 +79,7 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
 
         res.json({
             success: true,
+            title: 'Actor deleted!',
             message: result.message
         });
     } catch (error) {
@@ -103,7 +105,8 @@ router.delete('/actor/:slug', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Actor deleted successfully'
+            title: 'Actor deleted!',
+            message: `${result.name} has been removed successfully!`
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
