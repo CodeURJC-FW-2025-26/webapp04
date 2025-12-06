@@ -214,6 +214,60 @@
     ]
   },
   {
+    "title": "Don't Look Up",
+    "slug": "dont-look-up_2021",
+    "poster": "dont-look-up_2021.jpg",
+    "description": "Two astronomers go on a media tour to warn humankind of a planet-killing comet hurtling toward Earth. The response from a distracted world: Meh.",
+    "genre": ["Science Fiction", "Comedy"],
+    "releaseDate": "2021-12-05",
+    "countryOfProduction": ["USA"],
+    "ageRating": "12",
+    "actors": [
+      { "name": "Leonardo DiCaprio", "role": "Dr. Randall Mindy" },
+      { "name": "Timothée Chalamet", "role": "Yule" }
+    ]
+  },
+  {
+    "title": "The Conjuring: The Devil Made Me Do It",
+    "slug": "the-conjuring-the-devil-made-me-do-it_2021",
+    "poster": "the-conjuring-the-devil-made-me-do-it_2021.jpg",
+    "description": "Paranormal investigators Ed and Lorraine Warren encounter what would become one of the most sensational cases from their files. The fight for the soul of a young boy takes them beyond anything they’d ever seen before, to mark the first time in U.S. history that a murder suspect would claim demonic possession as a defense.",
+    "genre": ["Thriller", "Horror", "Mystery"],
+    "releaseDate": "2021-05-25",
+    "countryOfProduction": ["USA"],
+    "ageRating": "16",
+    "actors": [
+      { "name": "Vera Farmiga", "role": "Lorraine Warren" },
+      { "name": "Patrick Wilson", "role": "Ed Warren" }
+    ]
+  },
+  {
+    "title": "Tenet",
+    "slug": "tenet_2020",
+    "poster": "tenet_2020.jpg",
+    "description": "Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+    "genre": ["Science Fiction", "Action", "Thriller"],
+    "releaseDate": "2020-08-22",
+    "countryOfProduction": ["UK", "USA"],
+    "ageRating": "12",
+    "actors": [
+      { "name": "Robert Pattinson", "role": "Neil" }
+    ]
+  },
+  {
+    "title": "The Lighthouse",
+    "slug": "the-lighthouse_2019",
+    "poster": "the-lighthouse_2019.jpg",
+    "description": "Two lighthouse keepers try to maintain their sanity while living on a remote and mysterious New England island in the 1890s.",
+    "genre": ["Thriller", "Fantasy", "Horror", "Drama"],
+    "releaseDate": "2019-05-19",
+    "countryOfProduction": ["Brazil", "USA"],
+    "ageRating": "16",
+    "actors": [
+      { "name": "Robert Pattinson", "role": "Thomas Howard" }
+    ]
+  },
+  {
     "title": "Call me by your Name",
     "slug": "call-me-by-your-name_2017",
     "poster": "call-me-by-your-name_2017.jpg",
@@ -239,6 +293,20 @@
     "actors": [
       { "name": "Mario Casas", "role": "Adrián Doria" },
       { "name": "Ana Wagener", "role": "Elvira Garrido" }
+    ]
+  },
+  {
+    "title": "The Conjuring 2",
+    "slug": "the-conjuring-2_2016",
+    "poster": "the-conjuring-2_2016.jpg",
+    "description": "Lorraine and Ed Warren travel to north London to help a single mother raising four children alone in a house plagued by malicious spirits.",
+    "genre": ["Horror"],
+    "releaseDate": "2016-05-13",
+    "countryOfProduction": ["USA"],
+    "ageRating": "16",
+    "actors": [
+      { "name": "Vera Farmiga", "role": "Lorraine Warren" },
+      { "name": "Patrick Wilson", "role": "Ed Warren" }
     ]
   },
   {
@@ -270,6 +338,41 @@
     ]
   },
   {
+    "title": "Inception",
+    "slug": "inception_2010",
+    "poster": "inception_2010.jpg",
+    "description": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: “inception”, the implantation of another person’s idea into a target’s subconscious.",
+    "genre": ["Action", "Adventure", "Science Fiction"],
+    "releaseDate": "2018-07-08",
+    "countryOfProduction": ["UK", "USA"],
+    "ageRating": "12",
+    "actors": null
+  },
+  {
+    "title": "Twilight",
+    "slug": "twilight_2008",
+    "poster": "twilight_2008.jpg",
+    "description": "When Bella Swan moves to a small town in the Pacific Northwest, she falls in love with Edward Cullen, a mysterious classmate who reveals himself to be a 108-year-old vampire. Despite Edward’s repeated cautions, Bella can’t stay away from him, a fatal move that endangers her own life.",
+    "genre": ["Drama", "Fantasy", "Romance"],
+    "releaseDate": "2008-11-20",
+    "countryOfProduction": ["UK", "USA"],
+    "ageRating": "12",
+    "actors": [
+      { "name": "Robert Pattinson", "role": "Edward Cullen" }
+    ]
+  },
+  {
+    "title": "Howl’s Moving Castle",
+    "slug": "howls-moving-castle_2004",
+    "poster": "howls-moving-castle_2004.jpg",
+    "description": "Sophie, a young milliner, is turned into an elderly woman by a witch who enters her shop and curses her. She encounters a wizard named Howl and gets caught up in his resistance to fighting for the king.",
+    "genre": ["Animation", "Fantasy", "Adventure"],
+    "releaseDate": "2004-09-05",
+    "countryOfProduction": ["Japan"],
+    "ageRating": "7",
+    "actors": null
+  },
+  {
     "title": "Spirited Away",
     "slug": "spirited-away_2001",
     "poster": "spirited-away_2001.jpg",
@@ -277,6 +380,50 @@
     "genre": ["Family", "Fantasy", "Animation"],
     "releaseDate": "2001-07-20",
     "countryOfProduction": ["Japan"],
+    "ageRating": "A",
+    "actors": null
+  },
+  {
+    "title": "Princess Mononoke",
+    "slug": "princess-mononoke_1997",
+    "poster": "princess-mononoke_1997.jpg",
+    "description": "Ashitaka, a prince of the disappearing Emishi people, is cursed by a demonized boar god and must journey to the west to find a cure. Along the way, he encounters San, a young human woman fighting to protect the forest, and Lady Eboshi, who is trying to destroy it. Ashitaka must find a way to bring balance to this conflict.",
+    "genre": ["Fantasy", "Adventure", "Animation"],
+    "releaseDate": "1997-07-12",
+    "countryOfProduction": ["Japan"],
+    "ageRating": "7",
+    "actors": null
+  },
+  {
+    "title": "Back to the Future Part III",
+    "slug": "back-to-the-future-part-iii_1990",
+    "poster": "back-to-the-future-part-iii_1990.jpg",
+    "description": "The final installment finds Marty digging the trusty DeLorean out of a mineshaft and looking for Doc in the Wild West of 1885. But when their time machine breaks down, the travelers are stranded in a land of spurs. More problems arise when Doc falls for pretty schoolteacher Clara Clayton, and Marty tangles with Buford Tannen.",
+    "genre": ["Comedy", "Adventure", "Science Fiction"],
+    "releaseDate": "1990-05-25",
+    "countryOfProduction": ["USA"],
+    "ageRating": "A",
+    "actors": null
+  },
+  {
+    "title": "Back to the Future Part II",
+    "slug": "back-to-the-future-part-ii_1989",
+    "poster": "back-to-the-future-part-ii_1989.jpg",
+    "description": "Marty and Doc are at it again as the time-traveling duo head to 2015 to nip some McFly family woes in the bud. But things go awry thanks to bully Biff Tannen and a pesky sports almanac. In a last-ditch attempt to set things straight, Marty finds himself bound for 1955 and face to face with his teenage parents – again.",
+    "genre": ["Science Fiction", "Comedy", "Adventure"],
+    "releaseDate": "1989-11-20",
+    "countryOfProduction": ["USA"],
+    "ageRating": "A",
+    "actors": null
+  },
+  {
+    "title": "Back to the Future",
+    "slug": "back-to-the-future_1985",
+    "poster": "back-to-the-future_1985.jpg",
+    "description": "Eighties teenager Marty McFly is accidentally sent back in time to 1955, inadvertently disrupting his parents’ first meeting and attracting his mother’s romantic interest. Marty must repair the damage to history by rekindling his parents’ romance and - with the help of his eccentric inventor friend Doc Brown - return to 1985.",
+    "genre": ["Adventure", "Comedy", "Science Fiction"],
+    "releaseDate": "1985-07-03",
+    "countryOfProduction": ["USA"],
     "ageRating": "A",
     "actors": null
   }
