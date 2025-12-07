@@ -127,11 +127,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 async function submitMovieForm(event) {
     event.preventDefault();
     const form = event.target;
     const actionUrl = form.getAttribute('action');
     const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    const setLoading = (show) => {
+        submitButton.style.display = show ? 'none' : 'block';
+        loadingSpinner.style.display = show ? 'block' : 'none';
+    };
+
+    setLoading(true);
 
     try {
         const response = await fetch(actionUrl, {
@@ -142,11 +152,14 @@ async function submitMovieForm(event) {
         const result = await response.json();
 
         if (result.valid) {
+            setLoading(false);
             showStatusModal('success', 'Success!', result.message, result.redirect);
         } else {
+            setLoading(false);
             showStatusModal('error', 'Error', result.message);
         }
     } catch (error) {
+        setLoading(false);
         showStatusModal('error', 'Network Error', 'Failed to connect.');
     }
 }
