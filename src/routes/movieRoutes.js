@@ -72,35 +72,15 @@ router.get('/add/new', (req, res) => {
     }
 });
 
-/*
-// Create new movie
-router.post('/create', uploadPoster, async (req, res) => {
-    try {
-        const result = await movieService.createMovie(req.body, req.file);
-
-        res.redirect(`/status/movie-created?title=${encodeURIComponent(result.title)}&slug=${result.slug}`);
-    } catch (error) {
-        if (error instanceof ValidationError) {
-            return renderValidationError(res, error.type, 'movie', error.details);
-        }
-        if (error instanceof DuplicateError) {
-            return renderValidationError(res, 'duplicateTitle', 'movie', { title: error.value });
-        }
-        console.error('Error adding movie:', error);
-        renderErrorPage(res, 'unknown', 'movie');
-    }
-});
-*/
-
-// --- AJAX ---
+// Create new Movie AJAX
 router.post('/create', uploadPoster, async (req, res) => {
     try {
         const result = await movieService.createMovie(req.body, req.file);
 
         res.json({
             valid: true,
-            message: "Movie created successfully!",
-            redirect: `/status/movie-created?title=${encodeURIComponent(result.title)}&slug=${result.slug}`
+            message: `${result.title} has been created successfully!`,
+            redirect: `/movie/${result.slug}`
         });
 
     } catch (error) {
@@ -141,26 +121,7 @@ router.get('/:slug/edit', async (req, res) => {
     }
 });
 
-/*// Update movie
-router.post('/:slug/update', uploadPoster, async (req, res) => {
-    try {
-        const movieSlug = req.params.slug;
-        const result = await movieService.updateMovie(movieSlug, req.body, req.file);
-        
-        res.redirect(`/status/movie-updated?title=${encodeURIComponent(result.title)}&slug=${result.slug}`);
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            return renderErrorPage(res, 'notFound', 'movie');
-        }
-        if (error instanceof ValidationError) {
-            return renderValidationError(res, error.type, 'movie', error.details);
-        }
-        console.error('Error updating movie:', error);
-        renderErrorPage(res, 'unknown', 'movie');
-    }
-});*/
-
-// --- AJAX ---
+// Update movie AJAX
 router.post('/:slug/update', uploadPoster, async (req, res) => {
     try {
         const movieSlug = req.params.slug;
@@ -168,8 +129,8 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
 
         res.json({
             valid: true,
-            message: "Movie updated successfully!",
-            redirect: `/status/movie-updated?title=${encodeURIComponent(result.title)}&slug=${result.slug}`
+            message: `${result.title} has been updated successfully!`,
+            redirect: `/movie/${result.slug}`
         });
 
     } catch (error) {

@@ -129,27 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 async function submitMovieForm(event) {
     event.preventDefault();
-
     const form = event.target;
-    const action = form.dataset.action;
+    const actionUrl = form.getAttribute('action');
     const formData = new FormData(form);
 
     try {
-        const response = await fetch(action, {
-            method: "POST",
+        const response = await fetch(actionUrl, {
+            method: 'POST',
             body: formData
         });
 
         const result = await response.json();
 
         if (result.valid) {
-            alert(result.message);
-            if (result.redirect) window.location.href = result.redirect;
+            showStatusModal('success', 'Success!', result.message, result.redirect);
         } else {
-            alert("Error: " + result.message);
+            showStatusModal('error', 'Error', result.message);
         }
-    } catch (err) {
-        console.error("AJAX submit error:", err);
-        /*alert("An unexpected error occurred");*/
+    } catch (error) {
+        showStatusModal('error', 'Network Error', 'Failed to connect.');
     }
 }
