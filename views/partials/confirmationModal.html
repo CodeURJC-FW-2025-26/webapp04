@@ -1,20 +1,33 @@
 <div class="modal fade" id="confirmationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div
-				class="modal-header d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center">
-				<h2>
-					<i class="modal-title-icon bi bi-exclamation-triangle-fill text-danger"></i>
-					<span class="modal-title-text"></span>
-				</h2>
+			<div class="modal-header">
+
+				<div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center">
+                    <h2>
+                        <i class="modal-title-icon bi bi-exclamation-triangle-fill text-danger"></i>
+                        <span class="modal-title-text"></span>
+                    </h2>
+                </div>
+
 			</div>
+
 			<div class="modal-body">
+
 				<p class="modal-message text-muted m-0"></p>
+				
+				<!--Spinner-->
+				<div class="modal-loading text-center m-0" style="display: none;">
+					<div class="spinner-border" role="status"></div>
+					<p class="text-muted mt-2 mb-0">Processing...</p>
+				</div>
+
 			</div>
+
 			<div class="modal-footer">
 
 				<!--Cancel and Confirm Buttons-->
-				<div class="d-flex w-100 justify-content-between gap-5">
+				<div class="modal-buttons d-flex w-100 justify-content-between gap-5">
 					<button type="button" id="modal-cancel-btn" class="btn btn-delete w-50 mx-auto">
 						<span>Cancel</span>
 					</button>
