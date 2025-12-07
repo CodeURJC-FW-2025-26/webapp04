@@ -154,3 +154,7 @@ h3 {
 .text-danger {
     color: var(--danger) !important;
 }
+
+.spinner-border {
+    color: var(--accent); !important;
+}
