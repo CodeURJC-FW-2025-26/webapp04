@@ -33,7 +33,7 @@ async function handleActorDelete(e) {
 					showStatusModal('success', data.title, data.message);
 				}
 			} catch (error) {
-				showStatusModal('error', 'Error', 'Failed to remove actor');
+				showStatusModal('error', 'Error', 'Failed to remove actor.');
 			}
 		}
 	);
