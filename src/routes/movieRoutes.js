@@ -72,11 +72,12 @@ router.get('/add/new', (req, res) => {
     }
 });
 
+/*
 // Create new movie
 router.post('/create', uploadPoster, async (req, res) => {
     try {
         const result = await movieService.createMovie(req.body, req.file);
-        
+
         res.redirect(`/status/movie-created?title=${encodeURIComponent(result.title)}&slug=${result.slug}`);
     } catch (error) {
         if (error instanceof ValidationError) {
@@ -87,6 +88,37 @@ router.post('/create', uploadPoster, async (req, res) => {
         }
         console.error('Error adding movie:', error);
         renderErrorPage(res, 'unknown', 'movie');
+    }
+});
+*/
+
+// --- AJAX ---
+router.post('/create', uploadPoster, async (req, res) => {
+    try {
+        const result = await movieService.createMovie(req.body, req.file);
+
+        res.json({
+            valid: true,
+            message: "Movie created successfully!",
+            redirect: `/status/movie-created?title=${encodeURIComponent(result.title)}&slug=${result.slug}`
+        });
+
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            return res.json({
+                valid: false,
+                message: error.details?.message || "Validation error"
+            });
+        }
+        if (error instanceof DuplicateError) {
+            return res.json({
+                valid: false,
+                message: `A movie with title "${error.value}" already exists`
+            });
+        }
+
+        console.error("Create movie error:", error);
+        res.json({ valid: false, message: "Server error while creating movie" });
     }
 });
 
@@ -109,7 +141,7 @@ router.get('/:slug/edit', async (req, res) => {
     }
 });
 
-// Update movie
+/*// Update movie
 router.post('/:slug/update', uploadPoster, async (req, res) => {
     try {
         const movieSlug = req.params.slug;
@@ -126,7 +158,39 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
         console.error('Error updating movie:', error);
         renderErrorPage(res, 'unknown', 'movie');
     }
+});*/
+
+// --- AJAX ---
+router.post('/:slug/update', uploadPoster, async (req, res) => {
+    try {
+        const movieSlug = req.params.slug;
+        const result = await movieService.updateMovie(movieSlug, req.body, req.file);
+
+        res.json({
+            valid: true,
+            message: "Movie updated successfully!",
+            redirect: `/status/movie-updated?title=${encodeURIComponent(result.title)}&slug=${result.slug}`
+        });
+
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            return res.json({
+                valid: false,
+                message: error.details?.message || "Validation failed"
+            });
+        }
+        if (error instanceof NotFoundError) {
+            return res.json({
+                valid: false,
+                message: "Movie not found"
+            });
+        }
+
+        console.error("Update movie error:", error);
+        res.json({ valid: false, message: "Server error while updating movie" });
+    }
 });
+
 
 // Serve poster images
 router.get('/moviePosters/:filename', async (req, res) => {
