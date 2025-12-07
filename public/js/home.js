@@ -237,7 +237,7 @@ function showLoadingIndicator() {
     if (!document.getElementById('loadingIndicator')) {
         const loadingHTML = `
             <div id="loadingIndicator" class="col-12 text-center py-4">
-                <div class="spinner-border text-primary" role="status"></div>
+                <div class="spinner-border" role="status"></div>
             </div>
         `;
         elements.movieGrid.insertAdjacentHTML('beforeend', loadingHTML);

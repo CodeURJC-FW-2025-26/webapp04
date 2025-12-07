@@ -4,9 +4,7 @@
         try {
             const response = await fetch(endpoint, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: { 'Content-Type': 'application/json' }
             });
 
             if (!response.ok) {
@@ -16,7 +14,7 @@
             return await response.json();
         } catch (error) {
             console.error('Delete error:', error);
-            window.location.href = `/error?type=deleteError&entity=${errorEntity}`;
+            showStatusModal('error', 'Error', `Failed to delete ${errorEntity}.`);
             throw error;
         }
     }
