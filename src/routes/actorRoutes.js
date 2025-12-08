@@ -1,7 +1,12 @@
 import express from 'express';
 
 import { uploadPortrait } from '../imageUploader.js';
-import { renderErrorPage, renderValidationError } from '../middleware/errorHandler.js';
+import {
+    renderErrorPage,
+    renderValidationError,
+    sendJsonErrorPage,
+    sendJsonValidationError
+} from '../middleware/errorHandler.js';
 import { ActorService } from '../services/ActorService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -61,28 +66,45 @@ router.get('/add/new', (req, res) => {
     }
 });
 
-// Create new actor
+// Create new actor AJAX
 router.post('/create', uploadPortrait, async (req, res) => {
     try {
         const result = await actorService.createActor(req.body, req.file);
-        
+
+        let redirectUrl;
+        let message;
+
         // If creating from movie context, add actor to movie
         if (req.body.movieSlug && req.body.role) {
-            const movieResult = await actorService.addActorToMovie(req.body.movieSlug, result.id, req.body.role);
-            // Redirect to movie when created from movie context
-            return res.redirect(`/status/actor-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}&movieSlug=${encodeURIComponent(req.body.movieSlug)}&movieTitle=${encodeURIComponent(movieResult.movieTitle)}`);
+            // Creating from movie context  add to movie and redirect there
+            const movieResult = await actorService.addActorToMovie(
+                req.body.movieSlug,
+                result.id,
+                req.body.role
+            );
+            redirectUrl = `/movie/${req.body.movieSlug}`;
+            message = `${result.name} has been added to ${movieResult.movieTitle}!`;
+        } else {
+            // Standalone redirect to actor detail
+            redirectUrl = `/actor/${result.slug}`;
+            message = `${result.name} has been created successfully!`;
         }
-        
-        res.redirect(`/status/actor-created?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
+
+        res.json({
+            valid: true,
+            message: message,
+            redirect: redirectUrl
+        });
+
     } catch (error) {
         if (error instanceof ValidationError) {
-            return renderValidationError(res, error.type, 'actor', error.details);
+            return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return renderValidationError(res, 'duplicateName', 'actor', { name: error.value });
+            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
         }
         console.error('Error adding actor:', error);
-        renderErrorPage(res, 'unknown', 'actor');
+        sendJsonErrorPage(res, 'unknown', 'actor');
     }
 });
 
@@ -124,41 +146,63 @@ router.get('/:slug/edit', async (req, res) => {
     }
 });
 
-// Update actor (from movie context)
+// Update actor (from movie context) - AJAX VERSION
 router.post('/:slug/update/from-movie/:movieSlug', uploadPortrait, async (req, res) => {
     try {
         const { slug: actorSlug, movieSlug } = req.params;
         const result = await actorService.updateActorInMovieContext(actorSlug, movieSlug, req.body, req.file);
-        
-        res.redirect(`/status/actor-updated-in-movie?actorName=${encodeURIComponent(result.actorName)}&movieTitle=${encodeURIComponent(result.movieTitle)}&movieSlug=${movieSlug}&role=${encodeURIComponent(result.role)}`);
+
+        res.json({
+            valid: true,
+            message: `${result.actorName} has been updated in ${result.movieTitle}!`,
+            redirect: `/movie/${movieSlug}`
+        });
+
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return renderErrorPage(res, 'notFound', 'actor');
+            return res.json({
+                valid: false,
+                message: 'Actor or movie not found.'
+            });
         }
         if (error instanceof ValidationError) {
-            return renderValidationError(res, error.type, 'actor', error.details);
+            return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
-        console.error('Error updating actor in movie context:', error);
-        renderErrorPage(res, 'unknown', 'actor');
+        if (error instanceof DuplicateError) {
+            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
+        }
+        console.error('Error adding actor:', error);
+        sendJsonErrorPage(res, 'unknown', 'actor');
     }
 });
 
-// Update actor (standalone)
+// Update actor (standalone) with AJAX
 router.post('/:slug/update', uploadPortrait, async (req, res) => {
     try {
         const actorSlug = req.params.slug;
         const result = await actorService.updateActor(actorSlug, req.body, req.file);
-        
-        res.redirect(`/status/actor-updated?name=${encodeURIComponent(result.name)}&slug=${result.slug}`);
+
+        res.json({
+            valid: true,
+            message: `${result.name} has been updated successfully!`,
+            redirect: `/actor/${result.slug}`
+        });
+
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return renderErrorPage(res, 'notFound', 'actor');
+            return res.json({
+                valid: false,
+                message: "Actor not found"
+            });
         }
         if (error instanceof ValidationError) {
-            return renderValidationError(res, error.type, 'actor', error.details);
+            return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
-        console.error('Error updating actor:', error);
-        renderErrorPage(res, 'unknown', 'actor');
+        if (error instanceof DuplicateError) {
+            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
+        }
+        console.error('Error adding actor:', error);
+        sendJsonErrorPage(res, 'unknown', 'actor');
     }
 });
 

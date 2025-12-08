@@ -124,3 +124,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+async function submitActorForm(event){
+    event.preventDefault();
+    const form = event.target;
+    const actionURL = form.getAttribute('action');
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    const setLoading = (show) => {
+        submitButton.style.display = show ? 'none' : 'block';
+        loadingSpinner.style.display = show ? 'block' : 'none';
+    };
+
+    setLoading(true);
+
+    try {
+        const response = await fetch(actionURL, {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        setLoading(false);
+
+        if (result.valid) {
+            showStatusModal('success', 'Success!', result.message, result.redirect);
+        } else {
+            showStatusModal('error', 'Error', result.message);
+        }
+    } catch (error) {
+        setLoading(false);
+        showStatusModal('error', 'Network Error', 'Failed to connect.');
+    }
+}
