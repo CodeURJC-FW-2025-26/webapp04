@@ -2,7 +2,12 @@ import express from 'express';
 
 import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
 import { uploadPoster } from '../imageUploader.js';
-import { renderErrorPage, renderValidationError } from '../middleware/errorHandler.js';
+import {
+    renderErrorPage,
+    renderValidationError,
+    sendJsonErrorPage,
+    sendJsonValidationError
+} from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -85,20 +90,14 @@ router.post('/create', uploadPoster, async (req, res) => {
 
     } catch (error) {
         if (error instanceof ValidationError) {
-            return res.json({
-                valid: false,
-                message: error.details?.message || "Validation error"
-            });
+            return sendJsonValidationError(res, 'validationError', 'movie', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.json({
-                valid: false,
-                message: `A movie with title "${error.value}" already exists`
-            });
-        }
+            return sendJsonValidationError(res, 'duplicateName', 'movie',  { name: error.value });
 
+        }
         console.error("Create movie error:", error);
-        res.json({ valid: false, message: "Server error while creating movie" });
+        sendJsonErrorPage(res, 'unknown', 'movie');
     }
 });
 
@@ -135,20 +134,14 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
 
     } catch (error) {
         if (error instanceof ValidationError) {
-            return res.json({
-                valid: false,
-                message: error.details?.message || "Validation failed"
-            });
+            return sendJsonValidationError(res, 'validationError', 'movie', error.details);
         }
         if (error instanceof NotFoundError) {
-            return res.json({
-                valid: false,
-                message: "Movie not found"
-            });
+            return sendJsonErrorPage(res, 'notFound', 'movie');
         }
 
         console.error("Update movie error:", error);
-        res.json({ valid: false, message: "Server error while updating movie" });
+        sendJsonErrorPage(res, 'unknown', 'movie');
     }
 });
 

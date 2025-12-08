@@ -150,12 +150,11 @@ async function submitMovieForm(event) {
         });
 
         const result = await response.json();
+        setLoading(false);
 
         if (result.valid) {
-            setLoading(false);
             showStatusModal('success', 'Success!', result.message, result.redirect);
         } else {
-            setLoading(false);
             showStatusModal('error', 'Error', result.message);
         }
     } catch (error) {
