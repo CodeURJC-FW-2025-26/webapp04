@@ -10,6 +10,7 @@ export function renderValidationError(res, errorType, entity, details = {}) {
     const pageData = createErrorPage(errorType, entity, details);
     res.status(400).render('statusPage', pageData);
 }
+
 // JSON-Version
 export function sendJsonErrorPage(res, errorType, entity, details = {}, status = 500) {
     const pageData = createErrorPage(errorType, entity, details);

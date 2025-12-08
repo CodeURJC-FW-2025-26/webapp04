@@ -128,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+//TODO create universal sumitAJAXForm mehtod to reduce code duplicate
+// Submits Form
 async function submitMovieForm(event) {
     event.preventDefault();
     const form = event.target;

@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+//TODO create universal sumitAJAXForm mehtod to reduce code duplicate
 async function submitActorForm(event){
     event.preventDefault();
     const form = event.target;
