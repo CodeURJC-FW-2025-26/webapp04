@@ -1,12 +1,7 @@
 import express from 'express';
 
 import { uploadPortrait } from '../imageUploader.js';
-import {
-    renderErrorPage,
-    renderValidationError,
-    sendJsonErrorPage,
-    sendJsonValidationError
-} from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
 import { ActorService } from '../services/ActorService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -71,8 +66,9 @@ router.post('/create', uploadPortrait, async (req, res) => {
     try {
         const result = await actorService.createActor(req.body, req.file);
 
-        let redirectUrl;
         let message;
+        let redirectUrl;
+        let title;
 
         // If creating from movie context, add actor to movie
         if (req.body.movieSlug && req.body.role) {
@@ -82,18 +78,21 @@ router.post('/create', uploadPortrait, async (req, res) => {
                 result.id,
                 req.body.role
             );
-            redirectUrl = `/movie/${req.body.movieSlug}`;
             message = `${result.name} has been added to ${movieResult.movieTitle}!`;
+            redirectUrl = `/movie/${req.body.movieSlug}`;
+            title = movieResult.movieTitle;
         } else {
             // Standalone redirect to actor detail
-            redirectUrl = `/actor/${result.slug}`;
             message = `${result.name} has been created successfully!`;
+            redirectUrl = `/actor/${result.slug}`;
+            title = result.name;
         }
 
         res.json({
             valid: true,
             message: message,
-            redirect: redirectUrl
+            redirect: redirectUrl,
+            title: title
         });
 
     } catch (error) {
@@ -101,7 +100,16 @@ router.post('/create', uploadPortrait, async (req, res) => {
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
+            return res.status(400).json({
+                valid: false,
+                message: `An actor with the name "${error.value}" already exists.`,
+                errors: [
+                    {
+                        field: 'name',
+                        message: `An actor with the name "${error.value}" already exists.`
+                    }
+                ]
+            });
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');
@@ -155,7 +163,8 @@ router.post('/:slug/update/from-movie/:movieSlug', uploadPortrait, async (req, r
         res.json({
             valid: true,
             message: `${result.actorName} has been updated in ${result.movieTitle}!`,
-            redirect: `/movie/${movieSlug}`
+            redirect: `/movie/${movieSlug}`,
+            title:result.movieTitle
         });
 
     } catch (error) {
@@ -169,7 +178,16 @@ router.post('/:slug/update/from-movie/:movieSlug', uploadPortrait, async (req, r
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
+            return res.status(400).json({
+                valid: false,
+                message: `An actor with the name "${error.value}" already exists.`,
+                errors: [
+                    {
+                        field: 'name',
+                        message: `An actor with the name "${error.value}" already exists.`
+                    }
+                ]
+            });
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');
@@ -185,7 +203,8 @@ router.post('/:slug/update', uploadPortrait, async (req, res) => {
         res.json({
             valid: true,
             message: `${result.name} has been updated successfully!`,
-            redirect: `/actor/${result.slug}`
+            redirect: `/actor/${result.slug}`,
+            title: result.name
         });
 
     } catch (error) {
@@ -199,7 +218,16 @@ router.post('/:slug/update', uploadPortrait, async (req, res) => {
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return sendJsonValidationError(res, 'duplicateName', 'actor', { name: error.value });
+            return res.status(400).json({
+                valid: false,
+                message: `An actor with the name "${error.value}" already exists.`,
+                errors: [
+                    {
+                        field: 'name',
+                        message: `An actor with the name "${error.value}" already exists.`
+                    }
+                ]
+            });
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');

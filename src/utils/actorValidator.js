@@ -10,21 +10,27 @@ export function validateActor(actorData, file) {
     // Required fields - Name
     if (!actorData.name?.trim()) {
         errors.push({
+            field: 'name',
             type: 'emptyFields',
-            details: { fields: 'name' }
+            message: 'Name is required'
         });
     }
 
     // Name Capitalization (if available)
     if (actorData.name && !startsWithCapital(actorData.name)) {
-        errors.push({ type: 'nameCapitalization' });
+        errors.push({
+            field: 'name',
+            type: 'nameCapitalization',
+            message: 'Name must start with a capital letter'
+        });
     }
 
     // Required fields - Description
     if (!actorData.description?.trim()) {
         errors.push({
+            field: 'description',
             type: 'emptyFields',
-            details: { fields: 'description' }
+            message: 'Description is required'
         });
     }
 
@@ -33,12 +39,9 @@ export function validateActor(actorData, file) {
         const descriptionLength = actorData.description.trim().length;
         if (descriptionLength < DESCRIPTION_MIN || descriptionLength > DESCRIPTION_MAX) {
             errors.push({
+                field: 'description',
                 type: 'descriptionLength',
-                details: {
-                    min: DESCRIPTION_MIN,
-                    max: DESCRIPTION_MAX,
-                    current: descriptionLength
-                }
+                message: `Description must be between ${DESCRIPTION_MIN} and ${DESCRIPTION_MAX} characters`
             });
         }
     }
@@ -46,8 +49,9 @@ export function validateActor(actorData, file) {
     // Required fields - Date of Birth
     if (!actorData.dateOfBirth) {
         errors.push({
+            field: 'dateOfBirth',
             type: 'emptyFields',
-            details: { fields: 'date of birth' }
+            message: 'Date of birth is required'
         });
     }
 
@@ -57,14 +61,16 @@ export function validateActor(actorData, file) {
         const birthYear = birthDate.getFullYear();
 
         if (isNaN(birthDate.getTime())) {
-            errors.push({ type: 'invalidDate' });
+            errors.push({
+                field: 'dateOfBirth',
+                type: 'invalidDate',
+                message: 'Please provide a valid date'
+            });
         } else if (birthYear < MIN_YEAR || birthYear > MAX_YEAR) {
             errors.push({
+                field: 'dateOfBirth',
                 type: 'invalidDate',
-                details: {
-                    min: MIN_YEAR,
-                    max: MAX_YEAR
-                }
+                message: `Birth year must be between ${MIN_YEAR} and ${MAX_YEAR}`
             });
         }
     }
@@ -72,8 +78,9 @@ export function validateActor(actorData, file) {
     // Required fields - Place of Birth
     if (!actorData.placeOfBirth?.trim()) {
         errors.push({
+            field: 'placeOfBirth',
             type: 'emptyFields',
-            details: { fields: 'place of birth' }
+            message: 'Place of birth is required'
         });
     }
 
@@ -82,8 +89,9 @@ export function validateActor(actorData, file) {
     // Required fields - Role, only if sent from movie context
     if (actorData.movieSlug && !actorData.role.trim()) {
         errors.push({
+            field: 'role',
             type: 'emptyFields',
-            details: { fields: 'role' }
+            message: 'Role is required'
         })
     }
 

@@ -6,12 +6,7 @@ import * as movieCatalogue from '../movieCatalogue.js';
 import { renameUploadedFile } from '../imageUploader.js';
 import { createActorSlug } from '../utils/slugify.js';
 import { validateActor } from '../utils/actorValidator.js';
-import { 
-    addReleaseYearToMovies, 
-    deletePortraitFile,
-    formatDate,
-    calculateAge
-} from '../utils/routeHelpers.js';
+import { addReleaseYearToMovies, deletePortraitFile, formatDate, calculateAge } from '../utils/routeHelpers.js';
 
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -47,8 +42,7 @@ export class ActorService {
         // Validate input
         const validation = validateActor(actorData, portraitFile);
         if (!validation.isValid) {
-            const firstError = validation.errors[0];
-            throw new ValidationError(firstError.type, firstError.details);
+            throw new ValidationError('validationError', validation.errors);
         }
 
         // Check for duplicates
@@ -58,10 +52,15 @@ export class ActorService {
             throw new DuplicateError('Actor', 'name', actorData.name);
         }
 
-        // Handle file upload (optional for actors)
-        const filename = portraitFile ? 
-            renameUploadedFile(PORTRAITS_FOLDER, portraitFile.filename, actorData.name) :
-            null;
+        // Handle file upload (optional)
+        let filename = null;
+        if (portraitFile) {
+            filename = renameUploadedFile(
+                PORTRAITS_FOLDER,
+                portraitFile.filename,
+                actorData.name
+            )
+        }
 
         // Create actor object
         const actor = this._createActorObject(actorData, filename);
@@ -96,15 +95,14 @@ export class ActorService {
                 existingActor.portrait
             );
         }
-        // If no new file uploaded, keep existing portrait (even if user clicked remove)
+        // If no new file uploaded, keep existing portrait (even if user clicked remove) // <- TODO: Change this
 
         const updatedActor = this._createActorObject(actorData, filename);
 
         // Validate
         const validation = validateActor(actorData, { filename: filename });
         if (!validation.isValid) {
-            const firstError = validation.errors[0];
-            throw new ValidationError(firstError.type, firstError.details);
+            throw new ValidationError('validationError', validation.errors);
         }
 
         // Update in database
