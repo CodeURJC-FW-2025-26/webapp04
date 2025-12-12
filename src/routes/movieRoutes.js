@@ -2,12 +2,7 @@ import express from 'express';
 
 import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
 import { uploadPoster } from '../imageUploader.js';
-import {
-    renderErrorPage,
-    renderValidationError,
-    sendJsonErrorPage,
-    sendJsonValidationError
-} from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -85,7 +80,8 @@ router.post('/create', uploadPoster, async (req, res) => {
         res.json({
             valid: true,
             message: `${result.title} has been created successfully!`,
-            redirect: `/movie/${result.slug}`
+            redirect: `/movie/${result.slug}`,
+            title: result.title
         });
 
     } catch (error) {
@@ -93,8 +89,16 @@ router.post('/create', uploadPoster, async (req, res) => {
             return sendJsonValidationError(res, 'validationError', 'movie', error.details);
         }
         if (error instanceof DuplicateError) {
-            return sendJsonValidationError(res, 'duplicateName', 'movie',  { name: error.value });
-
+            return res.status(400).json({
+                valid: false,
+                message: `A movie with the title "${error.value}" already exists.`,
+                errors: [
+                    {
+                        field: 'title',
+                        message: `A movie with the title "${error.value}" already exists.`
+                    }
+                ]
+            });
         }
         console.error("Create movie error:", error);
         sendJsonErrorPage(res, 'unknown', 'movie');
@@ -129,12 +133,25 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
         res.json({
             valid: true,
             message: `${result.title} has been updated successfully!`,
-            redirect: `/movie/${result.slug}`
+            redirect: `/movie/${result.slug}`,
+            title: result.title
         });
 
     } catch (error) {
         if (error instanceof ValidationError) {
             return sendJsonValidationError(res, 'validationError', 'movie', error.details);
+        }
+        if (error instanceof DuplicateError) {
+            return res.status(400).json({
+                valid: false,
+                message: `A movie with the title "${error.value}" already exists.`,
+                errors: [
+                    {
+                        field: 'title',
+                        message: `A movie with the title "${error.value}" already exists.`
+                    }
+                ]
+            });
         }
         if (error instanceof NotFoundError) {
             return sendJsonErrorPage(res, 'notFound', 'movie');

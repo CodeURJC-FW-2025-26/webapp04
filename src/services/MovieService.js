@@ -7,11 +7,7 @@ import * as actorCatalogue from '../actorCatalogue.js';
 import { renameUploadedFile } from '../imageUploader.js';
 import { createMovieSlug } from '../utils/slugify.js';
 import { validateMovie } from '../utils/movieValidator.js';
-import {
-    extractYear,
-    ensureArray,
-    deletePosterFile
-} from '../utils/routeHelpers.js';
+import { extractYear, ensureArray, deletePosterFile } from '../utils/routeHelpers.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
 // Constants
@@ -64,8 +60,7 @@ export class MovieService {
         // Validate input
         const validation = validateMovie(movieData, posterFile);
         if (!validation.isValid) {
-            const firstError = validation.errors[0];
-            throw new ValidationError(firstError.type, firstError.details);
+            throw new ValidationError('validationError', validation.errors);
         }
 
         // Check for duplicates
@@ -77,13 +72,16 @@ export class MovieService {
 
         const releaseYear = extractYear(movieData.releaseDate);
 
-        // Handle file upload
-        const filename = renameUploadedFile(
-            POSTERS_FOLDER,
-            posterFile.filename,
-            movieData.title,
-            releaseYear
-        );
+        // Handle file upload (optional)
+        let filename = null;
+        if (posterFile) {
+            filename = renameUploadedFile(
+                POSTERS_FOLDER,
+                posterFile.filename,
+                movieData.title,
+                releaseYear
+            );
+        }
 
         // Create movie object
         const movie = this._createMovieObject(movieData, filename, releaseYear);
@@ -127,8 +125,7 @@ export class MovieService {
         const fileForValidation = posterFile || { filename: filename };
         const validation = validateMovie(movieData, fileForValidation);
         if (!validation.isValid) {
-            const firstError = validation.errors[0];
-            throw new ValidationError(firstError.type, firstError.details);
+            throw new ValidationError('validationError', validation.errors);
         }
 
         // Update in database
