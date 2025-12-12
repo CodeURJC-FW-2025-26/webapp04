@@ -1,20 +1,5 @@
 import { getErrorDetails } from './errorHandler.js';
 
-// Create a success status page with custom message and redirect
-export function createSuccessPage(title, message, redirectUrl, redirectIcon, redirectText) {
-    return {
-        pageTitle: title,
-        iconClass: 'bi-check-circle-fill',
-        iconColor: 'text-success',
-        title,
-        message,
-        redirectUrl,
-        redirectIcon,
-        redirectText,
-        statusCode: 200
-    };
-}
-
 // Create an error status page based on error type and entity
 export function createErrorPage(errorType, entity, details = {}) {
     const errorDetails = getErrorDetails(errorType, entity, details);

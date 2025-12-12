@@ -8,7 +8,6 @@ import { SearchService } from './services/SearchService.js';
 import movieRoutes from './routes/movieRoutes.js';
 import actorRoutes from './routes/actorRoutes.js';
 import apiRoutes from './routes/apiRoutes.js';
-import statusRoutes from './routes/statusRoutes.js';
 
 const router = express.Router();
 const searchService = new SearchService();
@@ -32,6 +31,5 @@ router.get('/', async (req, res) => {
 router.use('/movie', movieRoutes);
 router.use('/actor', actorRoutes);
 router.use('/api', apiRoutes);
-router.use('/status', statusRoutes);
 
 export default router;
