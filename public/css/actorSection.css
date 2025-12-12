@@ -28,7 +28,7 @@
 .actor-dropdown-item {
     padding: 0.5rem 0.75rem;
     cursor: pointer;
-    color: var(--color-text-muted);
+    color: var(--color-text-lighter);
 }
 
 .actor-dropdown-item:hover {
@@ -65,7 +65,7 @@
 }
 
 .actor-role-label {
-    color: var(--color-text-muted);
+    color: var(--color-text-lighter);
     font-size: 0.9rem;
 }
 

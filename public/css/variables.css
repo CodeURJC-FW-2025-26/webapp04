@@ -5,15 +5,17 @@
 
     --accent: #8ebbcc;
     --darker: #262E36;
+    --lighter: #9e9e9e;
 
     --color-bg: #14181c;
     --color-bg-alt-lighter: #2f3942;
     --color-bg-alt-darker: var(--darker);
     --color-bg-hover: #475058;
+    --color-bg-light: var(--lighter);
 
     --color-text: #f2f2f2;
-    --color-text-hover: var(--darker);
-    --color-text-muted: #9e9e9e;
+    --color-text-darker: var(--darker);
+    --color-text-lighter: var(--lighter);
 
     --color-accent: var(--accent);
     --color-accent-hover: #ffffff;
