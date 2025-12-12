@@ -1,4 +1,4 @@
-function showStatusModal(type, title, message, redirectUrl = null) {
+function showStatusModal(type, title, message, redirectUrl = null, redirectIcon = 'bi-arrow-right', redirectText = 'Continue') {
     const modalElement = document.getElementById('statusModal');
 
     if (!modalElement) {
@@ -26,6 +26,10 @@ function showStatusModal(type, title, message, redirectUrl = null) {
     }
 
     if (redirectUrl) {
+        // Set redirect button icon and text
+        modalRedirectIcon.className = `bi ${redirectIcon}`;
+        modalRedirectText.textContent = redirectText;
+        
         modalRedirectButton.addEventListener('click', () => {
             window.location.href = redirectUrl
         }, { once: true });

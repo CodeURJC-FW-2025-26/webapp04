@@ -38,7 +38,7 @@
                 const data = await performDelete(endpoint, entityType);
                 
                 if (data.success) {
-                    showStatusModal('success', data.title, data.message, '/');
+                    showStatusModal('success', data.title, data.message, '/', data.redirectIcon, data.redirectText);
                 }
             }
         );
