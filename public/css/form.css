@@ -55,12 +55,13 @@ select {
 option {
     color: var(--color-text-lighter);
     border-radius: var(--border-radius);
-    padding: 0.5rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
 }
 
 option:hover {
     color: white !important;
-    background-color: var(--color-bg-hover) !important;
+    background-color: var(--color-bg-alt-lighter) !important;
 }
 
 option:checked,
