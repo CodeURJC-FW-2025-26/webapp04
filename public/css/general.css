@@ -144,7 +144,7 @@ h3 {
 }
 
 .text-muted {
-    color: var(--color-text-lighter) !important;
+    color: var(--color-text-light) !important;
 }
 
 .text-success {

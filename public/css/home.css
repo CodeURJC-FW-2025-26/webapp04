@@ -28,7 +28,7 @@
 }
 
 .dropdown-menu label {
-    color: var(--color-text-lighter);
+    color: var(--color-text-light);
     cursor: pointer;
 }
 
@@ -48,6 +48,6 @@
 .sortGroup > select {
     width: fit-content;
     border: none;
-    color: var(--color-text-lighter);
+    color: var(--color-text-light);
     background-color: var(--color-bg-alt-lighter);
 }

@@ -13,7 +13,7 @@
     max-width: 50%;
 }
 
-.headerActors {
+.topRow.headerActors {
     height: 2em;
     margin: 0;
 }
@@ -56,4 +56,8 @@
 
 .actor:hover .actorOverlay {
     opacity: 1;
+}
+
+.actorOverlay i {
+    font-size: var(--icon-size-medium);
 }
