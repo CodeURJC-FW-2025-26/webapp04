@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          alt="${actor.name}">
                 </a>
                 <a href="/person/${actor.slug || ''}" class="actor-name">${actor.name}</a>
-                <button type="button" class="btn actor-remove-btn"><i class="bi bi-trash"></i></button>
+                <button type="button" class="btn actor-remove-btn"><i class="bi bi-trash3-fill"></i></button>
             </div>
             <div class="actor-role-row">
                 <span class="actor-role-label">as</span>
