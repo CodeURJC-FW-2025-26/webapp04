@@ -1,6 +1,6 @@
 import { VALIDATION } from '../constants.js';
 
-export function validateActor(actorData, file) {
+export function validateActor(actorData) {
     const errors = [];
     const DESCRIPTION_MIN = VALIDATION.DESCRIPTION.MIN_LENGTH;
     const DESCRIPTION_MAX = VALIDATION.DESCRIPTION.MAX_LENGTH;

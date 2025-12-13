@@ -1,6 +1,6 @@
 import { VALIDATION, AGE_RATINGS } from '../constants.js';
 
-export function validateMovie(movieData, file) {
+export function validateMovie(movieData) {
     const errors = [];
     const DESCRIPTION_MIN = VALIDATION.DESCRIPTION.MIN_LENGTH;
     const DESCRIPTION_MAX = VALIDATION.DESCRIPTION.MAX_LENGTH;

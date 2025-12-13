@@ -3,10 +3,10 @@ import path from 'path';
 import { PATHS } from '../constants.js';
 import * as actorCatalogue from '../actorCatalogue.js';
 import * as movieCatalogue from '../movieCatalogue.js';
-import { renameUploadedFile } from '../imageUploader.js';
+import {deleteUploadedFile, renameUploadedFile} from '../imageHandler.js';
 import { createActorSlug } from '../utils/slugify.js';
 import { validateActor } from '../utils/actorValidator.js';
-import { addReleaseYearToMovies, deletePortraitFile, formatDate, calculateAge } from '../utils/routeHelpers.js';
+import { addReleaseYearToMovies, formatDate, calculateAge } from '../utils/routeHelpers.js';
 
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -40,7 +40,7 @@ export class ActorService {
     // Create a new actor with validation and file handling
     async createActor(actorData, portraitFile = null) {
         // Validate input
-        const validation = validateActor(actorData, portraitFile);
+        const validation = validateActor(actorData);
         if (!validation.isValid) {
             throw new ValidationError('validationError', validation.errors);
         }
@@ -52,7 +52,7 @@ export class ActorService {
             throw new DuplicateError('Actor', 'name', actorData.name);
         }
 
-        // Handle file upload (optional)
+        // Handle file upload
         let filename = null;
         if (portraitFile) {
             filename = renameUploadedFile(
@@ -78,10 +78,7 @@ export class ActorService {
     // Update existing actor with validation and file handling
     async updateActor(slug, actorData, portraitFile = null) {
         const existingActor = await actorCatalogue.getActorBySlug(slug);
-        
-        if (!existingActor) {
-            throw new NotFoundError('Actor', slug);
-        }
+        if (!existingActor) { throw new NotFoundError('Actor', slug); }
 
         let filename = existingActor.portrait;
 
@@ -95,12 +92,18 @@ export class ActorService {
                 existingActor.portrait
             );
         }
-        // If no new file uploaded, keep existing portrait (even if user clicked remove) // <- TODO: Change this
+
+        // If the exiting image file was deleted and no new image file was uploaded, delete the existing portrait
+        // Old portrait is already deleted by renameUploadedFile if a new one was uploaded
+        if (!portraitFile && actorData.deleteImage) {
+            deleteUploadedFile(PORTRAITS_FOLDER, existingActor.portrait);
+            filename = null;
+        }
 
         const updatedActor = this._createActorObject(actorData, filename);
 
         // Validate
-        const validation = validateActor(actorData, { filename: filename });
+        const validation = validateActor(actorData);
         if (!validation.isValid) {
             throw new ValidationError('validationError', validation.errors);
         }
@@ -127,7 +130,7 @@ export class ActorService {
         
         // Delete portrait file if exists
         if (actor.portrait) {
-            await deletePortraitFile(actor.portrait);
+            deleteUploadedFile(PORTRAITS_FOLDER, actor.portrait);
         }
 
         return {
@@ -161,7 +164,7 @@ export class ActorService {
             
             // Delete portrait file if exists
             if (actor.portrait) {
-                await deletePortraitFile(actor.portrait);
+                deleteUploadedFile(PORTRAITS_FOLDER, actor.portrait);
             }
             
             return {

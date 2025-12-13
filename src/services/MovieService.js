@@ -4,10 +4,10 @@ import { ObjectId } from "mongodb";
 import { PATHS } from '../constants.js';
 import * as movieCatalogue from '../movieCatalogue.js';
 import * as actorCatalogue from '../actorCatalogue.js';
-import { renameUploadedFile } from '../imageUploader.js';
+import { renameUploadedFile, deleteUploadedFile } from '../imageHandler.js';
 import { createMovieSlug } from '../utils/slugify.js';
 import { validateMovie } from '../utils/movieValidator.js';
-import { extractYear, ensureArray, deletePosterFile } from '../utils/routeHelpers.js';
+import { extractYear, ensureArray } from '../utils/routeHelpers.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
 // Constants
@@ -58,7 +58,7 @@ export class MovieService {
     // Create a new movie with validation and file handling
     async createMovie(movieData, posterFile) {
         // Validate input
-        const validation = validateMovie(movieData, posterFile);
+        const validation = validateMovie(movieData);
         if (!validation.isValid) {
             throw new ValidationError('validationError', validation.errors);
         }
@@ -72,7 +72,7 @@ export class MovieService {
 
         const releaseYear = extractYear(movieData.releaseDate);
 
-        // Handle file upload (optional)
+        // Handle file upload
         let filename = null;
         if (posterFile) {
             filename = renameUploadedFile(
@@ -99,13 +99,10 @@ export class MovieService {
     // Update existing movie with validation and file handling
     async updateMovie(slug, movieData, posterFile = null) {
         const existingMovie = await movieCatalogue.getMovieBySlug(slug);
-        
-        if (!existingMovie) {
-            throw new NotFoundError('Movie', slug);
-        }
+        if (!existingMovie) { throw new NotFoundError('Movie', slug); }
 
-        const releaseYear = extractYear(movieData.releaseDate);
         let filename = existingMovie.poster;
+        const releaseYear = extractYear(movieData.releaseDate);
 
         // Handle new file upload
         if (posterFile) {
@@ -117,21 +114,24 @@ export class MovieService {
                 existingMovie.poster
             );
         }
-        // If no new file uploaded, keep existing poster (even if user clicked remove)
+
+        // If the exiting image file was deleted and no new image file was uploaded, delete the existing poster
+        // Old poster is already deleted by renameUploadedFile if a new one was uploaded
+        if (!posterFile && movieData.deleteImage) {
+            deleteUploadedFile(POSTERS_FOLDER, existingMovie.poster);
+            filename = null;
+        }
 
         const updatedMovie = this._createMovieObject(movieData, filename, releaseYear);
 
-        // Validate - existing filename or new file is acceptable
-        const fileForValidation = posterFile || { filename: filename };
-        const validation = validateMovie(movieData, fileForValidation);
+        // Validate
+        const validation = validateMovie(movieData);
         if (!validation.isValid) {
             throw new ValidationError('validationError', validation.errors);
         }
 
         // Update in database
         await movieCatalogue.updateMovie(slug, updatedMovie);
-
-        // Old poster is already deleted by renameUploadedFile if a new one was uploaded
 
         return {
             slug: updatedMovie.slug,
@@ -150,8 +150,10 @@ export class MovieService {
         // Delete from database
         await movieCatalogue.deleteMovie(slug);
         
-        // Delete poster file
-        await deletePosterFile(movie.poster);
+        // Delete poster file if exists
+        if (movie.portrait) {
+            await deleteUploadedFile(POSTERS_FOLDER, movie.poster);
+        }
 
         return {
             title: movie.title

@@ -121,7 +121,9 @@ function initializeExistingImage(elements, state) {
 function setupFileInputHandlers(elements, state) {
     elements.fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
-        if (file) { displayImagePreview(file, elements, state); }
+        if (file) {
+            displayImagePreview(file, elements, state);
+        }
     });
 
     elements.removeBtn.addEventListener('click', () => {
@@ -180,9 +182,22 @@ function clearImagePreview(elements, state) {
     toggleImageDisplay(elements, false);
 
     if (state.hasExistingImage) {
+        setDeleteImageFlag(elements.fileInput);
         restoreUploadIcon(elements.uploadBox);
         state.hasExistingImage = false;
     }
+}
+
+function setDeleteImageFlag(fileInput) {
+    const form = fileInput.closest('form');
+    let deleteFlag = form.querySelector('input[name="deleteImage"]');
+    if (!deleteFlag) {
+        deleteFlag = document.createElement('input');
+        deleteFlag.type = 'hidden';
+        deleteFlag.name = 'deleteImage';
+        form.appendChild(deleteFlag);
+    }
+    deleteFlag.value = 'true';
 }
 
 function toggleImageDisplay(elements, showPreview) {
@@ -246,8 +261,8 @@ function handleFormResponse(result, serverErrorDisplayFn) {
 }
 
 function toggleLoadingState(elements, isLoading) {
-    elements.submitButton.style.display = isLoading ? 'none' : 'block';
-    elements.loadingSpinner.style.display = isLoading ? 'block' : 'none';
+    elements.submitButton.style.display = isLoading ? 'none' : 'flex';
+    elements.loadingSpinner.style.display = isLoading ? 'flex' : 'none';
 }
 
 async function submitFormData(form) {
