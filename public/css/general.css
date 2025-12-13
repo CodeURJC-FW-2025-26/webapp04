@@ -155,6 +155,16 @@ h3 {
     color: var(--danger) !important;
 }
 
+.formSpinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    cursor: wait;
+}
+
 .spinner-border {
-    color: var(--accent); !important;
+    color: var(--accent) !important;
 }

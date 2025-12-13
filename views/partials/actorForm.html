@@ -92,7 +92,7 @@
 				{{/movie}}
                 <div class="invalid-feedback"></div>
 
-				<button type="submit" class="btn btn-full mt-2 align-self-start">
+				<button type="submit" class="btn btn-full mt-2">
 					{{#actor}}
 					<span>Update</span>
 					{{/actor}}
@@ -101,10 +101,10 @@
 					{{/actor}}
 					<i class="bi bi-save"></i>
 				</button>
-				<div id="loadingSpinner" class="text-center m-0" style="display: none;">
-					<div class="spinner-border" role="status"></div>
-					<p class="text-muted mt-2 mb-0">Processing...</p>
-				</div>
+                <div id="loadingSpinner" class="formSpinner mt-2" role="status" style="display: none;">
+                    <div class="spinner-border" role="status"></div>
+                    <span class="text-muted">Processing ...</span>
+                </div>
 			</div>
 		</div>
 	</div>
