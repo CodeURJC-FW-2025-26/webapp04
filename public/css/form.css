@@ -229,3 +229,41 @@ select::-webkit-scrollbar-thumb:hover {
 .valid-feedback {
     color: var(--success) !important;
 }
+
+form.inline-mode .row.g-3 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+form.inline-mode .image-upload-container {
+    order: -1;
+    margin-bottom: 10rem;
+}
+
+form.inline-mode .upload-box-portrait {
+    margin: 0 auto;
+}
+
+form.inline-mode .image-preview-actor {
+    margin: 0 auto;
+}
+
+form.inline-mode .col-12,
+form.inline-mode .col-md-6 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+form.inline-mode .image-upload-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+form.inline-mode .upload-box-portrait,
+form.inline-mode .image-preview-actor {
+    max-width: 150px;
+}

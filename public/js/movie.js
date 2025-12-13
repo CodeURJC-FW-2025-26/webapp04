@@ -88,6 +88,7 @@ async function toggleActorForm(movieSlug) {
 
         container.innerHTML = '';
         container.appendChild(form);
+		form.classList.add('inline-mode');
         container.style.display = 'block';
 
         // Animation
