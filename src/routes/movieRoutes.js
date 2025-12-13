@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
-import { uploadPoster } from '../imageUploader.js';
+import { uploadPoster } from '../imageHandler.js';
 import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
@@ -161,7 +161,6 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
         sendJsonErrorPage(res, 'unknown', 'movie');
     }
 });
-
 
 // Serve poster images
 router.get('/moviePosters/:filename', async (req, res) => {

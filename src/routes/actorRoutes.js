@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { uploadPortrait } from '../imageUploader.js';
+import { uploadPortrait } from '../imageHandler.js';
 import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
 import { ActorService } from '../services/ActorService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
@@ -154,7 +154,7 @@ router.get('/:slug/edit', async (req, res) => {
     }
 });
 
-// Update actor (from movie context) - AJAX VERSION
+// Update actor (from movie context) AJAX
 router.post('/:slug/update/from-movie/:movieSlug', uploadPortrait, async (req, res) => {
     try {
         const { slug: actorSlug, movieSlug } = req.params;

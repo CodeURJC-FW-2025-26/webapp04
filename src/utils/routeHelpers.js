@@ -29,39 +29,16 @@ export function calculateAge(birthDate, deathDate = null) {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
+export function ensureArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+
 // Movie Helpers
 export function addReleaseYearToMovies(movies) {
     return movies.map(movie => ({
         ...movie,
         releaseYear: extractYear(movie.releaseDate)
     }));
-}
-
-export function ensureArray(value) {
-    return Array.isArray(value) ? value : [value];
-}
-
-// File Helpers
-export async function deletePosterFile(posterFilename) {
-    if (!posterFilename) return;
-    
-    try {
-        const posterPath = path.join(POSTER_FOLDER, posterFilename);
-        await fs.unlink(posterPath);
-    } catch (error) {
-        console.error('Could not delete poster file:', error);
-    }
-}
-
-export async function deletePortraitFile(portraitFilename) {
-    if (!portraitFilename) return;
-    
-    try {
-        const portraitPath = path.join(ACTOR_FOLDER, portraitFilename);
-        await fs.unlink(portraitPath);
-    } catch (error) {
-        console.error('Could not delete portrait file:', error);
-    }
 }
 
 // Search & Filter Helpers

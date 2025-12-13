@@ -10,14 +10,11 @@ const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
 const ACTORS_FOLDER = PATHS.ACTORS_FULL;
 
 // Ensure directories exist
-[UPLOADS_BASE, POSTER_FOLDER, ACTORS_FOLDER].forEach(dir => {
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+[UPLOADS_BASE, POSTER_FOLDER, ACTORS_FOLDER].forEach(directory => {
+    if (!fs.existsSync(directory)) {
+        fs.mkdirSync(directory, { recursive: true });
+    }
 });
-
-// Normalize the final stored filename path
-export const getImagePath = (filename) => {
-    return filename ? `${filename}` : null;
-};
 
 // Sanitize title/actor names for filenames
 const sanitizeFilename = (text) => {
@@ -44,7 +41,7 @@ export const uploadPortrait = multer({ storage: createStorage(ACTORS_FOLDER) }).
 // Rename uploaded files consistently
 export const renameUploadedFile = (folder, oldFilename, label, year = null, existingFile = null) => {
     const oldPath = path.join(folder, oldFilename);
-    if (!fs.existsSync(oldPath)) return null;
+    if (!fs.existsSync(oldPath)) { return null; }
 
     const ext = path.extname(oldFilename);
     const sanitized = sanitizeFilename(label);
@@ -57,8 +54,7 @@ export const renameUploadedFile = (folder, oldFilename, label, year = null, exis
 
         // Delete previously existing file
         if (existingFile && existingFile !== newFilename) {
-            const existingPath = path.join(folder, existingFile);
-            if (fs.existsSync(existingPath)) fs.unlinkSync(existingPath);
+            deleteUploadedFile(folder, existingFile);
         }
 
         return newFilename;
@@ -67,3 +63,8 @@ export const renameUploadedFile = (folder, oldFilename, label, year = null, exis
         return oldFilename;
     }
 };
+
+export function deleteUploadedFile(folder, fileName) {
+    const filePath = path.join(folder, fileName);
+    if (fs.existsSync(filePath)) { fs.unlinkSync(filePath); }
+}
