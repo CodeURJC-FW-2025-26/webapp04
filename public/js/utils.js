@@ -214,7 +214,7 @@ function syncFileInput(fileInput, file) {
 function restoreUploadIcon(uploadBox) {
     if (!uploadBox.querySelector('i')) {
         const icon = document.createElement('i');
-        icon.className = 'bi bi-upload';
+        icon.className = 'bi bi-cloud-upload-fill';
         uploadBox.appendChild(icon);
     }
 }
