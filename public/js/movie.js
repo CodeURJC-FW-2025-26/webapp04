@@ -86,7 +86,12 @@ async function toggleActorForm(movieSlug) {
 
         if (!form) throw new Error('Formulario no encontrado');
 
+        const title = document.createElement('h3');
+        title.textContent = 'Add New Actor';
+        title.className = 'mt-3 mb-4 text-center';
+
         container.innerHTML = '';
+		container.appendChild(title);
         container.appendChild(form);
 		form.classList.add('inline-mode');
         container.style.display = 'block';
@@ -117,6 +122,86 @@ async function toggleActorForm(movieSlug) {
     } catch (error) {
         console.error('Error al cargar el formulario:', error);
         alert('No se pudo cargar el formulario de actor');
+    }
+}
+
+async function toggleEditActorForm(actorSlug, movieSlug) {
+    const container = document.getElementById('editActorFormContainer');
+
+    // Cerrar si ya está abierto
+    if (container.style.display === 'block') {
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(-10px)';
+        setTimeout(() => {
+            container.style.display = 'none';
+            container.innerHTML = '';
+        }, 300);
+        return;
+    }
+
+    try {
+        const response = await fetch(`/actor/${actorSlug}/edit/from-movie/${movieSlug}`);
+        if (!response.ok) throw new Error('No se pudo cargar el formulario de edición');
+
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const form = doc.querySelector('form');
+
+        if (!form) throw new Error('Formulario no encontrado');
+
+        const nameInput = form.querySelector('#actorName');
+        const actorName = nameInput ? nameInput.value.trim() : 'Actor';
+
+        const title = document.createElement('h3');
+        title.textContent = `Edit ${actorName}`;
+        title.className = 'mt-3 mb-4 text-center';
+
+        container.innerHTML = '';
+        container.appendChild(title);
+        container.appendChild(form);
+        form.classList.add('inline-mode');
+
+        container.style.display = 'block';
+
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(-20px)';
+        container.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+        setTimeout(() => {
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        }, 10);
+
+        utils.createCharacterCounter('actorDescription', 'charCount', 50, 1000);
+
+        utils.createImageUploader({
+            fileInputId: 'actorPortrait',
+            uploadBoxId: 'uploadBox',
+            imagePreviewId: 'imagePreview',
+            previewImgId: 'previewImg',
+            removeBtnId: 'removeImage'
+        });
+
+		 // If there's an existing image, set up the preview correctly
+        const existingImg = form.querySelector('#uploadBox img');
+        if (existingImg) {
+            const previewImg = form.querySelector('#previewImg');
+            const imagePreview = form.querySelector('#imagePreview');
+            const uploadBox = form.querySelector('#uploadBox');
+            if (previewImg && imagePreview && uploadBox) {
+                previewImg.src = existingImg.src;
+                imagePreview.style.display = 'block';
+                uploadBox.style.display = 'none';
+            }
+        }
+
+        form.addEventListener('submit', submitActorForm);
+
+    } catch (error) {
+        console.error('Error al cargar formulario de edición:', error);
+        alert('No se pudo cargar el formulario');
     }
 }
 
