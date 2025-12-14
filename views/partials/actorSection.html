@@ -19,11 +19,10 @@
         </div>
     </div>
 
-    <div
-            class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
-        <a href="/actor/{{slug}}/edit/from-movie/{{movieSlug}}">
-            <div class="btn"><i class="bi bi-pencil"></i></div>
-        </a>
+    <div class="actorOverlay z-1 position-absolute top-50 end-0 translate-middle-y d-flex gap-2 p-2">
+        <div class="btn edit-actor-button" data-slug="{{slug}}" data-movie-slug="{{movieSlug}}">
+            <i class="bi bi-pencil"></i>
+        </div>
         <div class="btn btn-delete delete-actor-button" data-slug="{{slug}}" data-actor="{{name}}">
             <i class="bi bi-trash3-fill"></i>
         </div>

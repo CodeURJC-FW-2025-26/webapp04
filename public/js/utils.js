@@ -61,7 +61,7 @@ function createCharacterCounter(textareaId, displayId, minLength, maxLength) {
     const textarea = document.getElementById(textareaId);
     const display = document.getElementById(displayId);
 
-    if (!textarea || !display) return;
+    if (!textarea || !display) { return; }
 
     textarea.addEventListener('input', () => {
         const length = textarea.value.length;
@@ -96,6 +96,10 @@ function createImageUploader(config) {
         previewImg: document.getElementById(config.previewImgId),
         removeBtn: document.getElementById(config.removeBtnId)
     };
+
+    if (!elements.fileInput || !elements.uploadBox || !elements.imagePreview || !elements.previewImg || !elements.removeBtn) {
+        return;
+    }
 
     let state = {
         selectedFile: null,
@@ -220,7 +224,7 @@ function restoreUploadIcon(uploadBox) {
 }
 
 // Form submission helpers
-async function submitForm(event, clientValidationFn, serverErrorDisplayFn) {
+async function submitForm(event, clientValidationFn, serverErrorDisplayFn, onSuccessCallback) {
     event.preventDefault();
     const form = event.target;
 
@@ -233,17 +237,21 @@ async function submitForm(event, clientValidationFn, serverErrorDisplayFn) {
 
     toggleLoadingState(formElements, true);
 
+    // TODO: remove, just for illustration
+    // const delay = ms => new Promise(res => setTimeout(res, ms));
+    // await delay(5000);
+
     try {
         const result = await submitFormData(form);
         toggleLoadingState(formElements, false);
-        handleFormResponse(result, serverErrorDisplayFn);
+        handleFormResponse(result, serverErrorDisplayFn, onSuccessCallback);
     } catch (error) {
         toggleLoadingState(formElements, false);
         showStatusModal('error', 'Network Error', 'Failed to connect.');
     }
 }
 
-function handleFormResponse(result, serverErrorDisplayFn) {
+function handleFormResponse(result, serverErrorDisplayFn, onSuccessCallback) {
     if (result.valid) {
         showStatusModal(
             'success',
@@ -253,6 +261,11 @@ function handleFormResponse(result, serverErrorDisplayFn) {
             'bi-eye-fill',
             `View ${result.title}`
         );
+
+        // Execute custom success callback if provided
+        if (onSuccessCallback) {
+            onSuccessCallback();
+        }
     } else if (hasValidationErrors(result)) {
         serverErrorDisplayFn(result.errors);
     } else {

@@ -16,22 +16,25 @@ const FIELD_IDS = {
 };
 
 // Initialize page functionality
-utils.createCharacterCounter(
-    FIELD_IDS.description,
-    'charCount',
-    VALIDATION_RULES.description.min,
-    VALIDATION_RULES.description.max
-);
-utils.createImageUploader({
-    fileInputId: FIELD_IDS.portrait,
-    uploadBoxId: 'uploadBox',
-    imagePreviewId: 'imagePreview',
-    previewImgId: 'previewImg',
-    removeBtnId: 'removeImage'
-});
+function initializePageFunctionality() {
+    utils.createCharacterCounter(
+        FIELD_IDS.description,
+        'charCount',
+        VALIDATION_RULES.description.min,
+        VALIDATION_RULES.description.max
+    );
 
-async function submitActorForm(event) {
-    await utils.submitForm(event, displayClientErrors, displayServerErrors);
+    utils.createImageUploader({
+        fileInputId: FIELD_IDS.portrait,
+        uploadBoxId: 'uploadBox',
+        imagePreviewId: 'imagePreview',
+        previewImgId: 'previewImg',
+        removeBtnId: 'removeImage'
+    });
+}
+
+async function submitActorForm(event, onSuccessCallback) {
+    await utils.submitForm(event, displayClientErrors, displayServerErrors, onSuccessCallback);
 }
 
 function displayClientErrors(form) {
@@ -113,3 +116,7 @@ function displayServerErrors(errors) {
     utils.markFieldsByErrorState(allFields, errorFieldIds);
     utils.displayErrorMessages(errors, 'actor');
 }
+
+window.initializePageFunctionality = initializePageFunctionality;
+
+initializePageFunctionality();

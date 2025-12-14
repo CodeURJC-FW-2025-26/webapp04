@@ -27,6 +27,20 @@
     font-size: 1em;
 }
 
+.headerActors .btn.rotated i {
+    transform: rotate(45deg);
+}
+
+#editActors {
+    padding: 1em;
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg-alt-lighter);
+}
+
+.notEditingActors {
+    display: none;
+}
+
 .actor {
     box-sizing: content-box;
     height: 3em;
