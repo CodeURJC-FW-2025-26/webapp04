@@ -2,7 +2,7 @@ import express from 'express';
 
 import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
 import { uploadPoster } from '../imageHandler.js';
-import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError } from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -60,16 +60,7 @@ router.post('/create', uploadPoster, async (req, res) => {
             return sendJsonValidationError(res, 'validationError', 'movie', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.status(400).json({
-                valid: false,
-                message: `A movie with the title "${error.value}" already exists.`,
-                errors: [
-                    {
-                        field: 'title',
-                        message: `A movie with the title "${error.value}" already exists.`
-                    }
-                ]
-            });
+            return sendJsonDuplicateError(res, 'movie', 'title', error.value);
         }
         console.error("Create movie error:", error);
         sendJsonErrorPage(res, 'unknown', 'movie');
@@ -94,16 +85,7 @@ router.post('/update/:movieSlug', uploadPoster, async (req, res) => {
             return sendJsonValidationError(res, 'validationError', 'movie', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.status(400).json({
-                valid: false,
-                message: `A movie with the title "${error.value}" already exists.`,
-                errors: [
-                    {
-                        field: 'title',
-                        message: `A movie with the title "${error.value}" already exists.`
-                    }
-                ]
-            });
+            return sendJsonDuplicateError(res, 'movie', 'title', error.value);
         }
         if (error instanceof NotFoundError) {
             return sendJsonErrorPage(res, 'notFound', 'movie');

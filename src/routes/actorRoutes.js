@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { uploadPortrait } from '../imageHandler.js';
-import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError } from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError } from '../middleware/errorHandler.js';
 import { ActorService } from '../services/ActorService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -100,16 +100,7 @@ router.post('/create', uploadPortrait, async (req, res) => {
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.status(400).json({
-                valid: false,
-                message: `An actor with the name "${error.value}" already exists.`,
-                errors: [
-                    {
-                        field: 'name',
-                        message: `An actor with the name "${error.value}" already exists.`
-                    }
-                ]
-            });
+            return sendJsonDuplicateError(res, 'actor', 'name', error.value);
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');
@@ -139,16 +130,7 @@ router.post('/update/:actorSlug/from-movie/:movieSlug', uploadPortrait, async (r
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.status(400).json({
-                valid: false,
-                message: `An actor with the name "${error.value}" already exists.`,
-                errors: [
-                    {
-                        field: 'name',
-                        message: `An actor with the name "${error.value}" already exists.`
-                    }
-                ]
-            });
+            return sendJsonDuplicateError(res, 'actor', 'name', error.value);
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');
@@ -179,16 +161,7 @@ router.post('/update/:actorSlug', uploadPortrait, async (req, res) => {
             return sendJsonValidationError(res, error.type, 'actor', error.details);
         }
         if (error instanceof DuplicateError) {
-            return res.status(400).json({
-                valid: false,
-                message: `An actor with the name "${error.value}" already exists.`,
-                errors: [
-                    {
-                        field: 'name',
-                        message: `An actor with the name "${error.value}" already exists.`
-                    }
-                ]
-            });
+            return sendJsonDuplicateError(res, 'actor', 'name', error.value);
         }
         console.error('Error adding actor:', error);
         sendJsonErrorPage(res, 'unknown', 'actor');
