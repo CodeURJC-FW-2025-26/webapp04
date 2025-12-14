@@ -228,7 +228,14 @@ async function submitForm(event, clientValidationFn, serverErrorDisplayFn, onSuc
     event.preventDefault();
     const form = event.target;
 
-    if (!clientValidationFn(form)) return;
+    if (!clientValidationFn(form)) {
+        showStatusModal(
+            'error',
+            'Validation Error',
+            'Please fill in all required fields correctly.'
+        );
+        return;
+    }
 
     const formElements = {
         submitButton: form.querySelector('button[type="submit"]'),
@@ -268,6 +275,12 @@ function handleFormResponse(result, serverErrorDisplayFn, onSuccessCallback) {
         }
     } else if (hasValidationErrors(result)) {
         serverErrorDisplayFn(result.errors);
+
+        showStatusModal(
+            'error',
+            'Validation Error',
+            result.message || 'Please fix the errors in the form and try again.'
+        );
     } else {
         showStatusModal('error', 'Error', result.message);
     }
