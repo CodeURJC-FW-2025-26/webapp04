@@ -6,6 +6,7 @@ import { SearchService } from '../services/SearchService.js';
 import { MovieService } from '../services/MovieService.js';
 import { ActorService } from '../services/ActorService.js';
 import { NotFoundError } from '../utils/errors.js';
+import { sendJsonNotFoundError, sendJsonServerError } from '../middleware/errorHandler.js';
 
 const router = express.Router();
 const searchService = new SearchService();
@@ -29,7 +30,7 @@ router.get('/search', async (req, res) => {
         });
     } catch (error) {
         console.error('Error searching movies:', error);
-        res.status(500).json({ error: 'Search failed' });
+        sendJsonServerError(res, 'search for movies');
     }
 });
 
@@ -49,16 +50,10 @@ router.delete('/movie/:slug', async (req, res) => {
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.status(404).json({
-                success: false,
-                error: 'Movie not found'
-            });
+            return sendJsonNotFoundError(res, 'movie');
         }
         console.error('Error deleting movie:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to delete movie'
-        });
+        sendJsonServerError(res, 'delete movie');
     }
 });
 
@@ -70,21 +65,16 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
 
         res.json({
             success: true,
-            title: 'Actor deleted!',
+            title: 'Actor Removed!',
             message: result.message
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.status(404).json({
-                success: false,
-                error: error.message
-            });
+            const entityType = error.entity.toLowerCase();
+            return sendJsonNotFoundError(res, entityType);
         }
         console.error('Error removing actor from movie:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to remove actor from movie'
-        });
+        sendJsonServerError(res, 'remove actor from movie');
     }
 });
 
@@ -104,16 +94,10 @@ router.delete('/actor/:slug', async (req, res) => {
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.status(404).json({
-                success: false,
-                error: 'Actor not found'
-            });
+            return sendJsonNotFoundError(res, 'actor');
         }
         console.error('Error deleting actor:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to delete actor'
-        });
+        sendJsonServerError(res, 'delete actor');
     }
 });
 

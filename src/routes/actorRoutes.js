@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { uploadPortrait } from '../imageHandler.js';
-import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError } from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError, sendJsonNotFoundError, sendJsonServerError } from '../middleware/errorHandler.js';
 import { ActorService } from '../services/ActorService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -20,18 +20,14 @@ router.get('/add/in-movie/:movieSlug', async (req, res) => {
            action: '/actor/create'
        });
    } catch (error) {
-       console.error('Error loading mini add actor page:', error);
-       res.status(500).json({
-           success: false,
-           error: 'Opsie, my mistake.'
-       });
+       console.error('Error loading actor add form in movie detail page:', error);
+       sendJsonServerError(res, 'load the actor form');
    }
 });
 
 // GET FORM to edit an actor within the movie detail page
 router.get('/edit/:actorSlug/in-movie/:movieSlug', async (req, res) => {
     try {
-        // TODO
         const actorSlug = req.params.actorSlug;
         const movieSlug = req.params.movieSlug;
 
@@ -43,11 +39,8 @@ router.get('/edit/:actorSlug/in-movie/:movieSlug', async (req, res) => {
             action: `/actor/update/${actorSlug}/from-movie/${movieSlug}`
         });
     } catch (error) {
-        console.error('Error loading mini edit actor page:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Opsie, my mistake.'
-        });
+        console.error('Error loading actor edit form in movie detail page:', error);
+        sendJsonServerError(res, 'load the actor form');
     }
 })
 
@@ -121,10 +114,7 @@ router.post('/update/:actorSlug/from-movie/:movieSlug', uploadPortrait, async (r
 
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.json({
-                valid: false,
-                message: 'Actor or movie not found.'
-            });
+            return sendJsonNotFoundError(res, 'actor');
         }
         if (error instanceof ValidationError) {
             return sendJsonValidationError(res, error.type, 'actor', error.details);
@@ -152,10 +142,7 @@ router.post('/update/:actorSlug', uploadPortrait, async (req, res) => {
 
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.json({
-                valid: false,
-                message: "Actor not found"
-            });
+            return sendJsonNotFoundError(res, 'actor');
         }
         if (error instanceof ValidationError) {
             return sendJsonValidationError(res, error.type, 'actor', error.details);

@@ -37,3 +37,20 @@ export function sendJsonDuplicateError(res, entity, field, value) {
         ]
     });
 }
+
+export function sendJsonNotFoundError(res, entity) {
+    const entityCapitalized = entity.charAt(0).toUpperCase() + entity.slice(1);
+    res.status(404).json({
+        success: false,
+        title: `${entityCapitalized} Not Found`,
+        message: `This ${entity} has already been deleted or does not exist.`
+    });
+}
+
+export function sendJsonServerError(res, operation = 'process your request') {
+    res.status(500).json({
+        success: false,
+        title: 'Server Error',
+        message: `Failed to ${operation}. Please try again.`
+    });
+}

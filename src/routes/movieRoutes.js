@@ -2,7 +2,7 @@ import express from 'express';
 
 import { COUNTRIES, GENRES, AGE_RATINGS } from '../constants.js';
 import { uploadPoster } from '../imageHandler.js';
-import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError } from '../middleware/errorHandler.js';
+import { renderErrorPage, sendJsonErrorPage, sendJsonValidationError, sendJsonDuplicateError, sendJsonNotFoundError, sendJsonServerError } from '../middleware/errorHandler.js';
 import { MovieService } from '../services/MovieService.js';
 import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.js';
 
@@ -88,7 +88,7 @@ router.post('/update/:movieSlug', uploadPoster, async (req, res) => {
             return sendJsonDuplicateError(res, 'movie', 'title', error.value);
         }
         if (error instanceof NotFoundError) {
-            return sendJsonErrorPage(res, 'notFound', 'movie');
+            return sendJsonNotFoundError(res, 'movie');
         }
 
         console.error("Update movie error:", error);
@@ -109,7 +109,7 @@ router.get('/moviePosters/:filename', async (req, res) => {
         });
     } catch (error) {
         console.error('Error loading poster:', error);
-        res.status(500).send('Server error');
+        sendJsonServerError(res, 'load the poster');
     }
 });
 
@@ -126,10 +126,10 @@ router.get('/:movieSlug/poster', async (req, res) => {
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
-            return res.status(404).send('Poster not found');
+            return sendJsonNotFoundError(res, 'poster');
         }
         console.error('Error loading poster:', error);
-        res.status(500).send('Server error');
+        sendJsonServerError(res, 'load the poster');
     }
 });
 
@@ -142,7 +142,7 @@ router.get('/:movieSlug/actors', async (req, res) => {
         res.render('partials/actorSection', movieActors);
     } catch (error) {
         console.error('Error loading actors:', error);
-        res.status(500).send('<p>Failed to load actors</p>');
+        sendJsonServerError(res, 'load actors');
     }
 });
 
