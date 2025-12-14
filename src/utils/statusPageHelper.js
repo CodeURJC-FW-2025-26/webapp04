@@ -21,15 +21,6 @@ export function createErrorPage(errorType, entity, details = {}) {
 function getStatusCode(errorType) {
     const statusCodes = {
         notFound: 404,
-        duplicateTitle: 400,
-        titleCapitalization: 400,
-        emptyFields: 400,
-        invalidDate: 400,
-        invalidAgeRating: 400,
-        descriptionLength: 400,
-        missingPoster: 400,
-        deleteError: 500,
-        network: 503,
         unknown: 500
     };
 
