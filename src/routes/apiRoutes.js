@@ -12,7 +12,7 @@ const searchService = new SearchService();
 const movieService = new MovieService();
 const actorService = new ActorService();
 
-// Movie search API
+// Search
 router.get('/search', async (req, res) => {
     try {
         const { page, skip, limit } = getPaginationParams(req);
@@ -33,19 +33,7 @@ router.get('/search', async (req, res) => {
     }
 });
 
-// Actor search API
-router.get('/actors/search', async (req, res) => {
-    try {
-        const query = req.query.q || '';
-        const actors = await actorService.searchActors(query);
-        res.json(actors);
-    } catch (error) {
-        console.error('Error searching actors:', error);
-        res.status(500).json({ error: 'Search failed' });
-    }
-});
-
-// Delete movie API
+// DELETE MOVIE
 router.delete('/movie/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -74,7 +62,7 @@ router.delete('/movie/:slug', async (req, res) => {
     }
 });
 
-// Remove actor from movie API
+// DELETE ACTOR FROM MOVIE
 router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
     try {
         const { movieSlug, actorSlug } = req.params;
@@ -100,7 +88,7 @@ router.delete('/movie/:movieSlug/actor/:actorSlug', async (req, res) => {
     }
 });
 
-// Delete actor API (complete deletion)
+// DELETE ACTOR
 router.delete('/actor/:slug', async (req, res) => {
     try {
         const slug = req.params.slug;

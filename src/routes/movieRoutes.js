@@ -9,62 +9,14 @@ import { ValidationError, NotFoundError, DuplicateError } from '../utils/errors.
 const router = express.Router();
 const movieService = new MovieService();
 
-// Movie detail page
-router.get('/:slug', async (req, res) => {
-    try {
-        const slug = req.params.slug;
-        const movieData = await movieService.getMovieForDisplay(slug);
-        
-        res.render('movie', movieData);
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            return renderErrorPage(res, 'notFound', 'movie');
-        }
-        console.error('Error loading movie details:', error);
-        renderErrorPage(res, 'unknown', 'movie');
-    }
-});
-
-router.get('/:slug/actors', async (req, res) => {
-    try {
-        const slug = req.params.slug;
-        const movieActors = await movieService.getMovieActorsForDisplay(slug);
-
-        res.render('partials/actorSection', movieActors);
-    } catch (error) {
-        console.error('Error loading actors:', error);
-        res.status(500).send('<p>Failed to load actors</p>');
-    }
-});
-
-// Movie poster download
-router.get('/:slug/poster', async (req, res) => {
-    try {
-        const slug = req.params.slug;
-        const { posterPath } = await movieService.getPosterPathBySlug(slug);
-
-        res.download(posterPath, (err) => {
-            if (err && !res.headersSent) {
-                res.status(500).send('Error downloading poster');
-            }
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            return res.status(404).send('Poster not found');
-        }
-        console.error('Error loading poster:', error);
-        res.status(500).send('Server error');
-    }
-});
-
-// Add new movie form
+// GET FORM to add a movie
 router.get('/add/new', (req, res) => {
     try {
         res.render('editMovie', {
-            countries: COUNTRIES,
             action: `/movie/create`,
-            ageRating: AGE_RATINGS,
-            genres: GENRES
+            genres: GENRES,
+            countries: COUNTRIES,
+            ageRating: AGE_RATINGS
         });
     } catch (error) {
         console.error('Error loading add movie page:', error);
@@ -72,7 +24,26 @@ router.get('/add/new', (req, res) => {
     }
 });
 
-// Create new Movie AJAX
+// GET FROM to edit movie form
+router.get('/edit/:movieSlug', async (req, res) => {
+    try {
+        const movieSlug = req.params.movieSlug;
+        const editData = await movieService.getMovieForEdit(movieSlug, GENRES, COUNTRIES, AGE_RATINGS);
+
+        res.render('editMovie', {
+            ...editData,
+            action: `/movie/update/${movieSlug}`
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return renderErrorPage(res, 'notFound', 'movie');
+        }
+        console.error('Error loading edit movie page:', error);
+        renderErrorPage(res, 'unknown', 'movie');
+    }
+});
+
+// CREATE a new movie
 router.post('/create', uploadPoster, async (req, res) => {
     try {
         const result = await movieService.createMovie(req.body, req.file);
@@ -105,29 +76,10 @@ router.post('/create', uploadPoster, async (req, res) => {
     }
 });
 
-// Edit movie form
-router.get('/:slug/edit', async (req, res) => {
+// UPDATE a move
+router.post('/update/:movieSlug', uploadPoster, async (req, res) => {
     try {
-        const slug = req.params.slug;
-        const editData = await movieService.getMovieForEdit(slug, GENRES, COUNTRIES, AGE_RATINGS);
-        
-        res.render('editMovie', {
-            ...editData,
-            action: `/movie/${slug}/update`
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            return renderErrorPage(res, 'notFound', 'movie');
-        }
-        console.error('Error loading edit movie page:', error);
-        renderErrorPage(res, 'unknown', 'movie');
-    }
-});
-
-// Update movie AJAX
-router.post('/:slug/update', uploadPoster, async (req, res) => {
-    try {
-        const movieSlug = req.params.slug;
+        const movieSlug = req.params.movieSlug;
         const result = await movieService.updateMovie(movieSlug, req.body, req.file);
 
         res.json({
@@ -162,7 +114,7 @@ router.post('/:slug/update', uploadPoster, async (req, res) => {
     }
 });
 
-// Serve poster images
+// GET MOVIE POSTER by filename
 router.get('/moviePosters/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
@@ -176,6 +128,55 @@ router.get('/moviePosters/:filename', async (req, res) => {
     } catch (error) {
         console.error('Error loading poster:', error);
         res.status(500).send('Server error');
+    }
+});
+
+// GET MOVIE POSTER by slug
+router.get('/:movieSlug/poster', async (req, res) => {
+    try {
+        const movieSlug = req.params.movieSlug;
+        const { posterPath } = await movieService.getPosterPathBySlug(movieSlug);
+
+        res.download(posterPath, (err) => {
+            if (err && !res.headersSent) {
+                res.status(500).send('Error downloading poster');
+            }
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return res.status(404).send('Poster not found');
+        }
+        console.error('Error loading poster:', error);
+        res.status(500).send('Server error');
+    }
+});
+
+// GET ACTORS SECTION of movie detail page
+router.get('/:movieSlug/actors', async (req, res) => {
+    try {
+        const movieSlug = req.params.movieSlug;
+        const movieActors = await movieService.getMovieActorsForDisplay(movieSlug);
+
+        res.render('partials/actorSection', movieActors);
+    } catch (error) {
+        console.error('Error loading actors:', error);
+        res.status(500).send('<p>Failed to load actors</p>');
+    }
+});
+
+// GET MOVIE DETAIL PAGE
+router.get('/:movieSlug', async (req, res) => {
+    try {
+        const movieSlug = req.params.movieSlug;
+        const movieData = await movieService.getMovieForDisplay(movieSlug);
+
+        res.render('movie', movieData);
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            return renderErrorPage(res, 'notFound', 'movie');
+        }
+        console.error('Error loading movie details:', error);
+        renderErrorPage(res, 'unknown', 'movie');
     }
 });
 
