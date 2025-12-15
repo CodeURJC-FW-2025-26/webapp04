@@ -24,11 +24,6 @@ export class SearchService {
         };
     }
 
-    // Search actors by query string
-    async searchActors(query) {
-        return await actorCatalogue.searchActors(query);
-    }
-
     // Get all available filter options for movies
     async getMovieFilterOptions() {
         const [genres, countries, ageRatings] = await Promise.all([

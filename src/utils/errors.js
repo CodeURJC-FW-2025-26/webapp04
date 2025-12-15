@@ -8,11 +8,10 @@ export class ValidationError extends Error {
 }
 
 export class NotFoundError extends Error {
-    constructor(entity, identifier) {
-        super(`${entity} not found: ${identifier}`);
+    constructor(entity) {
+        super(`${entity} not found`);
         this.name = 'NotFoundError';
         this.entity = entity;
-        this.identifier = identifier;
     }
 }
 

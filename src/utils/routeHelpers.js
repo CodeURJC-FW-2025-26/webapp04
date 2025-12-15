@@ -1,11 +1,3 @@
-import path from 'path';
-import fs from 'fs/promises';
-import { PATHS } from '../constants.js';
-
-// Constants
-const POSTER_FOLDER = PATHS.MOVIE_POSTERS_FULL;
-const ACTOR_FOLDER = PATHS.ACTORS_FULL;
-
 // Date Helpers
 export function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-US', {
