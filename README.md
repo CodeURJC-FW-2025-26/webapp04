@@ -186,6 +186,28 @@ Finally, I verified that all pages were fully responsive and made some last adju
 
 - [Link to the Screen Recording after Práctica 2](https://www.youtube.com/watch?v=Tq_RHJaIpYg)
 
+## How to Install and Run
+
+Clone the repository:
+```bash
+git clone https://github.com/CodeURJC-FW-2025-26/webapp04.git
+cd webapp04
+```
+
+Install dependencies:
+```bash
+npm install
+```
+
+**Note:** Ensure MongoDB is running on `localhost:27017` before starting the application.
+
+Start the application:
+```bash
+npm start
+```
+
+Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to view the application.
+
 ## Description of the Created Files
 
 ### public/js/ (Client-Side JavaScript)
@@ -649,6 +671,30 @@ Throughout the process, I regularly reviewed the code, removed duplicates, modul
 - [`errorHandler.js`](https://github.com/CodeURJC-FW-2025-26/webapp04/blob/main/src/utils/errorHandler.js)
 
 # Práctica 3
+
+## How to Install and Run
+
+Clone the repository:
+```bash
+git clone https://github.com/CodeURJC-FW-2025-26/webapp04.git
+cd webapp04
+```
+
+Install dependencies:
+```bash
+npm install
+```
+
+**Note:** Ensure MongoDB is running on `localhost:27017` before starting the application.
+
+Start the application:
+```bash
+npm start
+```
+
+Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser to view the application.
+
+## Description of the Created Files
 
 ## Screenshots
 
