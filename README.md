@@ -652,6 +652,14 @@ Throughout the process, I regularly reviewed the code, removed duplicates, modul
 
 ## Screenshots
 
+![image](documentation/screenshots/practica-3_screenshot-1.png)
+![image](documentation/screenshots/practica-3_screenshot-2.png)
+![image](documentation/screenshots/practica-3_screenshot-3.png)
+![image](documentation/screenshots/practica-3_screenshot-4.png)
+![image](documentation/screenshots/practica-3_screenshot-5.png)
+![image](documentation/screenshots/practica-3_screenshot-6.png)
+![image](documentation/screenshots/practica-3_screenshot-7.png)
+
 ## Participation
 
 ### Alejandro
