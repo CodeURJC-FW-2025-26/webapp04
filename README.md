@@ -734,12 +734,28 @@ Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser t
 
 ### Felix
 **Description of the Tasks Completed:**
-...
+I implemented infinite scroll and replaced intermediate status pages with Bootstrap modals. On the movie detail pages I added actor deletion without a page reload. For both infinite scroll and form submissions I implemented a spinner that displays while the server processes requests. I also added Bootstrap-styled validation error messages under the corresponding input fields and a modal to inform users when form submission fails.
+
+Additionally, I added more sample data to demonstrate infinite scroll and included a placeholder image for movie posters now that posters are optional.
+
+I restyled the delete button on movie posters and actor portraits so it appears over the poster and becomes visible on hover. (In Práctica 2, Farina already implemented image preview and a remove-button under the preview.)
+
+Farina and I replaced the old redirect-based error handling to work with the new modals.
+
+Throughout the project I continuously reviewed the code to remove bugs and redundancy, promoted code reuse, and cleaned up dead code.
 
 **Five Most Significant Commits**
 - ...
 - ...
+- [cd8ce7f](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/cd8ce7f): Replaced pagination with infinite scroll
+- [c0f1957](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c0f1957) and [b719ae7](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b719ae7): Added modals instead of intermediate pages
+- [e718d42](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e718d42): Deletion of `Actor`s on `Movie` detail page
+- [2c5a195](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/2c5a195) and [e41d588](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e41d588): Added display of error messages beneath input fields
+- [0664aba](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0664aba): Fixed a bug that allowed in edit forms to change the title of a movie or name of an actor to an already existing title/name
 
 **Five Most Contributed Files**
-- ...
-- ...
+- `home.js`
+- `statusModal.js` with `statusModal.html`
+- `confirmationModal.js` with `confirmationModal.html`
+- `movie.js`
+- `utils.js`
