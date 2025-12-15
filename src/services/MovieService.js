@@ -101,9 +101,11 @@ export class MovieService {
         const existingMovie = await movieCatalogue.getMovieBySlug(slug);
         if (!existingMovie) { throw new NotFoundError('Movie', slug); }
 
-        // Check for duplicates
+        // Check for duplicates: Only allow same title if it belongs to the movie being edited
         const existingTitle = await movieCatalogue.getMovieByTitle(movieData.title);
-        if (existingTitle) { throw new DuplicateError('Movie', 'title', movieData.title); }
+        if (existingTitle && existingTitle._id.toString() !== existingMovie._id.toString()) {
+            throw new DuplicateError('Movie', 'title', movieData.title);
+        }
 
         let filename = existingMovie.poster;
         const releaseYear = extractYear(movieData.releaseDate);

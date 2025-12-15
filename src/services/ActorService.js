@@ -80,9 +80,11 @@ export class ActorService {
         const existingActor = await actorCatalogue.getActorBySlug(slug);
         if (!existingActor) { throw new NotFoundError('Actor', slug); }
 
-        // Check for duplicates
+        // Check for duplicates: Only allow same name if it belongs to the actor being edited
         const existingName = await actorCatalogue.getActorByName(actorData.name);
-        if (existingName) { throw new DuplicateError('Actor', 'name', actorData.name); }
+        if (existingName && existingName._id.toString() !== existingActor._id.toString()) {
+            throw new DuplicateError('Actor', 'name', actorData.name);
+        }
 
         let filename = existingActor.portrait;
 
