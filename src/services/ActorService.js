@@ -80,6 +80,10 @@ export class ActorService {
         const existingActor = await actorCatalogue.getActorBySlug(slug);
         if (!existingActor) { throw new NotFoundError('Actor', slug); }
 
+        // Check for duplicates
+        const existingName = await actorCatalogue.getActorByName(actorData.name);
+        if (existingName) { throw new DuplicateError('Actor', 'name', actorData.name); }
+
         let filename = existingActor.portrait;
 
         // Handle new file upload
@@ -266,11 +270,6 @@ export class ActorService {
             portraitPath: path.resolve(portraitPath),
             filename
         };
-    }
-
-    // Search actors by query
-    async searchActors(query) {
-        return await actorCatalogue.searchActors(query);
     }
 
     // Get movie context for adding actor from movie page

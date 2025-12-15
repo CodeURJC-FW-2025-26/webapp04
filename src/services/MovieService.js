@@ -101,6 +101,10 @@ export class MovieService {
         const existingMovie = await movieCatalogue.getMovieBySlug(slug);
         if (!existingMovie) { throw new NotFoundError('Movie', slug); }
 
+        // Check for duplicates
+        const existingTitle = await movieCatalogue.getMovieByTitle(movieData.title);
+        if (existingTitle) { throw new DuplicateError('Movie', 'title', movieData.title); }
+
         let filename = existingMovie.poster;
         const releaseYear = extractYear(movieData.releaseDate);
 
