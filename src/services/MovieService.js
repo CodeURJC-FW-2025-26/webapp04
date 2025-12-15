@@ -128,7 +128,7 @@ export class MovieService {
             filename = null;
         }
 
-        const updatedMovie = this._createMovieObject(movieData, filename, releaseYear);
+        const updatedMovie = this._createMovieObject(movieData, filename, releaseYear, existingMovie.actors);
 
         // Validate
         const validation = validateMovie(movieData);
@@ -246,7 +246,7 @@ export class MovieService {
         return actorsResolved;
     }
 
-    _createMovieObject(formData, filename, releaseYear) {
+    _createMovieObject(formData, filename, releaseYear, actors = null) {
         return {
             title: formData.title,
             poster: filename,
@@ -256,7 +256,7 @@ export class MovieService {
             releaseDate: formData.releaseDate,
             countryOfProduction: ensureArray(formData.countryOfProduction),
             ageRating: formData.ageRating,
-            actors: this._parseActors(formData)
+            actors: actors
         };
     }
 
