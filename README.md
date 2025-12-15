@@ -13,10 +13,15 @@ Cinemateca is a web application that serves as a comprehensive movie catalog, al
   * [Screenshots](#screenshots)
   * [Participation](#participation)
 * [Práctica 2](#práctica-2)
+  * [How to Install and Run](#how-to-install-and-run)
   * [Description of the Created Files](#description-of-the-created-files)
   * [Screenshots](#screenshots-1)
   * [Participation](#participation-1)
 * [Práctica 3](#práctica-3)
+  * [How to Install and Run](#how-to-install-and-run-1)
+  * [Description of the Created Files](#description-of-the-created-files-1)
+  * [Screenshots](#screenshots-2)
+  * [Participation](#participation-2)
 <!-- /TOC -->
 
 ## How to Install and Run Cinemateca
@@ -745,8 +750,6 @@ Farina and I replaced the old redirect-based error handling to work with the new
 Throughout the project I continuously reviewed the code to remove bugs and redundancy, promoted code reuse, and cleaned up dead code.
 
 **Five Most Significant Commits**
-- ...
-- ...
 - [cd8ce7f](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/cd8ce7f): Replaced pagination with infinite scroll
 - [c0f1957](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c0f1957) and [b719ae7](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b719ae7): Added modals instead of intermediate pages
 - [e718d42](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e718d42): Deletion of `Actor`s on `Movie` detail page
