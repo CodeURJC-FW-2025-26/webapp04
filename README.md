@@ -218,387 +218,422 @@ Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser t
 
 ### public/js/ (Client-Side JavaScript)
 
-#### **utils.js**
+- **utils.js**:
 Provides reusable utilities for delete operations across the application. Exports a `setupDeleteButton` function that handles delete requests with error handling and automatic redirection. Used by both movie and actor detail pages.
 
-#### **home.js**
+
+- **home.js**:
 Main script for the home page implementing:
-- Real-time movie search
-- Multi-select filters (genre, country, age rating)
-- Sorting by title/release date (ascending/descending)
-- Client-side pagination
-- Fetches data from `/api/search`
-- Updates movie grid and pagination
+  - Real-time movie search
+  - Multi-select filters (genre, country, age rating)
+  - Sorting by title/release date (ascending/descending)
+  - Client-side pagination
+  - Fetches data from `/api/search`
+  - Updates movie grid and pagination
 
-#### **movie.js**
+
+- **movie.js**:
 Handles movie detail page interactions:
-- Initializes movie delete button using `utils.js`
-- Sets up delete buttons for removing actors from the movie
-- Makes API calls to `/api/movie/{movieSlug}/actor/{actorSlug}` for actor removal
+  - Initializes movie delete button using `utils.js`
+  - Sets up delete buttons for removing actors from the movie
+  - Makes API calls to `/api/movie/{movieSlug}/actor/{actorSlug}` for actor removal
 
-#### **actor.js**
+
+- **actor.js**:
 Simple script that initializes the actor delete button using `utils.setupDeleteButton`.
 
-#### **addNewMovie.js**
+
+- **addNewMovie.js**:
 Handles movie form interactions:
-- Character counter for description (50-1000 chars) with color feedback
-- Image upload with drag-and-drop support
-- Image preview before submission
-- Remove image functionality (old image is kept if no new one is uploaded)
-- File validation (JPEG, PNG, JPG only)
+  - Character counter for description (50-1000 chars) with color feedback
+  - Image upload with drag-and-drop support
+  - Image preview before submission
+  - Remove image functionality (old image is kept if no new one is uploaded)
+  - File validation (JPEG, PNG, JPG only)
 
-#### **addNewActor.js**
+
+- **addNewActor.js**:
 Similar to `addNewMovie.js` but for actor forms:
-- Character counter for description
-- Portrait image upload with drag-and-drop
-- Image preview and removal (old portrait is kept if no new one is uploaded)
+  - Character counter for description
+  - Portrait image upload with drag-and-drop
+  - Image preview and removal (old portrait is kept if no new one is uploaded)
 
-#### **actorsManager.js**
+
+- **actorsManager.js**:
 Manages actor selection in movie forms:
-- Autocomplete search for actors
-- Prevents duplicate actor selection using a Set
-- Dynamically adds/removes actor items with role input fields
-- Fetches actor data from `/api/actors/search`
-- Handles preloaded actors when editing movies
+  - Autocomplete search for actors
+  - Prevents duplicate actor selection using a Set
+  - Dynamically adds/removes actor items with role input fields
+  - Fetches actor data from `/api/actors/search`
+  - Handles preloaded actors when editing movies
 
 ---
 
 ### src/ (Server-Side Code)
 
-#### **app.js**
+- **app.js**:
 Application entry point:
-- Initializes Express server
-- Configures Mustache templating engine
-- Sets up static file serving from `/public`
-- Mounts router
-- Starts server on port 3000
-- Imports `dataLoader.js` to initialize demo data
+  - Initializes Express server
+  - Configures Mustache templating engine
+  - Sets up static file serving from `/public`
+  - Mounts router
+  - Starts server on port 3000
+  - Imports `dataLoader.js` to initialize demo data
 
-#### **constants.js**
+
+- **constants.js**:
 Centralized configuration and constants:
-- Server settings (host, port)
-- Database configuration (URI, name)
-- File paths for uploads (posters, portraits)
-- Pagination settings
-- Validation rules (description length, date ranges)
-- Predefined lists (age ratings, genres, countries)
+  - Server settings (host, port)
+  - Database configuration (URI, name)
+  - File paths for uploads (posters, portraits)
+  - Pagination settings
+  - Validation rules (description length, date ranges)
+  - Predefined lists (age ratings, genres, countries)
 
-#### **database.js**
+
+- **database.js**:
 Database connection module:
-- Connects to MongoDB using MongoClient
-- Exports database instance for use across the app
-- Auto-connects on import
+  - Connects to MongoDB using MongoClient
+  - Exports database instance for use across the app
+  - Auto-connects on import
 
-#### **dataLoader.js**
+
+- **dataLoader.js**:
 Initializes demo data on server start:
-- Clears existing data if `CLEAR_DB_ON_START = true`
-- Loads actors and movies from JSON files in `/data`
-- Creates actor entries first (to get IDs)
-- Creates movie entries with actor references
-- Copies demo images to upload folders
-- Only runs if collections are empty
+  - Clears existing data if `CLEAR_DB_ON_START = true`
+  - Loads actors and movies from JSON files in `/data`
+  - Creates actor entries first (to get IDs)
+  - Creates movie entries with actor references
+  - Copies demo images to upload folders
+  - Only runs if collections are empty
 
-#### **router.js**
+
+- **router.js**:
 Main router configuration:
-- Defines home page route with pagination
-- Fetches movies and filter options using `SearchService`
-- Mounts sub-routers: `/movie`, `/actor`, `/api`, `/status`
-- Handles errors with `renderErrorPage`
+  - Defines home page route with pagination
+  - Fetches movies and filter options using `SearchService`
+  - Mounts sub-routers: `/movie`, `/actor`, `/api`, `/status`
+  - Handles errors with `renderErrorPage`
 
-#### **imageUploader.js**
+
+- **imageUploader.js**:
 Multer configuration for file uploads:
-- Creates storage for movie posters and actor portraits
-- `renameUploadedFile` function sanitizes and renames files after validation
-- Deletes old files when replacing images with new ones
-- Ensures upload directories exist
+  - Creates storage for movie posters and actor portraits
+  - `renameUploadedFile` function sanitizes and renames files after validation
+  - Deletes old files when replacing images with new ones
+  - Ensures upload directories exist
 
-#### **movieCatalogue.js**
+
+- **movieCatalogue.js**:
 Database operations for movies:
-- CRUD operations (add, get, update, delete)
-- Search with filters (genre, country, age rating, query string)
-- Sorting (title, release date)
-- Actor-related queries (add/remove actors, update roles)
-- Pagination support
-- Creates unique index on `slug` field
+  - CRUD operations (add, get, update, delete)
+  - Search with filters (genre, country, age rating, query string)
+  - Sorting (title, release date)
+  - Actor-related queries (add/remove actors, update roles)
+  - Pagination support
+  - Creates unique index on `slug` field
 
-#### **actorCatalogue.js**
+
+- **actorCatalogue.js**:
 Database operations for actors:
-- CRUD operations (add, get, update, delete)
-- Search by name (regex, case-insensitive)
-- Slug generation for URLs
-- Creates unique index on `slug` field
+  - CRUD operations (add, get, update, delete)
+  - Search by name (regex, case-insensitive)
+  - Slug generation for URLs
+  - Creates unique index on `slug` field
 
 ---
 
 #### routes/
 
-##### **movieRoutes.js**
+- **movieRoutes.js**:
 Express router for movie-related endpoints:
-- `GET /:slug` - Movie detail page
-- `GET /:slug/poster` - Download poster file
-- `GET /add/new` - Add movie form
-- `POST /create` - Create new movie (with file upload)
-- `GET /:slug/edit` - Edit movie form
-- `POST /:slug/update` - Update movie (with file upload)
-- `GET /moviePosters/:filename` - Serve poster images
-- Uses `MovieService` for business logic
-- Handles errors with custom error classes
+  - `GET /:slug` - Movie detail page
+  - `GET /:slug/poster` - Download poster file
+  - `GET /add/new` - Add movie form
+  - `POST /create` - Create new movie (with file upload)
+  - `GET /:slug/edit` - Edit movie form
+  - `POST /:slug/update` - Update movie (with file upload)
+  - `GET /moviePosters/:filename` - Serve poster images
+  - Uses `MovieService` for business logic
+  - Handles errors with custom error classes
 
-##### **actorRoutes.js**
+
+- **actorRoutes.js**:
 Express router for actor-related endpoints:
-- `GET /:slug` - Actor detail page
-- `GET /add/from-movie/:movieSlug` - Add actor form (movie context)
-- `GET /add/new` - Add actor form (standalone)
-- `POST /create` - Create new actor (with file upload)
-- `GET /:slug/edit` - Edit actor form
-- `GET /:slug/edit/from-movie/:movieSlug` - Edit actor form (movie context)
-- `POST /:slug/update` - Update actor
-- `POST /:slug/update/from-movie/:movieSlug` - Update actor in movie context
-- `GET /portraits/:filename` - Serve portrait images
-- Uses `ActorService` for business logic
+  - `GET /:slug` - Actor detail page
+  - `GET /add/from-movie/:movieSlug` - Add actor form (movie context)
+  - `GET /add/new` - Add actor form (standalone)
+  - `POST /create` - Create new actor (with file upload)
+  - `GET /:slug/edit` - Edit actor form
+  - `GET /:slug/edit/from-movie/:movieSlug` - Edit actor form (movie context)
+  - `POST /:slug/update` - Update actor
+  - `POST /:slug/update/from-movie/:movieSlug` - Update actor in movie context
+  - `GET /portraits/:filename` - Serve portrait images
+  - Uses `ActorService` for business logic
 
-##### **apiRoutes.js**
+
+- **apiRoutes.js**:
 RESTful API endpoints (JSON responses):
-- `GET /search` - Search movies with filters and pagination
-- `GET /actors/search` - Search actors by name
-- `DELETE /movie/:slug` - Delete movie
-- `DELETE /movie/:movieSlug/actor/:actorSlug` - Remove actor from movie
-- `DELETE /actor/:slug` - Delete actor completely
-- Returns JSON with success/error and redirect URLs
+  - `GET /search` - Search movies with filters and pagination
+  - `GET /actors/search` - Search actors by name
+  - `DELETE /movie/:slug` - Delete movie
+  - `DELETE /movie/:movieSlug/actor/:actorSlug` - Remove actor from movie
+  - `DELETE /actor/:slug` - Delete actor completely
+  - Returns JSON with success/error and redirect URLs
 
-##### **statusRoutes.js**
+
+- **statusRoutes.js**:
 Status and confirmation pages:
-- Movie operations: created, updated, deleted
-- Actor operations: created, updated, deleted, removed from movie, updated in movie
-- Generic error page
-- Uses `statusPageHelper` to generate page data
-- Renders `statusPage.html` template
+  - Movie operations: created, updated, deleted
+  - Actor operations: created, updated, deleted, removed from movie, updated in movie
+  - Generic error page
+  - Uses `statusPageHelper` to generate page data
+  - Renders `statusPage.html` template
 
 ---
 
 #### services/
 
-##### **MovieService.js**
+- **MovieService.js**:
 Business logic for movie operations:
-- `getMovieForDisplay(slug)` - Formats movie data for display page
-- `createMovie(data, file)` - Validates, creates movie, handles file upload
-- `updateMovie(slug, data, file)` - Updates movie, handles poster removal/replacement
-- `deleteMovie(slug)` - Deletes movie and associated files
-- `getMovieForEdit(slug)` - Prepares data for edit form
-- `getPosterPath(slug)` - Returns file path for serving posters
-- When updating, keeps existing poster if no new one is uploaded
-- Resolves actor references to full actor objects
-- Uses `validateMovie`, `movieCatalogue`, and `actorCatalogue`
+  - `getMovieForDisplay(slug)` - Formats movie data for display page
+  - `createMovie(data, file)` - Validates, creates movie, handles file upload
+  - `updateMovie(slug, data, file)` - Updates movie, handles poster removal/replacement
+  - `deleteMovie(slug)` - Deletes movie and associated files
+  - `getMovieForEdit(slug)` - Prepares data for edit form
+  - `getPosterPath(slug)` - Returns file path for serving posters
+  - When updating, keeps existing poster if no new one is uploaded
+  - Resolves actor references to full actor objects
+  - Uses `validateMovie`, `movieCatalogue`, and `actorCatalogue`
 
-##### **ActorService.js**
+
+- **ActorService.js**
 Business logic for actor operations:
-- `getActorForDisplay(slug)` - Formats actor data with age, movies
-- `createActor(data, file)` - Validates, creates actor (portrait optional)
-- `updateActor(slug, data, file)` - Updates actor, keeps existing portrait if no new one is uploaded
-- `deleteActor(slug)` - Deletes actor and portrait file
-- `removeActorFromMovie(movieSlug, actorSlug)` - Removes actor from specific movie, deletes actor completely if only in one movie
-- `getActorForEdit(slug)` - Prepares data for edit form
-- `getActorForEditWithMovieContext(actorSlug, movieSlug)` - Includes current role
-- `updateActorInMovieContext(actorSlug, movieSlug, data, file)` - Updates actor and role in movie
-- `addActorToMovie(movieSlug, actorId, role)` - Adds existing actor to movie
-- `searchActors(query)` - Searches actors by name
-- Date formatting and age calculation helpers
+  - `getActorForDisplay(slug)` - Formats actor data with age, movies
+  - `createActor(data, file)` - Validates, creates actor (portrait optional)
+  - `updateActor(slug, data, file)` - Updates actor, keeps existing portrait if no new one is uploaded
+  - `deleteActor(slug)` - Deletes actor and portrait file
+  - `removeActorFromMovie(movieSlug, actorSlug)` - Removes actor from specific movie, deletes actor completely if only in one movie
+  - `getActorForEdit(slug)` - Prepares data for edit form
+  - `getActorForEditWithMovieContext(actorSlug, movieSlug)` - Includes current role
+  - `updateActorInMovieContext(actorSlug, movieSlug, data, file)` - Updates actor and role in movie
+  - `addActorToMovie(movieSlug, actorId, role)` - Adds existing actor to movie
+  - `searchActors(query)` - Searches actors by name
+  - Date formatting and age calculation helpers
 
-##### **SearchService.js**
+
+- **SearchService.js**:
 Search and filtering operations:
-- `searchMovies(params, skip, limit)` - Searches with filters, sorting, pagination
-- `searchActors(query)` - Searches actors by name
-- `getMovieFilterOptions()` - Returns available genres, countries, age ratings
-- `getMoviesForHomePage(skip, limit)` - Gets paginated movies
-- `getHomePageData(skip, limit)` - Combines movies and filter options for home page
-- Adds release year to movies for display
+  - `searchMovies(params, skip, limit)` - Searches with filters, sorting, pagination
+  - `searchActors(query)` - Searches actors by name
+  - `getMovieFilterOptions()` - Returns available genres, countries, age ratings
+  - `getMoviesForHomePage(skip, limit)` - Gets paginated movies
+  - `getHomePageData(skip, limit)` - Combines movies and filter options for home page
+  - Adds release year to movies for display
 
 ---
 
 #### middleware/
 
-##### **errorHandler.js**
+- **errorHandler.js**:
 Error rendering middleware:
-- `renderErrorPage(res, errorType, entity, details)` - Renders error status page
-- `renderValidationError(res, errorType, entity, details)` - Renders validation error
-- Uses `createErrorPage` from `statusPageHelper`
+  - `renderErrorPage(res, errorType, entity, details)` - Renders error status page
+  - `renderValidationError(res, errorType, entity, details)` - Renders validation error
+  - Uses `createErrorPage` from `statusPageHelper`
 
-##### **pagination.js**
+
+- **pagination.js**:
 Pagination utilities:
-- `getPaginationParams(req)` - Extracts page, skip, limit from request
-- `calculatePagination(currentPage, totalPages)` - Calculates page numbers to display
-- `getPaginationRange(currentPage, totalPages)` - Determines start/end pages
-- Configurable max buttons (3 by default)
-- Returns prev/next flags and page array
+  - `getPaginationParams(req)` - Extracts page, skip, limit from request
+  - `calculatePagination(currentPage, totalPages)` - Calculates page numbers to display
+  - `getPaginationRange(currentPage, totalPages)` - Determines start/end pages
+  - Configurable max buttons (3 by default)
+  - Returns prev/next flags and page array
 
 ---
 
 #### utils/
 
-##### **movieValidator.js**
+- **movieValidator.js**:
 Movie validation logic:
-- Validates required fields (title, description, release date, age rating, genre, country, poster)
-- Title must start with capital letter
-- Description length (50-1000 characters)
-- Release date range (1888 to current year + 5)
-- Valid age rating from predefined list
-- Poster file required (checked via `!file`)
-- Returns `{ isValid, errors }` with detailed error information
+  - Validates required fields (title, description, release date, age rating, genre, country, poster)
+  - Title must start with capital letter
+  - Description length (50-1000 characters)
+  - Release date range (1888 to current year + 5)
+  - Valid age rating from predefined list
+  - Poster file required (checked via `!file`)
+  - Returns `{ isValid, errors }` with detailed error information
 
-##### **actorValidator.js**
+
+- **actorValidator.js**:
 Actor validation logic:
-- Validates required fields (name, description, date of birth, place of birth)
-- Name must start with capital letter
-- Description length (50-1000 characters)
-- Birthdate range (1900 to current year + 1)
-- Role required if creating from movie context
-- Portrait is optional
-- Returns `{ isValid, errors }`
+  - Validates required fields (name, description, date of birth, place of birth)
+  - Name must start with capital letter
+  - Description length (50-1000 characters)
+  - Birthdate range (1900 to current year + 1)
+  - Role required if creating from movie context
+  - Portrait is optional
+  - Returns `{ isValid, errors }`
 
-##### **errors.js**
+
+- **errors.js**:
 Custom error classes:
-- `ValidationError` - Validation failures with type and details
-- `NotFoundError` - Resource not found (entity, identifier)
-- `DuplicateError` - Duplicate entry (entity, field, value)
-- Used throughout services for consistent error handling
+  - `ValidationError` - Validation failures with type and details
+  - `NotFoundError` - Resource not found (entity, identifier)
+  - `DuplicateError` - Duplicate entry (entity, field, value)
+  - Used throughout services for consistent error handling
 
-##### **errorHandler.js** (utils)
+
+- **errorHandler.js** (utils):
 Error detail generation:
-- `getErrorDetails(errorType, entity, details)` - Returns error title, message, redirect URL
-- Handles: duplicate, capitalization, empty fields, invalid date/age rating, description length, missing poster/portrait, not found, delete error, network error, unknown
-- Context-aware redirects (back to form, home, etc.)
+  - `getErrorDetails(errorType, entity, details)` - Returns error title, message, redirect URL
+  - Handles: duplicate, capitalization, empty fields, invalid date/age rating, description length, missing poster/portrait, not found, delete error, network error, unknown
+  - Context-aware redirects (back to form, home, etc.)
 
-##### **routeHelpers.js**
+
+- **routeHelpers.js**:
 Utility functions:
-- Date helpers: `formatDate`, `extractYear`, `calculateAge`
-- Movie helpers: `addReleaseYearToMovies`, `ensureArray`
-- File helpers: `deletePosterFile`, `deletePortraitFile`
-- Search helpers: `getSearchParams` - Normalizes filter parameters from request
+  - Date helpers: `formatDate`, `extractYear`, `calculateAge`
+  - Movie helpers: `addReleaseYearToMovies`, `ensureArray`
+  - File helpers: `deletePosterFile`, `deletePortraitFile`
+  - Search helpers: `getSearchParams` - Normalizes filter parameters from request
 
-##### **slugify.js**
+
+- **slugify.js**:
 URL slug generation:
-- `createMovieSlug(title, year)` - Creates `title_year` slug
-- `createActorSlug(name)` - Creates lowercase hyphenated name slug
-- `parseMovieSlug(slug)` - Parses slug back into title and year
-- Removes special characters, replaces spaces with hyphens
+  - `createMovieSlug(title, year)` - Creates `title_year` slug
+  - `createActorSlug(name)` - Creates lowercase hyphenated name slug
+  - `parseMovieSlug(slug)` - Parses slug back into title and year
+  - Removes special characters, replaces spaces with hyphens
 
-##### **statusPageHelper.js**
+
+- **statusPageHelper.js**:
 Status page data generation:
-- `createSuccessPage(title, message, redirectUrl, icon, text)` - Success page data
-- `createErrorPage(errorType, entity, details)` - Error page data
-- `getStatusCode(errorType)` - Maps error types to HTTP status codes
-- Uses `getErrorDetails` from `errorHandler.js`
+  - `createSuccessPage(title, message, redirectUrl, icon, text)` - Success page data
+  - `createErrorPage(errorType, entity, details)` - Error page data
+  - `getStatusCode(errorType)` - Maps error types to HTTP status codes
+  - Uses `getErrorDetails` from `errorHandler.js`
 
 ---
 
 ### views/ (Mustache Templates)
 
-#### **home.html**
+- **home.html**:
 Homepage template:
-- Search input with real-time filtering
-- Sorting dropdown (title/release date, asc/desc)
-- Filter dropdowns (genre, country, age rating)
-- Movie grid with posters (3 columns on large screens)
-- Pagination controls
-- Add movie button
-- Includes: `baseHead`, `header`, `footer`
-- Scripts: `home.js`
+  - Search input with real-time filtering
+  - Sorting dropdown (title/release date, asc/desc)
+  - Filter dropdowns (genre, country, age rating)
+  - Movie grid with posters (3 columns on large screens)
+  - Pagination controls
+  - Add movie button
+  - Includes: `baseHead`, `header`, `footer`
+  - Scripts: `home.js`
 
-#### **movie.html**
+
+- **movie.html**:
 Movie detail page template:
-- Movie poster and metadata (year, genre, country, age rating)
-- Description
-- Actor list with portraits and roles
-- Edit/delete movie buttons
-- Add actor button
-- Edit/delete buttons for each actor
-- Includes: `baseHead`, `header`, `footer`
-- Scripts: `utils.js`, `movie.js`
+  - Movie poster and metadata (year, genre, country, age rating)
+  - Description
+  - Actor list with portraits and roles
+  - Edit/delete movie buttons
+  - Add actor button
+  - Edit/delete buttons for each actor
+  - Includes: `baseHead`, `header`, `footer`
+  - Scripts: `utils.js`, `movie.js`
 
-#### **actor.html**
+
+- **actor.html**:
 Actor detail page template:
-- Actor portrait
-- Birthday/birthplace (or death date if applicable)
-- Age calculation (alive or age at death)
-- Description
-- Filmography list with release years
-- Edit/delete actor buttons
-- Includes: `baseHead`, `header`, `footer`
-- Scripts: `utils.js`, `actor.js`
+  - Actor portrait
+  - Birthday/birthplace (or death date if applicable)
+  - Age calculation (alive or age at death)
+  - Description
+  - Filmography list with release years
+  - Edit/delete actor buttons
+  - Includes: `baseHead`, `header`, `footer`
+  - Scripts: `utils.js`, `actor.js`
 
-#### **editMovie.html**
+
+- **editMovie.html**:
 Movie add/edit form page:
-- Title changes based on edit/add mode
-- Cancel button (back navigation)
-- Includes `movieForm` partial
-- Includes: `baseHead`, `header`, `footer`, `movieForm`, `actorSection`
-- Scripts: `addNewMovie.js`, `actorsManager.js`
+  - Title changes based on edit/add mode
+  - Cancel button (back navigation)
+  - Includes `movieForm` partial
+  - Includes: `baseHead`, `header`, `footer`, `movieForm`, `actorSection`
+  - Scripts: `addNewMovie.js`, `actorsManager.js`
 
-#### **editActor.html**
+
+- **editActor.html**:
 Actor add/edit form page:
-- Title changes based on edit/add mode
-- Back button
-- Includes `actorForm` partial
-- Includes: `baseHead`, `header`, `footer`, `actorForm`
-- Scripts: `addNewActor.js`
+  - Title changes based on edit/add mode
+  - Back button
+  - Includes `actorForm` partial
+  - Includes: `baseHead`, `header`, `footer`, `actorForm`
+  - Scripts: `addNewActor.js`
 
-#### **statusPage.html**
+
+- **statusPage.html**:
 Generic status/error page template:
-- Icon (success/error with color)
-- Title and message
-- Redirect button
-- Dynamic content via Mustache variables
-- Includes: `baseHead`, `header`, `footer`
+  - Icon (success/error with color)
+  - Title and message
+  - Redirect button
+  - Dynamic content via Mustache variables
+  - Includes: `baseHead`, `header`, `footer`
 
 ---
 
 #### partials/
 
-##### **baseHead.html**
+- **baseHead.html**:
 Common HTML head section:
-- Character encoding
-- Favicon (SVG)
-- Bootstrap CSS and JS
-- Bootstrap Icons
-- Included in all page templates
+  - Character encoding
+  - Favicon (SVG)
+  - Bootstrap CSS and JS
+  - Bootstrap Icons
+  - Included in all page templates
 
-##### **header.html**
+
+- **header.html**:
 Site header:
-- "Cinemateca" title
-- Links to home page
-- Consistent across all pages
+  - "Cinemateca" title
+  - Links to home page
+  - Consistent across all pages
 
-##### **footer.html**
+
+- **footer.html**:
 Site footer:
-- Copyright notice
-- Sticky footer
+  - Copyright notice
+  - Sticky footer
 
-##### **movieForm.html**
+
+- **movieForm.html**:
 Movie form partial:
-- Image upload with drag-and-drop (poster)
-- Form fields: title, genre (multi-select), age rating, release date, country (multi-select), description
-- Client-side validation (pattern, required, min/max length/date)
-- Character counter for description
-- Includes `actorSection` partial
-- Submit button text changes (Save/Update)
+  - Image upload with drag-and-drop (poster)
+  - Form fields: title, genre (multi-select), age rating, release date, country (multi-select), description
+  - Client-side validation (pattern, required, min/max length/date)
+  - Character counter for description
+  - Includes `actorSection` partial
+  - Submit button text changes (Save/Update)
 
-##### **actorForm.html**
+
+- **actorForm.html**:
 Actor form partial:
-- Hidden field for movie context (`movieSlug`)
-- Image upload with drag-and-drop (portrait)
-- Form fields: name, birthdate, place of birth, description, role (if movie context)
-- Client-side validation
-- Character counter for description
-- Submit button text changes (Save/Update)
+  - Hidden field for movie context (`movieSlug`)
+  - Image upload with drag-and-drop (portrait)
+  - Form fields: name, birthdate, place of birth, description, role (if movie context)
+  - Client-side validation
+  - Character counter for description
+  - Submit button text changes (Save/Update)
 
-##### **actorSection.html**
+
+- **actorSection.html**:
 Actor selection section for movie forms:
-- Search input with autocomplete dropdown
-- Selected actors list with portraits
-- Role input for each actor
-- Remove actor buttons
-- Hidden fields for actor IDs and roles (arrays)
-- Pre-loads existing actors when editing
+  - Search input with autocomplete dropdown
+  - Selected actors list with portraits
+  - Role input for each actor
+  - Remove actor buttons
+  - Hidden fields for actor IDs and roles (arrays)
+  - Pre-loads existing actors when editing
 
 ## Screenshots
 
