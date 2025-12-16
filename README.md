@@ -997,8 +997,8 @@ Finally, I merged the changes and reviewed the implementation to ensure the form
 **Five Most Contributed Files**
 - `movieRoutes.js`
 - `actorRoutes.js`
-- `addNewActor.js` (now `actorForm.js`) Methods now in  `utils.js`
-- `addNewMovie.js` (now `movieForm.js`) Methods now in  `utils.js`
+- `addNewActor.js` (now `actorForm.js`) Methods now in `utils.js`
+- `addNewMovie.js` (now `movieForm.js`) Methods now in `utils.js`
 - `movieForm.html` and `actorForm.html`
 
 ### Felix
