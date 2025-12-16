@@ -1009,7 +1009,7 @@ Throughout the project I continuously reviewed the code to remove bugs and redun
 - [c0f1957](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/c0f1957) and [b719ae7](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/b719ae7): Added modals instead of intermediate pages
 - [e718d42](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e718d42): Deletion of `Actor`s on `Movie` detail page
 - [2c5a195](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/2c5a195) and [e41d588](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/e41d588): Added display of error messages beneath input fields
-- [0664aba](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0664aba): Fixed a bug that allowed in edit forms to change the title of a movie or name of an actor to an already existing title/name
+- [0664aba](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/0664aba) and [175b537](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/175b537): Fixed a bug that allowed in edit forms to change the title of a movie or name of an actor to an already existing title/name
 
 **Five Most Contributed Files**
 - `home.js`
