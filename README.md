@@ -982,15 +982,24 @@ Generally, only minor changes in most views due to renames or minor design chang
 
 ### Farina
 **Description of the Tasks Completed:**
-...
+I implemented AJAX-based submission for both the movie form and the actor form, allowing data to be sent to the server without reloading the page. I added a loading spinner to the movie form to improve user feedback while requests are being processed.
+I updated the movie form structure so that it integrates the actor form section correctly and added supporting comments to improve code clarity. I also reworked the application routes to improve error handling and ensure they work properly with the new AJAX-based workflow.
+Finally, I merged the changes and reviewed the implementation to ensure the forms behave correctly and provide a smoother user experience.
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [14bde68](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/14bde68cdaae310272c8ca6e829e4bf820a80691): The form for creating a new an editing an existing movie sumbits wiht AJAX.
+- [de015f4](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/de015f49f842d34e66b284b4a76a04eecac15e86): Implemented a loading indicator during form submission.
+- [fe3eb96](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/fe3eb9694f47d87d915be06bbe1ba22d78710d4f): The form for creating a new an editing an existing actor sumbits wiht AJAX.
+- [5236376](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/5236376ba09b333ff7580b942f2cf77f8f5214b4): Fixed some mistakes I made earlier with error handling
+- [7c52b98](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7c52b986c0fa5d8808242425331e1d6cbdf17352): Implemented an early version of an image preview when adding an image to a form.
+
 
 **Five Most Contributed Files**
-- ...
-- ...
+- `movieRoutes.js`
+- `actorRoutes.js`
+- `addNewActor.js`  Method now in  `utils.js`
+- `addNewMovie.js`  Method now in  `utils.js`
+- `movieForm.html` and `movieForm.html`
 
 ### Felix
 **Description of the Tasks Completed:**
