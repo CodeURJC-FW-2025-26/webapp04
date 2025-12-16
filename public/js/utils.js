@@ -244,10 +244,6 @@ async function submitForm(event, clientValidationFn, serverErrorDisplayFn, onSuc
 
     toggleLoadingState(formElements, true);
 
-    // TODO: remove, just for illustration
-    // const delay = ms => new Promise(res => setTimeout(res, ms));
-    // await delay(5000);
-
     try {
         const result = await submitFormData(form);
         toggleLoadingState(formElements, false);
