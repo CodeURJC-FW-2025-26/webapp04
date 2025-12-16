@@ -65,7 +65,7 @@ Navigate to [`http://localhost:3000/`](http://localhost:3000/) in your browser t
 ## Links
 - [Link to Trello](https://trello.com/invite/b/68d0f24f8deb98189ef954eb/ATTI17034f224bc8ee2a098984e95cb7a264E5C95465/cinemateca)
 - [Link to the Screen Recording after Práctica 2](https://www.youtube.com/watch?v=Tq_RHJaIpYg)
-- [Link to the Screen Recordung after Práctica 3](https://www.youtube.com/watch?v=aSp8bXJcYKA)
+- [Link to the Screen Recording after Práctica 3](https://www.youtube.com/watch?v=aSp8bXJcYKA)
 
 ## Functionality
 ### Entities
