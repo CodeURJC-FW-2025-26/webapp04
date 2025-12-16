@@ -987,18 +987,17 @@ I updated the movie form structure so that it integrates the actor form section 
 Finally, I merged the changes and reviewed the implementation to ensure the forms behave correctly and provide a smoother user experience.
 
 **Five Most Significant Commits**
-- [14bde68](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/14bde68cdaae310272c8ca6e829e4bf820a80691): The form for creating a new and editing an existing movie sumbits with AJAX.
+- [14bde68](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/14bde68cdaae310272c8ca6e829e4bf820a80691): The form for creating and editing a movie submits with AJAX.
 - [de015f4](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/de015f49f842d34e66b284b4a76a04eecac15e86): Implemented a loading indicator during form submission.
-- [fe3eb96](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/fe3eb9694f47d87d915be06bbe1ba22d78710d4f): The form for creating a new an editing and existing actor sumbits with AJAX.
-- [5236376](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/5236376ba09b333ff7580b942f2cf77f8f5214b4): Fixed some mistakes I made earlier with error handling
+- [fe3eb96](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/fe3eb9694f47d87d915be06bbe1ba22d78710d4f): The form for creating and editing an existing actor submits with AJAX.
+- [5236376](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/5236376ba09b333ff7580b942f2cf77f8f5214b4): Fixed some mistakes I made earlier with error handling.
 - [7c52b98](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/7c52b986c0fa5d8808242425331e1d6cbdf17352): Implemented an early version of an image preview when adding an image to a form.
-
 
 **Five Most Contributed Files**
 - `movieRoutes.js`
 - `actorRoutes.js`
-- `addNewActor.js` (now `actorForm.js`) Methods now in `utils.js`
-- `addNewMovie.js` (now `movieForm.js`) Methods now in `utils.js`
+- `addNewActor.js` (now `actorForm.js`). Methods moved to `utils.js`.
+- `addNewMovie.js` (now `movieForm.js`). Methods moved to `utils.js`.
 - `movieForm.html` and `actorForm.html`
 
 ### Felix
