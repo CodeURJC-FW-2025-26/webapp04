@@ -970,15 +970,19 @@ Generally, only minor changes in most views due to renames or minor design chang
 
 ### Alejandro
 **Description of the Tasks Completed:**
-...
+During this practice, I was in charge of enhancing the user experience for managing actors within the movie details page of the Cinemateca application. Specifically, I focused on transforming the creation and editing of actors from separate dedicated pages into inline, dynamic forms that appear directly on the movie details page (movie.html). This was achieved using AJAX to load the form asynchronously without reloading the entire page, as well as validating the form fields and showing error/success messages.
 
 **Five Most Significant Commits**
-- ...
-- ...
+- [805cbf4](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/805cbf4c1ba9f11e3aa4c62cedabd5ff858d60b5): Loading create actor form in movie details page
+- [15f42af](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/15f42af1cfe37c3afaf92e8afe74d54e9b1c01e9): Form validates fields correctly and shows errors below input fields
+- [873e56b](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/873e56b66f964f6a5ba37eae839688819dba4f74): Form design is one column because of reduced space in movie details page
+- [6d9f580](https://github.com/CodeURJC-FW-2025-26/webapp04/commit/6d9f580b6109e27af1efbc1310223530ec6f37e4): Loading edit actor form in movie details page
 
 **Five Most Contributed Files**
-- ...
-- ...
+- `movie.js`
+- `movie.html`
+- `actorSection.html`
+- `form.css`
 
 ### Farina
 **Description of the Tasks Completed:**
